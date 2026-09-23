@@ -1,0 +1,40 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: icici-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    # The conf file is mounted read-only; --requirepass after it overrides
+    # the placeholder password inside it with a real one from the
+    # environment, so the secret never has to live in the file on disk.
+    command: >
+      redis-server /usr/local/etc/redis/redis.conf
+      --requirepass "${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}
+    volumes:
+      # Named volume -> Docker manages the storage location; data survives
+      # `docker compose down` and only disappears on `down -v`. This is the
+      # line that makes the difference in Lab P.1.
+      - redis_data:/data
+      - ./redis-persistence.conf:/usr/local/etc/redis/redis.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" --no-auth-warning PING | grep -q PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 768m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  redis_data:
+    name: icici_redis_data
