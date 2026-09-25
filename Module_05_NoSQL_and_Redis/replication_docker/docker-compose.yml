@@ -1,0 +1,51 @@
+services:
+  redis-primary:
+    image: redis:7-alpine
+    container_name: icici-redis-primary
+    restart: unless-stopped
+    ports:
+      - "7001:6379"
+    command: redis-server --save 60 1000 --repl-backlog-size 1mb
+    volumes:
+      - primary_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis-replica1:
+    image: redis:7-alpine
+    container_name: icici-redis-replica1
+    restart: unless-stopped
+    ports:
+      - "7002:6379"
+    # Service name DNS ("redis-primary") is what makes this work in compose -
+    # the replica does not need the primary's IP, which changes on every recreate.
+    command: redis-server --replicaof redis-primary 6379
+    depends_on:
+      redis-primary:
+        condition: service_healthy
+    volumes:
+      - replica1_data:/data
+
+  redis-replica2:
+    image: redis:7-alpine
+    container_name: icici-redis-replica2
+    restart: unless-stopped
+    ports:
+      - "7003:6379"
+    command: redis-server --replicaof redis-primary 6379
+    depends_on:
+      redis-primary:
+        condition: service_healthy
+    volumes:
+      - replica2_data:/data
+
+volumes:
+  primary_data:
+    name: icici_redis_primary_data
+  replica1_data:
+    name: icici_redis_replica1_data
+  replica2_data:
+    name: icici_redis_replica2_data

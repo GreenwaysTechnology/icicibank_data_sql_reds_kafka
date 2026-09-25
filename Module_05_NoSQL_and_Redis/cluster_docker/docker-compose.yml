@@ -1,0 +1,103 @@
+# Six-node Redis Cluster: 3 masters + 3 replicas, redis:7-alpine.
+#
+# Why the fixed IPs: the cluster bus remembers every peer by IP in nodes.conf.
+# With dynamic IPs a full `down` / `up` can hand nodes different addresses and
+# the saved topology then points at the wrong containers. Pinning each node to
+# an address makes nodes.conf stay true across restarts.
+#
+# Why the volumes: nodes.conf (node ID, slots, peers) and the AOF live in /data.
+# Lose the volume and the node forgets it was ever in a cluster.
+
+x-redis-node: &redis-node
+  image: redis:7-alpine
+  restart: unless-stopped
+  command: >
+    redis-server
+    --cluster-enabled yes
+    --cluster-config-file nodes.conf
+    --cluster-node-timeout 5000
+    --appendonly yes
+  healthcheck:
+    test: ["CMD", "redis-cli", "PING"]
+    interval: 3s
+    timeout: 2s
+    retries: 10
+
+services:
+  redis-node1:
+    <<: *redis-node
+    container_name: icici-rc-node1
+    ports: ["7101:6379"]
+    volumes: [node1_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.11 } }
+  redis-node2:
+    <<: *redis-node
+    container_name: icici-rc-node2
+    ports: ["7102:6379"]
+    volumes: [node2_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.12 } }
+  redis-node3:
+    <<: *redis-node
+    container_name: icici-rc-node3
+    ports: ["7103:6379"]
+    volumes: [node3_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.13 } }
+  redis-node4:
+    <<: *redis-node
+    container_name: icici-rc-node4
+    ports: ["7104:6379"]
+    volumes: [node4_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.14 } }
+  redis-node5:
+    <<: *redis-node
+    container_name: icici-rc-node5
+    ports: ["7105:6379"]
+    volumes: [node5_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.15 } }
+  redis-node6:
+    <<: *redis-node
+    container_name: icici-rc-node6
+    ports: ["7106:6379"]
+    volumes: [node6_data:/data]
+    networks: { icici-cluster: { ipv4_address: 172.30.0.16 } }
+
+  # One-shot: forms the cluster the first time, does nothing on every later
+  # `up` because the nodes already know they are a cluster.
+  cluster-init:
+    image: redis:7-alpine
+    container_name: icici-rc-init
+    restart: "no"
+    networks: [icici-cluster]
+    depends_on:
+      redis-node1: { condition: service_healthy }
+      redis-node2: { condition: service_healthy }
+      redis-node3: { condition: service_healthy }
+      redis-node4: { condition: service_healthy }
+      redis-node5: { condition: service_healthy }
+      redis-node6: { condition: service_healthy }
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        if redis-cli -h 172.30.0.11 CLUSTER INFO | grep -q 'cluster_state:ok'; then
+          echo "cluster already formed - nothing to do"
+        else
+          redis-cli --cluster create \
+            172.30.0.11:6379 172.30.0.12:6379 172.30.0.13:6379 \
+            172.30.0.14:6379 172.30.0.15:6379 172.30.0.16:6379 \
+            --cluster-replicas 1 --cluster-yes
+        fi
+
+networks:
+  icici-cluster:
+    name: icici-cluster-net
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+
+volumes:
+  node1_data: { name: icici_rc_node1_data }
+  node2_data: { name: icici_rc_node2_data }
+  node3_data: { name: icici_rc_node3_data }
+  node4_data: { name: icici_rc_node4_data }
+  node5_data: { name: icici_rc_node5_data }
+  node6_data: { name: icici_rc_node6_data }

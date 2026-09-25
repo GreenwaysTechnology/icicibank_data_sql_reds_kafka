@@ -1,0 +1,14 @@
+{
+  "name": "icici-redis-cluster-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Connects to the 6-node Docker Redis Cluster from the Windows host.",
+  "scripts": {
+    "naive": "node naive.js",
+    "start": "node cluster_client.js"
+  },
+  "dependencies": {
+    "redis": "^6.2.1"
+  }
+}
