@@ -1,0 +1,37 @@
+{
+  "name": "icici-redis-node-cookbook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One runnable Node.js program per Redis data structure and use case - ICICI Bank Learning Academy, Module 07 (NoSQL & Redis)",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "all": "node run-all.js",
+    "r01": "node src/01_string_hit_counter.js",
+    "r02": "node src/02_string_cache_aside.js",
+    "r03": "node src/03_hash_customer_profile.js",
+    "r04": "node src/04_list_recent_transactions.js",
+    "r05": "node src/05_list_queue_worker.js",
+    "r06": "node src/06_set_duplicate_payments.js",
+    "r07": "node src/07_zset_branch_leaderboard.js",
+    "r08": "node src/08_zset_rate_limiter.js",
+    "r09": "node src/09_hll_unique_visitors.js",
+    "r10": "node src/10_bitmap_login_streak.js",
+    "r11": "node src/11_geo_atm_locator.js",
+    "r12": "node src/12_stream_txn_events.js",
+    "r13": "node src/13_pubsub_fraud_alerts.js",
+    "r14": "node src/14_lock_eod_batch.js",
+    "r15": "node src/15_transaction_fund_transfer.js",
+    "e05": "node exercises/ex05_otp.js",
+    "e06": "node exercises/ex06_cache.js",
+    "e07": "node exercises/ex07_lock.js",
+    "e08": "node exercises/ex08_queue.js",
+    "e09": "node exercises/ex09_dashboard.js",
+    "e10": "node exercises/ex10_health.js"
+  },
+  "dependencies": {
+    "redis": "^6.2.1"
+  }
+}

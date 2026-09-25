@@ -1,0 +1,46 @@
+{
+  "name": "redis-node-cookbook",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "15 very small Node.js programs, one per Redis data type - Module 07 (NoSQL & Redis)",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "all": "node run-all.js",
+
+    "01": "node src/01_string_counter.js",
+    "02": "node src/02_string_expiry.js",
+    "03": "node src/03_hash_profile.js",
+    "04": "node src/04_list_recent_songs.js",
+    "05": "node src/05_list_order_queue.js",
+    "06": "node src/06_set_quiz_attempts.js",
+    "07": "node src/07_zset_game_scores.js",
+    "08": "node src/08_string_rate_limit.js",
+    "09": "node src/09_hll_unique_visitors.js",
+    "10": "node src/10_bitmap_attendance.js",
+    "11": "node src/11_geo_nearby_cafes.js",
+    "12": "node src/12_stream_activity_log.js",
+    "13": "node src/13_pubsub_notifications.js",
+    "14": "node src/14_lock_one_at_a_time.js",
+    "15": "node src/15_transaction_points.js",
+
+    "ex1": "node exercises/ex1_likes.js",
+    "ex2": "node exercises/ex2_coupon.js",
+    "ex3": "node exercises/ex3_library_book.js",
+    "ex4": "node exercises/ex4_recent_searches.js",
+    "ex5": "node exercises/ex5_class_test.js",
+    "ex6": "node exercises/ex6_download_limit.js",
+
+    "sol1": "node exercises/solutions/ex1_likes.js",
+    "sol2": "node exercises/solutions/ex2_coupon.js",
+    "sol3": "node exercises/solutions/ex3_library_book.js",
+    "sol4": "node exercises/solutions/ex4_recent_searches.js",
+    "sol5": "node exercises/solutions/ex5_class_test.js",
+    "sol6": "node exercises/solutions/ex6_download_limit.js"
+  },
+  "dependencies": {
+    "redis": "^6.2.1"
+  }
+}

@@ -1,0 +1,84 @@
+# ---------------------------------------------------------------------------
+# Horizon Bank - Redis cache demo
+#   web      React (built by Vite, served by nginx)     http://localhost:8080
+#   api      Express REST API                           http://localhost:4000/api
+#   postgres PostgreSQL 16 - the source of truth        localhost:5433
+#   redis    Redis 7 - the cache                        localhost:6380
+# Host ports 5433/6380 avoid clashing with a local PostgreSQL / the other labs.
+#   docker compose up -d --build
+# ---------------------------------------------------------------------------
+name: horizon-bank
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bank-postgres
+    environment:
+      POSTGRES_DB: horizonbank
+      POSTGRES_USER: bank
+      POSTGRES_PASSWORD: bank_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bank -d horizonbank"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: bank-redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "6380:6379"
+    volumes:
+      - ./redis/redis-cache.conf:/usr/local/etc/redis/redis.conf:ro
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: ./api
+    container_name: bank-api
+    environment:
+      PORT: 4000
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: horizonbank
+      PGUSER: bank
+      PGPASSWORD: bank_pass
+      REDIS_URL: redis://redis:6379
+      # ---- cache configuration (see Horizon_Bank_App_Guide.pdf, section 5) ----
+      # Override any of these from the shell, e.g.
+      #   CACHE_ON_WRITE=invalidate docker compose up -d api
+      CACHE_ENABLED: ${CACHE_ENABLED:-true}
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-300}
+      CACHE_TTL_JITTER_SECONDS: ${CACHE_TTL_JITTER_SECONDS:-30}
+      CACHE_KEY_PREFIX: bank
+      CACHE_ON_WRITE: ${CACHE_ON_WRITE:-refresh}
+      STATEMENT_SIZE: ${STATEMENT_SIZE:-50}
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    container_name: bank-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  pgdata:
