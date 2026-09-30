@@ -1,0 +1,82 @@
+# ---------------------------------------------------------------------------
+#  Apache Kafka Training | Deck 1 - Kafka Fundamentals | lab cluster
+#
+#  One Apache Kafka 4.3 node in KRaft mode (broker + controller, no ZooKeeper)
+#  and Kafka UI for looking at topics and messages in a browser.
+#
+#      docker compose up -d          # start (wait for "healthy")
+#      docker compose ps
+#      docker compose logs -f kafka
+#      docker compose down           # stop, KEEP the data volume
+#      docker compose down -v        # stop and DELETE every topic and message
+#
+#  Clients on your laptop  ->  localhost:9092
+#  Containers on the network ->  kafka:19092
+#  Kafka UI                  ->  http://localhost:8090
+# ---------------------------------------------------------------------------
+services:
+
+  kafka:
+    image: apache/kafka:4.3.1
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      # the CLI tools live in /opt/kafka/bin - put them on PATH so that
+      # "docker exec kafka kafka-topics.sh ..." just works
+      PATH: "/opt/kafka/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+      # --- KRaft: this one node is both the broker and the controller
+      KAFKA_NODE_ID: "1"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+
+      # --- listeners: EXTERNAL for your laptop, PLAINTEXT for other containers
+      KAFKA_LISTENERS: "PLAINTEXT://:19092,CONTROLLER://:9093,EXTERNAL://:9092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:19092,EXTERNAL://localhost:9092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+
+      # --- one node, so nothing can be replicated more than once
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+
+      # --- lab-friendly behaviour
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"        # create topics on purpose
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"     # consumers start instantly
+      KAFKA_NUM_PARTITIONS: "3"
+      KAFKA_LOG_DIRS: "/var/lib/kafka/data"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list > /dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 15s
+    restart: unless-stopped
+
+  kafka-ui:
+    image: kafbat/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - "8090:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "horizon-local"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:19092"
+    restart: unless-stopped
+
+volumes:
+  kafka_data:
+
+# ---------------------------------------------------------------------------
+#  This is a ONE-BROKER lab cluster: replication.factor is always 1, so it
+#  shows how Kafka is USED, not how it survives a failure. Deck 2 covers
+#  replication. Never carry this file into production.
+# ---------------------------------------------------------------------------
