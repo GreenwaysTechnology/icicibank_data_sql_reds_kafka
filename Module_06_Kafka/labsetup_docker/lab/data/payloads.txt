@@ -1,0 +1,500 @@
+{"order": 3000, "customer": "cust-21", "item": "mouse", "amount": 207, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3001, "customer": "cust-4", "item": "monitor", "amount": 425, "city": "Mumbai", "status": "CREATED"}
+{"order": 3002, "customer": "cust-7", "item": "dock", "amount": 303, "city": "Chennai", "status": "CREATED"}
+{"order": 3003, "customer": "cust-33", "item": "headset", "amount": 24, "city": "Chennai", "status": "CREATED"}
+{"order": 3004, "customer": "cust-28", "item": "cable", "amount": 40, "city": "Pune", "status": "CREATED"}
+{"order": 3005, "customer": "cust-6", "item": "desk lamp", "amount": 222, "city": "Chennai", "status": "CREATED"}
+{"order": 3006, "customer": "cust-37", "item": "monitor", "amount": 490, "city": "Pune", "status": "CREATED"}
+{"order": 3007, "customer": "cust-41", "item": "laptop stand", "amount": 490, "city": "Chennai", "status": "CREATED"}
+{"order": 3008, "customer": "cust-37", "item": "laptop stand", "amount": 208, "city": "Chennai", "status": "CREATED"}
+{"order": 3009, "customer": "cust-15", "item": "keyboard", "amount": 290, "city": "Kolkata", "status": "CREATED"}
+{"order": 3010, "customer": "cust-9", "item": "webcam", "amount": 219, "city": "Pune", "status": "CREATED"}
+{"order": 3011, "customer": "cust-35", "item": "monitor", "amount": 297, "city": "Delhi", "status": "CREATED"}
+{"order": 3012, "customer": "cust-36", "item": "mouse", "amount": 57, "city": "Mumbai", "status": "CREATED"}
+{"order": 3013, "customer": "cust-37", "item": "headset", "amount": 195, "city": "Chennai", "status": "CREATED"}
+{"order": 3014, "customer": "cust-36", "item": "monitor", "amount": 293, "city": "Chennai", "status": "CREATED"}
+{"order": 3015, "customer": "cust-40", "item": "headset", "amount": 259, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3016, "customer": "cust-35", "item": "cable", "amount": 402, "city": "Delhi", "status": "CREATED"}
+{"order": 3017, "customer": "cust-30", "item": "laptop stand", "amount": 477, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3018, "customer": "cust-24", "item": "webcam", "amount": 132, "city": "Kolkata", "status": "CREATED"}
+{"order": 3019, "customer": "cust-12", "item": "headset", "amount": 46, "city": "Mumbai", "status": "CREATED"}
+{"order": 3020, "customer": "cust-20", "item": "desk lamp", "amount": 258, "city": "Delhi", "status": "CREATED"}
+{"order": 3021, "customer": "cust-47", "item": "chair", "amount": 152, "city": "Mumbai", "status": "CREATED"}
+{"order": 3022, "customer": "cust-5", "item": "monitor", "amount": 267, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3023, "customer": "cust-11", "item": "dock", "amount": 82, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3024, "customer": "cust-27", "item": "keyboard", "amount": 497, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3025, "customer": "cust-5", "item": "desk lamp", "amount": 298, "city": "Kolkata", "status": "CREATED"}
+{"order": 3026, "customer": "cust-21", "item": "dock", "amount": 360, "city": "Delhi", "status": "CREATED"}
+{"order": 3027, "customer": "cust-39", "item": "chair", "amount": 301, "city": "Kolkata", "status": "CREATED"}
+{"order": 3028, "customer": "cust-30", "item": "monitor", "amount": 435, "city": "Chennai", "status": "CREATED"}
+{"order": 3029, "customer": "cust-18", "item": "chair", "amount": 361, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3030, "customer": "cust-5", "item": "keyboard", "amount": 379, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3031, "customer": "cust-20", "item": "laptop stand", "amount": 353, "city": "Kolkata", "status": "CREATED"}
+{"order": 3032, "customer": "cust-29", "item": "webcam", "amount": 371, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3033, "customer": "cust-43", "item": "dock", "amount": 16, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3034, "customer": "cust-23", "item": "mouse", "amount": 317, "city": "Chennai", "status": "CREATED"}
+{"order": 3035, "customer": "cust-32", "item": "keyboard", "amount": 116, "city": "Kolkata", "status": "CREATED"}
+{"order": 3036, "customer": "cust-19", "item": "mouse", "amount": 383, "city": "Pune", "status": "CREATED"}
+{"order": 3037, "customer": "cust-26", "item": "cable", "amount": 474, "city": "Kolkata", "status": "CREATED"}
+{"order": 3038, "customer": "cust-32", "item": "monitor", "amount": 90, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3039, "customer": "cust-26", "item": "desk lamp", "amount": 147, "city": "Pune", "status": "CREATED"}
+{"order": 3040, "customer": "cust-28", "item": "desk lamp", "amount": 147, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3041, "customer": "cust-27", "item": "dock", "amount": 354, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3042, "customer": "cust-15", "item": "mouse", "amount": 47, "city": "Pune", "status": "CREATED"}
+{"order": 3043, "customer": "cust-10", "item": "headset", "amount": 342, "city": "Pune", "status": "CREATED"}
+{"order": 3044, "customer": "cust-1", "item": "chair", "amount": 430, "city": "Mumbai", "status": "CREATED"}
+{"order": 3045, "customer": "cust-12", "item": "webcam", "amount": 149, "city": "Chennai", "status": "CREATED"}
+{"order": 3046, "customer": "cust-10", "item": "cable", "amount": 278, "city": "Delhi", "status": "CREATED"}
+{"order": 3047, "customer": "cust-40", "item": "laptop stand", "amount": 168, "city": "Pune", "status": "CREATED"}
+{"order": 3048, "customer": "cust-45", "item": "desk lamp", "amount": 491, "city": "Mumbai", "status": "CREATED"}
+{"order": 3049, "customer": "cust-42", "item": "keyboard", "amount": 238, "city": "Kolkata", "status": "CREATED"}
+{"order": 3050, "customer": "cust-50", "item": "desk lamp", "amount": 205, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3051, "customer": "cust-26", "item": "cable", "amount": 58, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3052, "customer": "cust-41", "item": "cable", "amount": 36, "city": "Pune", "status": "CREATED"}
+{"order": 3053, "customer": "cust-5", "item": "headset", "amount": 230, "city": "Pune", "status": "CREATED"}
+{"order": 3054, "customer": "cust-8", "item": "dock", "amount": 312, "city": "Chennai", "status": "CREATED"}
+{"order": 3055, "customer": "cust-7", "item": "keyboard", "amount": 295, "city": "Pune", "status": "CREATED"}
+{"order": 3056, "customer": "cust-35", "item": "monitor", "amount": 490, "city": "Delhi", "status": "CREATED"}
+{"order": 3057, "customer": "cust-40", "item": "keyboard", "amount": 41, "city": "Kolkata", "status": "CREATED"}
+{"order": 3058, "customer": "cust-14", "item": "laptop stand", "amount": 197, "city": "Pune", "status": "CREATED"}
+{"order": 3059, "customer": "cust-41", "item": "webcam", "amount": 494, "city": "Delhi", "status": "CREATED"}
+{"order": 3060, "customer": "cust-39", "item": "dock", "amount": 247, "city": "Chennai", "status": "CREATED"}
+{"order": 3061, "customer": "cust-8", "item": "chair", "amount": 243, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3062, "customer": "cust-31", "item": "webcam", "amount": 48, "city": "Pune", "status": "CREATED"}
+{"order": 3063, "customer": "cust-7", "item": "dock", "amount": 384, "city": "Delhi", "status": "CREATED"}
+{"order": 3064, "customer": "cust-31", "item": "mouse", "amount": 269, "city": "Chennai", "status": "CREATED"}
+{"order": 3065, "customer": "cust-14", "item": "desk lamp", "amount": 190, "city": "Pune", "status": "CREATED"}
+{"order": 3066, "customer": "cust-45", "item": "desk lamp", "amount": 473, "city": "Chennai", "status": "CREATED"}
+{"order": 3067, "customer": "cust-49", "item": "desk lamp", "amount": 157, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3068, "customer": "cust-6", "item": "webcam", "amount": 270, "city": "Delhi", "status": "CREATED"}
+{"order": 3069, "customer": "cust-11", "item": "dock", "amount": 400, "city": "Pune", "status": "CREATED"}
+{"order": 3070, "customer": "cust-35", "item": "desk lamp", "amount": 403, "city": "Mumbai", "status": "CREATED"}
+{"order": 3071, "customer": "cust-22", "item": "headset", "amount": 318, "city": "Kolkata", "status": "CREATED"}
+{"order": 3072, "customer": "cust-49", "item": "headset", "amount": 417, "city": "Pune", "status": "CREATED"}
+{"order": 3073, "customer": "cust-26", "item": "headset", "amount": 107, "city": "Mumbai", "status": "CREATED"}
+{"order": 3074, "customer": "cust-32", "item": "dock", "amount": 379, "city": "Chennai", "status": "CREATED"}
+{"order": 3075, "customer": "cust-2", "item": "webcam", "amount": 246, "city": "Delhi", "status": "CREATED"}
+{"order": 3076, "customer": "cust-13", "item": "laptop stand", "amount": 494, "city": "Delhi", "status": "CREATED"}
+{"order": 3077, "customer": "cust-29", "item": "dock", "amount": 493, "city": "Delhi", "status": "CREATED"}
+{"order": 3078, "customer": "cust-6", "item": "headset", "amount": 57, "city": "Pune", "status": "CREATED"}
+{"order": 3079, "customer": "cust-31", "item": "headset", "amount": 177, "city": "Pune", "status": "CREATED"}
+{"order": 3080, "customer": "cust-31", "item": "laptop stand", "amount": 465, "city": "Mumbai", "status": "CREATED"}
+{"order": 3081, "customer": "cust-1", "item": "chair", "amount": 470, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3082, "customer": "cust-23", "item": "monitor", "amount": 432, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3083, "customer": "cust-8", "item": "cable", "amount": 405, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3084, "customer": "cust-49", "item": "headset", "amount": 249, "city": "Pune", "status": "CREATED"}
+{"order": 3085, "customer": "cust-28", "item": "dock", "amount": 49, "city": "Kolkata", "status": "CREATED"}
+{"order": 3086, "customer": "cust-47", "item": "cable", "amount": 242, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3087, "customer": "cust-48", "item": "monitor", "amount": 376, "city": "Pune", "status": "CREATED"}
+{"order": 3088, "customer": "cust-11", "item": "mouse", "amount": 19, "city": "Pune", "status": "CREATED"}
+{"order": 3089, "customer": "cust-38", "item": "chair", "amount": 417, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3090, "customer": "cust-10", "item": "laptop stand", "amount": 428, "city": "Mumbai", "status": "CREATED"}
+{"order": 3091, "customer": "cust-31", "item": "dock", "amount": 84, "city": "Mumbai", "status": "CREATED"}
+{"order": 3092, "customer": "cust-36", "item": "mouse", "amount": 15, "city": "Chennai", "status": "CREATED"}
+{"order": 3093, "customer": "cust-47", "item": "monitor", "amount": 274, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3094, "customer": "cust-9", "item": "cable", "amount": 451, "city": "Pune", "status": "CREATED"}
+{"order": 3095, "customer": "cust-14", "item": "keyboard", "amount": 133, "city": "Pune", "status": "CREATED"}
+{"order": 3096, "customer": "cust-19", "item": "desk lamp", "amount": 128, "city": "Kolkata", "status": "CREATED"}
+{"order": 3097, "customer": "cust-38", "item": "dock", "amount": 137, "city": "Mumbai", "status": "CREATED"}
+{"order": 3098, "customer": "cust-27", "item": "mouse", "amount": 36, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3099, "customer": "cust-23", "item": "chair", "amount": 344, "city": "Mumbai", "status": "CREATED"}
+{"order": 3100, "customer": "cust-34", "item": "cable", "amount": 428, "city": "Mumbai", "status": "CREATED"}
+{"order": 3101, "customer": "cust-9", "item": "desk lamp", "amount": 82, "city": "Mumbai", "status": "CREATED"}
+{"order": 3102, "customer": "cust-33", "item": "keyboard", "amount": 451, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3103, "customer": "cust-50", "item": "mouse", "amount": 316, "city": "Chennai", "status": "CREATED"}
+{"order": 3104, "customer": "cust-50", "item": "mouse", "amount": 93, "city": "Pune", "status": "CREATED"}
+{"order": 3105, "customer": "cust-31", "item": "laptop stand", "amount": 376, "city": "Chennai", "status": "CREATED"}
+{"order": 3106, "customer": "cust-36", "item": "keyboard", "amount": 171, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3107, "customer": "cust-34", "item": "desk lamp", "amount": 289, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3108, "customer": "cust-50", "item": "monitor", "amount": 457, "city": "Mumbai", "status": "CREATED"}
+{"order": 3109, "customer": "cust-4", "item": "headset", "amount": 102, "city": "Delhi", "status": "CREATED"}
+{"order": 3110, "customer": "cust-3", "item": "monitor", "amount": 264, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3111, "customer": "cust-36", "item": "keyboard", "amount": 394, "city": "Chennai", "status": "CREATED"}
+{"order": 3112, "customer": "cust-29", "item": "dock", "amount": 318, "city": "Mumbai", "status": "CREATED"}
+{"order": 3113, "customer": "cust-39", "item": "desk lamp", "amount": 107, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3114, "customer": "cust-18", "item": "chair", "amount": 265, "city": "Mumbai", "status": "CREATED"}
+{"order": 3115, "customer": "cust-31", "item": "desk lamp", "amount": 487, "city": "Pune", "status": "CREATED"}
+{"order": 3116, "customer": "cust-45", "item": "desk lamp", "amount": 453, "city": "Delhi", "status": "CREATED"}
+{"order": 3117, "customer": "cust-36", "item": "headset", "amount": 435, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3118, "customer": "cust-9", "item": "cable", "amount": 67, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3119, "customer": "cust-29", "item": "dock", "amount": 42, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3120, "customer": "cust-16", "item": "cable", "amount": 42, "city": "Pune", "status": "CREATED"}
+{"order": 3121, "customer": "cust-43", "item": "webcam", "amount": 406, "city": "Chennai", "status": "CREATED"}
+{"order": 3122, "customer": "cust-50", "item": "mouse", "amount": 486, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3123, "customer": "cust-42", "item": "dock", "amount": 78, "city": "Delhi", "status": "CREATED"}
+{"order": 3124, "customer": "cust-9", "item": "chair", "amount": 117, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3125, "customer": "cust-7", "item": "cable", "amount": 458, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3126, "customer": "cust-11", "item": "headset", "amount": 87, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3127, "customer": "cust-28", "item": "desk lamp", "amount": 211, "city": "Delhi", "status": "CREATED"}
+{"order": 3128, "customer": "cust-27", "item": "headset", "amount": 187, "city": "Delhi", "status": "CREATED"}
+{"order": 3129, "customer": "cust-6", "item": "dock", "amount": 14, "city": "Delhi", "status": "CREATED"}
+{"order": 3130, "customer": "cust-36", "item": "chair", "amount": 230, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3131, "customer": "cust-2", "item": "cable", "amount": 174, "city": "Mumbai", "status": "CREATED"}
+{"order": 3132, "customer": "cust-40", "item": "webcam", "amount": 267, "city": "Chennai", "status": "CREATED"}
+{"order": 3133, "customer": "cust-8", "item": "headset", "amount": 453, "city": "Chennai", "status": "CREATED"}
+{"order": 3134, "customer": "cust-6", "item": "webcam", "amount": 144, "city": "Chennai", "status": "CREATED"}
+{"order": 3135, "customer": "cust-50", "item": "mouse", "amount": 143, "city": "Kolkata", "status": "CREATED"}
+{"order": 3136, "customer": "cust-9", "item": "cable", "amount": 439, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3137, "customer": "cust-17", "item": "cable", "amount": 81, "city": "Mumbai", "status": "CREATED"}
+{"order": 3138, "customer": "cust-33", "item": "laptop stand", "amount": 258, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3139, "customer": "cust-21", "item": "monitor", "amount": 147, "city": "Chennai", "status": "CREATED"}
+{"order": 3140, "customer": "cust-45", "item": "mouse", "amount": 222, "city": "Chennai", "status": "CREATED"}
+{"order": 3141, "customer": "cust-18", "item": "keyboard", "amount": 329, "city": "Chennai", "status": "CREATED"}
+{"order": 3142, "customer": "cust-17", "item": "monitor", "amount": 316, "city": "Kolkata", "status": "CREATED"}
+{"order": 3143, "customer": "cust-15", "item": "monitor", "amount": 140, "city": "Kolkata", "status": "CREATED"}
+{"order": 3144, "customer": "cust-8", "item": "chair", "amount": 10, "city": "Delhi", "status": "CREATED"}
+{"order": 3145, "customer": "cust-36", "item": "cable", "amount": 479, "city": "Delhi", "status": "CREATED"}
+{"order": 3146, "customer": "cust-40", "item": "mouse", "amount": 27, "city": "Mumbai", "status": "CREATED"}
+{"order": 3147, "customer": "cust-46", "item": "headset", "amount": 485, "city": "Chennai", "status": "CREATED"}
+{"order": 3148, "customer": "cust-11", "item": "webcam", "amount": 30, "city": "Pune", "status": "CREATED"}
+{"order": 3149, "customer": "cust-13", "item": "webcam", "amount": 326, "city": "Delhi", "status": "CREATED"}
+{"order": 3150, "customer": "cust-34", "item": "headset", "amount": 153, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3151, "customer": "cust-33", "item": "mouse", "amount": 143, "city": "Delhi", "status": "CREATED"}
+{"order": 3152, "customer": "cust-2", "item": "webcam", "amount": 23, "city": "Chennai", "status": "CREATED"}
+{"order": 3153, "customer": "cust-2", "item": "desk lamp", "amount": 287, "city": "Pune", "status": "CREATED"}
+{"order": 3154, "customer": "cust-33", "item": "chair", "amount": 130, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3155, "customer": "cust-7", "item": "cable", "amount": 341, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3156, "customer": "cust-35", "item": "cable", "amount": 264, "city": "Delhi", "status": "CREATED"}
+{"order": 3157, "customer": "cust-45", "item": "headset", "amount": 122, "city": "Delhi", "status": "CREATED"}
+{"order": 3158, "customer": "cust-13", "item": "mouse", "amount": 212, "city": "Delhi", "status": "CREATED"}
+{"order": 3159, "customer": "cust-4", "item": "mouse", "amount": 12, "city": "Chennai", "status": "CREATED"}
+{"order": 3160, "customer": "cust-41", "item": "webcam", "amount": 225, "city": "Pune", "status": "CREATED"}
+{"order": 3161, "customer": "cust-4", "item": "monitor", "amount": 345, "city": "Kolkata", "status": "CREATED"}
+{"order": 3162, "customer": "cust-25", "item": "desk lamp", "amount": 348, "city": "Delhi", "status": "CREATED"}
+{"order": 3163, "customer": "cust-39", "item": "headset", "amount": 359, "city": "Delhi", "status": "CREATED"}
+{"order": 3164, "customer": "cust-3", "item": "chair", "amount": 99, "city": "Pune", "status": "CREATED"}
+{"order": 3165, "customer": "cust-18", "item": "chair", "amount": 6, "city": "Delhi", "status": "CREATED"}
+{"order": 3166, "customer": "cust-24", "item": "dock", "amount": 285, "city": "Delhi", "status": "CREATED"}
+{"order": 3167, "customer": "cust-16", "item": "keyboard", "amount": 499, "city": "Delhi", "status": "CREATED"}
+{"order": 3168, "customer": "cust-14", "item": "dock", "amount": 98, "city": "Chennai", "status": "CREATED"}
+{"order": 3169, "customer": "cust-22", "item": "cable", "amount": 47, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3170, "customer": "cust-18", "item": "desk lamp", "amount": 340, "city": "Pune", "status": "CREATED"}
+{"order": 3171, "customer": "cust-16", "item": "desk lamp", "amount": 402, "city": "Chennai", "status": "CREATED"}
+{"order": 3172, "customer": "cust-6", "item": "webcam", "amount": 423, "city": "Chennai", "status": "CREATED"}
+{"order": 3173, "customer": "cust-10", "item": "cable", "amount": 305, "city": "Chennai", "status": "CREATED"}
+{"order": 3174, "customer": "cust-26", "item": "keyboard", "amount": 158, "city": "Delhi", "status": "CREATED"}
+{"order": 3175, "customer": "cust-41", "item": "headset", "amount": 48, "city": "Mumbai", "status": "CREATED"}
+{"order": 3176, "customer": "cust-34", "item": "mouse", "amount": 341, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3177, "customer": "cust-39", "item": "cable", "amount": 396, "city": "Delhi", "status": "CREATED"}
+{"order": 3178, "customer": "cust-47", "item": "chair", "amount": 81, "city": "Delhi", "status": "CREATED"}
+{"order": 3179, "customer": "cust-47", "item": "laptop stand", "amount": 334, "city": "Pune", "status": "CREATED"}
+{"order": 3180, "customer": "cust-3", "item": "desk lamp", "amount": 326, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3181, "customer": "cust-47", "item": "desk lamp", "amount": 76, "city": "Mumbai", "status": "CREATED"}
+{"order": 3182, "customer": "cust-49", "item": "desk lamp", "amount": 296, "city": "Kolkata", "status": "CREATED"}
+{"order": 3183, "customer": "cust-2", "item": "laptop stand", "amount": 413, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3184, "customer": "cust-44", "item": "headset", "amount": 48, "city": "Chennai", "status": "CREATED"}
+{"order": 3185, "customer": "cust-3", "item": "mouse", "amount": 331, "city": "Delhi", "status": "CREATED"}
+{"order": 3186, "customer": "cust-7", "item": "cable", "amount": 432, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3187, "customer": "cust-36", "item": "keyboard", "amount": 326, "city": "Chennai", "status": "CREATED"}
+{"order": 3188, "customer": "cust-41", "item": "desk lamp", "amount": 353, "city": "Pune", "status": "CREATED"}
+{"order": 3189, "customer": "cust-32", "item": "webcam", "amount": 6, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3190, "customer": "cust-5", "item": "desk lamp", "amount": 464, "city": "Mumbai", "status": "CREATED"}
+{"order": 3191, "customer": "cust-6", "item": "desk lamp", "amount": 38, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3192, "customer": "cust-48", "item": "chair", "amount": 134, "city": "Kolkata", "status": "CREATED"}
+{"order": 3193, "customer": "cust-5", "item": "webcam", "amount": 125, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3194, "customer": "cust-49", "item": "headset", "amount": 123, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3195, "customer": "cust-42", "item": "chair", "amount": 257, "city": "Kolkata", "status": "CREATED"}
+{"order": 3196, "customer": "cust-25", "item": "monitor", "amount": 250, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3197, "customer": "cust-19", "item": "keyboard", "amount": 320, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3198, "customer": "cust-42", "item": "headset", "amount": 44, "city": "Mumbai", "status": "CREATED"}
+{"order": 3199, "customer": "cust-10", "item": "dock", "amount": 135, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3200, "customer": "cust-48", "item": "webcam", "amount": 323, "city": "Mumbai", "status": "CREATED"}
+{"order": 3201, "customer": "cust-9", "item": "keyboard", "amount": 251, "city": "Chennai", "status": "CREATED"}
+{"order": 3202, "customer": "cust-32", "item": "webcam", "amount": 349, "city": "Chennai", "status": "CREATED"}
+{"order": 3203, "customer": "cust-45", "item": "headset", "amount": 350, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3204, "customer": "cust-19", "item": "desk lamp", "amount": 151, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3205, "customer": "cust-30", "item": "chair", "amount": 397, "city": "Chennai", "status": "CREATED"}
+{"order": 3206, "customer": "cust-36", "item": "headset", "amount": 164, "city": "Chennai", "status": "CREATED"}
+{"order": 3207, "customer": "cust-31", "item": "keyboard", "amount": 153, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3208, "customer": "cust-5", "item": "desk lamp", "amount": 500, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3209, "customer": "cust-18", "item": "cable", "amount": 112, "city": "Pune", "status": "CREATED"}
+{"order": 3210, "customer": "cust-5", "item": "laptop stand", "amount": 51, "city": "Pune", "status": "CREATED"}
+{"order": 3211, "customer": "cust-48", "item": "desk lamp", "amount": 139, "city": "Delhi", "status": "CREATED"}
+{"order": 3212, "customer": "cust-9", "item": "laptop stand", "amount": 424, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3213, "customer": "cust-33", "item": "webcam", "amount": 459, "city": "Chennai", "status": "CREATED"}
+{"order": 3214, "customer": "cust-46", "item": "dock", "amount": 123, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3215, "customer": "cust-32", "item": "cable", "amount": 17, "city": "Pune", "status": "CREATED"}
+{"order": 3216, "customer": "cust-1", "item": "chair", "amount": 353, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3217, "customer": "cust-26", "item": "webcam", "amount": 377, "city": "Pune", "status": "CREATED"}
+{"order": 3218, "customer": "cust-27", "item": "dock", "amount": 197, "city": "Delhi", "status": "CREATED"}
+{"order": 3219, "customer": "cust-8", "item": "dock", "amount": 5, "city": "Delhi", "status": "CREATED"}
+{"order": 3220, "customer": "cust-49", "item": "dock", "amount": 434, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3221, "customer": "cust-8", "item": "headset", "amount": 370, "city": "Chennai", "status": "CREATED"}
+{"order": 3222, "customer": "cust-48", "item": "webcam", "amount": 134, "city": "Delhi", "status": "CREATED"}
+{"order": 3223, "customer": "cust-5", "item": "cable", "amount": 204, "city": "Kolkata", "status": "CREATED"}
+{"order": 3224, "customer": "cust-38", "item": "monitor", "amount": 189, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3225, "customer": "cust-49", "item": "webcam", "amount": 442, "city": "Chennai", "status": "CREATED"}
+{"order": 3226, "customer": "cust-18", "item": "monitor", "amount": 31, "city": "Kolkata", "status": "CREATED"}
+{"order": 3227, "customer": "cust-43", "item": "webcam", "amount": 330, "city": "Pune", "status": "CREATED"}
+{"order": 3228, "customer": "cust-16", "item": "webcam", "amount": 228, "city": "Mumbai", "status": "CREATED"}
+{"order": 3229, "customer": "cust-21", "item": "headset", "amount": 400, "city": "Delhi", "status": "CREATED"}
+{"order": 3230, "customer": "cust-28", "item": "keyboard", "amount": 420, "city": "Kolkata", "status": "CREATED"}
+{"order": 3231, "customer": "cust-41", "item": "cable", "amount": 472, "city": "Mumbai", "status": "CREATED"}
+{"order": 3232, "customer": "cust-36", "item": "headset", "amount": 373, "city": "Chennai", "status": "CREATED"}
+{"order": 3233, "customer": "cust-4", "item": "cable", "amount": 235, "city": "Mumbai", "status": "CREATED"}
+{"order": 3234, "customer": "cust-49", "item": "mouse", "amount": 334, "city": "Kolkata", "status": "CREATED"}
+{"order": 3235, "customer": "cust-19", "item": "chair", "amount": 30, "city": "Mumbai", "status": "CREATED"}
+{"order": 3236, "customer": "cust-9", "item": "mouse", "amount": 246, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3237, "customer": "cust-22", "item": "webcam", "amount": 157, "city": "Delhi", "status": "CREATED"}
+{"order": 3238, "customer": "cust-48", "item": "webcam", "amount": 212, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3239, "customer": "cust-16", "item": "webcam", "amount": 252, "city": "Mumbai", "status": "CREATED"}
+{"order": 3240, "customer": "cust-43", "item": "cable", "amount": 66, "city": "Pune", "status": "CREATED"}
+{"order": 3241, "customer": "cust-42", "item": "mouse", "amount": 43, "city": "Pune", "status": "CREATED"}
+{"order": 3242, "customer": "cust-33", "item": "chair", "amount": 286, "city": "Pune", "status": "CREATED"}
+{"order": 3243, "customer": "cust-29", "item": "dock", "amount": 393, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3244, "customer": "cust-28", "item": "mouse", "amount": 285, "city": "Pune", "status": "CREATED"}
+{"order": 3245, "customer": "cust-16", "item": "monitor", "amount": 94, "city": "Delhi", "status": "CREATED"}
+{"order": 3246, "customer": "cust-36", "item": "monitor", "amount": 168, "city": "Pune", "status": "CREATED"}
+{"order": 3247, "customer": "cust-24", "item": "webcam", "amount": 419, "city": "Mumbai", "status": "CREATED"}
+{"order": 3248, "customer": "cust-13", "item": "keyboard", "amount": 388, "city": "Kolkata", "status": "CREATED"}
+{"order": 3249, "customer": "cust-27", "item": "cable", "amount": 216, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3250, "customer": "cust-34", "item": "headset", "amount": 197, "city": "Delhi", "status": "CREATED"}
+{"order": 3251, "customer": "cust-22", "item": "keyboard", "amount": 260, "city": "Delhi", "status": "CREATED"}
+{"order": 3252, "customer": "cust-37", "item": "dock", "amount": 69, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3253, "customer": "cust-33", "item": "desk lamp", "amount": 327, "city": "Kolkata", "status": "CREATED"}
+{"order": 3254, "customer": "cust-14", "item": "monitor", "amount": 143, "city": "Pune", "status": "CREATED"}
+{"order": 3255, "customer": "cust-25", "item": "cable", "amount": 335, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3256, "customer": "cust-28", "item": "webcam", "amount": 439, "city": "Kolkata", "status": "CREATED"}
+{"order": 3257, "customer": "cust-2", "item": "mouse", "amount": 21, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3258, "customer": "cust-46", "item": "chair", "amount": 500, "city": "Mumbai", "status": "CREATED"}
+{"order": 3259, "customer": "cust-32", "item": "keyboard", "amount": 42, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3260, "customer": "cust-34", "item": "chair", "amount": 234, "city": "Pune", "status": "CREATED"}
+{"order": 3261, "customer": "cust-7", "item": "headset", "amount": 84, "city": "Pune", "status": "CREATED"}
+{"order": 3262, "customer": "cust-34", "item": "monitor", "amount": 487, "city": "Kolkata", "status": "CREATED"}
+{"order": 3263, "customer": "cust-47", "item": "chair", "amount": 48, "city": "Mumbai", "status": "CREATED"}
+{"order": 3264, "customer": "cust-50", "item": "keyboard", "amount": 5, "city": "Kolkata", "status": "CREATED"}
+{"order": 3265, "customer": "cust-9", "item": "headset", "amount": 296, "city": "Chennai", "status": "CREATED"}
+{"order": 3266, "customer": "cust-42", "item": "webcam", "amount": 497, "city": "Pune", "status": "CREATED"}
+{"order": 3267, "customer": "cust-41", "item": "webcam", "amount": 275, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3268, "customer": "cust-28", "item": "monitor", "amount": 55, "city": "Chennai", "status": "CREATED"}
+{"order": 3269, "customer": "cust-20", "item": "desk lamp", "amount": 488, "city": "Mumbai", "status": "CREATED"}
+{"order": 3270, "customer": "cust-13", "item": "cable", "amount": 138, "city": "Pune", "status": "CREATED"}
+{"order": 3271, "customer": "cust-39", "item": "keyboard", "amount": 10, "city": "Mumbai", "status": "CREATED"}
+{"order": 3272, "customer": "cust-20", "item": "chair", "amount": 147, "city": "Delhi", "status": "CREATED"}
+{"order": 3273, "customer": "cust-42", "item": "headset", "amount": 248, "city": "Mumbai", "status": "CREATED"}
+{"order": 3274, "customer": "cust-16", "item": "desk lamp", "amount": 131, "city": "Chennai", "status": "CREATED"}
+{"order": 3275, "customer": "cust-27", "item": "webcam", "amount": 33, "city": "Chennai", "status": "CREATED"}
+{"order": 3276, "customer": "cust-13", "item": "chair", "amount": 458, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3277, "customer": "cust-42", "item": "cable", "amount": 46, "city": "Delhi", "status": "CREATED"}
+{"order": 3278, "customer": "cust-15", "item": "cable", "amount": 478, "city": "Delhi", "status": "CREATED"}
+{"order": 3279, "customer": "cust-15", "item": "chair", "amount": 22, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3280, "customer": "cust-22", "item": "cable", "amount": 190, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3281, "customer": "cust-26", "item": "headset", "amount": 8, "city": "Kolkata", "status": "CREATED"}
+{"order": 3282, "customer": "cust-19", "item": "desk lamp", "amount": 39, "city": "Pune", "status": "CREATED"}
+{"order": 3283, "customer": "cust-32", "item": "headset", "amount": 164, "city": "Kolkata", "status": "CREATED"}
+{"order": 3284, "customer": "cust-13", "item": "headset", "amount": 243, "city": "Pune", "status": "CREATED"}
+{"order": 3285, "customer": "cust-17", "item": "webcam", "amount": 60, "city": "Mumbai", "status": "CREATED"}
+{"order": 3286, "customer": "cust-32", "item": "laptop stand", "amount": 100, "city": "Pune", "status": "CREATED"}
+{"order": 3287, "customer": "cust-32", "item": "cable", "amount": 471, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3288, "customer": "cust-4", "item": "laptop stand", "amount": 79, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3289, "customer": "cust-4", "item": "headset", "amount": 17, "city": "Mumbai", "status": "CREATED"}
+{"order": 3290, "customer": "cust-10", "item": "cable", "amount": 31, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3291, "customer": "cust-4", "item": "mouse", "amount": 206, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3292, "customer": "cust-46", "item": "dock", "amount": 380, "city": "Chennai", "status": "CREATED"}
+{"order": 3293, "customer": "cust-6", "item": "mouse", "amount": 173, "city": "Pune", "status": "CREATED"}
+{"order": 3294, "customer": "cust-12", "item": "desk lamp", "amount": 387, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3295, "customer": "cust-3", "item": "webcam", "amount": 345, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3296, "customer": "cust-25", "item": "dock", "amount": 174, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3297, "customer": "cust-11", "item": "monitor", "amount": 6, "city": "Chennai", "status": "CREATED"}
+{"order": 3298, "customer": "cust-18", "item": "monitor", "amount": 184, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3299, "customer": "cust-8", "item": "desk lamp", "amount": 498, "city": "Kolkata", "status": "CREATED"}
+{"order": 3300, "customer": "cust-14", "item": "cable", "amount": 187, "city": "Kolkata", "status": "CREATED"}
+{"order": 3301, "customer": "cust-20", "item": "cable", "amount": 49, "city": "Chennai", "status": "CREATED"}
+{"order": 3302, "customer": "cust-46", "item": "chair", "amount": 105, "city": "Delhi", "status": "CREATED"}
+{"order": 3303, "customer": "cust-35", "item": "chair", "amount": 103, "city": "Delhi", "status": "CREATED"}
+{"order": 3304, "customer": "cust-24", "item": "chair", "amount": 20, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3305, "customer": "cust-27", "item": "headset", "amount": 420, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3306, "customer": "cust-50", "item": "cable", "amount": 25, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3307, "customer": "cust-3", "item": "chair", "amount": 37, "city": "Kolkata", "status": "CREATED"}
+{"order": 3308, "customer": "cust-4", "item": "webcam", "amount": 104, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3309, "customer": "cust-5", "item": "laptop stand", "amount": 178, "city": "Delhi", "status": "CREATED"}
+{"order": 3310, "customer": "cust-18", "item": "dock", "amount": 495, "city": "Mumbai", "status": "CREATED"}
+{"order": 3311, "customer": "cust-3", "item": "webcam", "amount": 387, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3312, "customer": "cust-45", "item": "dock", "amount": 478, "city": "Delhi", "status": "CREATED"}
+{"order": 3313, "customer": "cust-20", "item": "keyboard", "amount": 374, "city": "Kolkata", "status": "CREATED"}
+{"order": 3314, "customer": "cust-39", "item": "monitor", "amount": 17, "city": "Kolkata", "status": "CREATED"}
+{"order": 3315, "customer": "cust-15", "item": "monitor", "amount": 248, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3316, "customer": "cust-30", "item": "cable", "amount": 409, "city": "Delhi", "status": "CREATED"}
+{"order": 3317, "customer": "cust-28", "item": "chair", "amount": 72, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3318, "customer": "cust-12", "item": "keyboard", "amount": 415, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3319, "customer": "cust-20", "item": "mouse", "amount": 315, "city": "Pune", "status": "CREATED"}
+{"order": 3320, "customer": "cust-21", "item": "dock", "amount": 240, "city": "Delhi", "status": "CREATED"}
+{"order": 3321, "customer": "cust-39", "item": "monitor", "amount": 267, "city": "Pune", "status": "CREATED"}
+{"order": 3322, "customer": "cust-26", "item": "mouse", "amount": 131, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3323, "customer": "cust-5", "item": "keyboard", "amount": 251, "city": "Mumbai", "status": "CREATED"}
+{"order": 3324, "customer": "cust-35", "item": "dock", "amount": 87, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3325, "customer": "cust-7", "item": "monitor", "amount": 140, "city": "Mumbai", "status": "CREATED"}
+{"order": 3326, "customer": "cust-6", "item": "headset", "amount": 54, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3327, "customer": "cust-32", "item": "chair", "amount": 93, "city": "Pune", "status": "CREATED"}
+{"order": 3328, "customer": "cust-9", "item": "cable", "amount": 240, "city": "Mumbai", "status": "CREATED"}
+{"order": 3329, "customer": "cust-44", "item": "headset", "amount": 387, "city": "Mumbai", "status": "CREATED"}
+{"order": 3330, "customer": "cust-50", "item": "monitor", "amount": 404, "city": "Kolkata", "status": "CREATED"}
+{"order": 3331, "customer": "cust-19", "item": "webcam", "amount": 148, "city": "Mumbai", "status": "CREATED"}
+{"order": 3332, "customer": "cust-18", "item": "dock", "amount": 135, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3333, "customer": "cust-17", "item": "headset", "amount": 229, "city": "Pune", "status": "CREATED"}
+{"order": 3334, "customer": "cust-12", "item": "headset", "amount": 125, "city": "Pune", "status": "CREATED"}
+{"order": 3335, "customer": "cust-19", "item": "laptop stand", "amount": 101, "city": "Delhi", "status": "CREATED"}
+{"order": 3336, "customer": "cust-5", "item": "cable", "amount": 133, "city": "Pune", "status": "CREATED"}
+{"order": 3337, "customer": "cust-33", "item": "desk lamp", "amount": 123, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3338, "customer": "cust-7", "item": "chair", "amount": 23, "city": "Chennai", "status": "CREATED"}
+{"order": 3339, "customer": "cust-1", "item": "chair", "amount": 457, "city": "Kolkata", "status": "CREATED"}
+{"order": 3340, "customer": "cust-15", "item": "chair", "amount": 473, "city": "Delhi", "status": "CREATED"}
+{"order": 3341, "customer": "cust-3", "item": "webcam", "amount": 124, "city": "Chennai", "status": "CREATED"}
+{"order": 3342, "customer": "cust-4", "item": "headset", "amount": 312, "city": "Kolkata", "status": "CREATED"}
+{"order": 3343, "customer": "cust-38", "item": "headset", "amount": 481, "city": "Chennai", "status": "CREATED"}
+{"order": 3344, "customer": "cust-24", "item": "desk lamp", "amount": 448, "city": "Pune", "status": "CREATED"}
+{"order": 3345, "customer": "cust-29", "item": "laptop stand", "amount": 138, "city": "Kolkata", "status": "CREATED"}
+{"order": 3346, "customer": "cust-50", "item": "keyboard", "amount": 59, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3347, "customer": "cust-39", "item": "laptop stand", "amount": 184, "city": "Pune", "status": "CREATED"}
+{"order": 3348, "customer": "cust-3", "item": "dock", "amount": 179, "city": "Pune", "status": "CREATED"}
+{"order": 3349, "customer": "cust-3", "item": "headset", "amount": 135, "city": "Chennai", "status": "CREATED"}
+{"order": 3350, "customer": "cust-39", "item": "headset", "amount": 422, "city": "Chennai", "status": "CREATED"}
+{"order": 3351, "customer": "cust-21", "item": "cable", "amount": 352, "city": "Delhi", "status": "CREATED"}
+{"order": 3352, "customer": "cust-12", "item": "laptop stand", "amount": 164, "city": "Chennai", "status": "CREATED"}
+{"order": 3353, "customer": "cust-14", "item": "keyboard", "amount": 412, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3354, "customer": "cust-36", "item": "chair", "amount": 37, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3355, "customer": "cust-7", "item": "cable", "amount": 344, "city": "Mumbai", "status": "CREATED"}
+{"order": 3356, "customer": "cust-10", "item": "desk lamp", "amount": 51, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3357, "customer": "cust-11", "item": "cable", "amount": 361, "city": "Delhi", "status": "CREATED"}
+{"order": 3358, "customer": "cust-27", "item": "webcam", "amount": 346, "city": "Delhi", "status": "CREATED"}
+{"order": 3359, "customer": "cust-27", "item": "keyboard", "amount": 164, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3360, "customer": "cust-37", "item": "dock", "amount": 217, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3361, "customer": "cust-2", "item": "dock", "amount": 334, "city": "Pune", "status": "CREATED"}
+{"order": 3362, "customer": "cust-26", "item": "cable", "amount": 109, "city": "Chennai", "status": "CREATED"}
+{"order": 3363, "customer": "cust-28", "item": "mouse", "amount": 221, "city": "Chennai", "status": "CREATED"}
+{"order": 3364, "customer": "cust-6", "item": "cable", "amount": 300, "city": "Delhi", "status": "CREATED"}
+{"order": 3365, "customer": "cust-30", "item": "mouse", "amount": 71, "city": "Chennai", "status": "CREATED"}
+{"order": 3366, "customer": "cust-4", "item": "desk lamp", "amount": 77, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3367, "customer": "cust-26", "item": "monitor", "amount": 298, "city": "Mumbai", "status": "CREATED"}
+{"order": 3368, "customer": "cust-24", "item": "desk lamp", "amount": 92, "city": "Pune", "status": "CREATED"}
+{"order": 3369, "customer": "cust-23", "item": "webcam", "amount": 87, "city": "Mumbai", "status": "CREATED"}
+{"order": 3370, "customer": "cust-11", "item": "monitor", "amount": 60, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3371, "customer": "cust-32", "item": "headset", "amount": 159, "city": "Pune", "status": "CREATED"}
+{"order": 3372, "customer": "cust-3", "item": "chair", "amount": 166, "city": "Chennai", "status": "CREATED"}
+{"order": 3373, "customer": "cust-39", "item": "cable", "amount": 49, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3374, "customer": "cust-40", "item": "mouse", "amount": 332, "city": "Kolkata", "status": "CREATED"}
+{"order": 3375, "customer": "cust-15", "item": "laptop stand", "amount": 212, "city": "Mumbai", "status": "CREATED"}
+{"order": 3376, "customer": "cust-13", "item": "chair", "amount": 98, "city": "Mumbai", "status": "CREATED"}
+{"order": 3377, "customer": "cust-14", "item": "keyboard", "amount": 209, "city": "Mumbai", "status": "CREATED"}
+{"order": 3378, "customer": "cust-11", "item": "cable", "amount": 188, "city": "Chennai", "status": "CREATED"}
+{"order": 3379, "customer": "cust-10", "item": "headset", "amount": 376, "city": "Kolkata", "status": "CREATED"}
+{"order": 3380, "customer": "cust-13", "item": "keyboard", "amount": 457, "city": "Mumbai", "status": "CREATED"}
+{"order": 3381, "customer": "cust-49", "item": "keyboard", "amount": 346, "city": "Kolkata", "status": "CREATED"}
+{"order": 3382, "customer": "cust-21", "item": "monitor", "amount": 204, "city": "Mumbai", "status": "CREATED"}
+{"order": 3383, "customer": "cust-30", "item": "desk lamp", "amount": 439, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3384, "customer": "cust-50", "item": "webcam", "amount": 337, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3385, "customer": "cust-20", "item": "laptop stand", "amount": 132, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3386, "customer": "cust-25", "item": "dock", "amount": 233, "city": "Mumbai", "status": "CREATED"}
+{"order": 3387, "customer": "cust-29", "item": "mouse", "amount": 16, "city": "Chennai", "status": "CREATED"}
+{"order": 3388, "customer": "cust-40", "item": "chair", "amount": 243, "city": "Pune", "status": "CREATED"}
+{"order": 3389, "customer": "cust-29", "item": "laptop stand", "amount": 404, "city": "Kolkata", "status": "CREATED"}
+{"order": 3390, "customer": "cust-30", "item": "mouse", "amount": 419, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3391, "customer": "cust-26", "item": "monitor", "amount": 39, "city": "Pune", "status": "CREATED"}
+{"order": 3392, "customer": "cust-23", "item": "cable", "amount": 192, "city": "Chennai", "status": "CREATED"}
+{"order": 3393, "customer": "cust-29", "item": "desk lamp", "amount": 266, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3394, "customer": "cust-3", "item": "keyboard", "amount": 330, "city": "Pune", "status": "CREATED"}
+{"order": 3395, "customer": "cust-6", "item": "dock", "amount": 403, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3396, "customer": "cust-33", "item": "monitor", "amount": 32, "city": "Kolkata", "status": "CREATED"}
+{"order": 3397, "customer": "cust-33", "item": "cable", "amount": 339, "city": "Kolkata", "status": "CREATED"}
+{"order": 3398, "customer": "cust-9", "item": "keyboard", "amount": 443, "city": "Chennai", "status": "CREATED"}
+{"order": 3399, "customer": "cust-40", "item": "monitor", "amount": 104, "city": "Pune", "status": "CREATED"}
+{"order": 3400, "customer": "cust-32", "item": "webcam", "amount": 494, "city": "Kolkata", "status": "CREATED"}
+{"order": 3401, "customer": "cust-11", "item": "headset", "amount": 38, "city": "Kolkata", "status": "CREATED"}
+{"order": 3402, "customer": "cust-23", "item": "laptop stand", "amount": 392, "city": "Delhi", "status": "CREATED"}
+{"order": 3403, "customer": "cust-11", "item": "dock", "amount": 464, "city": "Mumbai", "status": "CREATED"}
+{"order": 3404, "customer": "cust-18", "item": "chair", "amount": 78, "city": "Delhi", "status": "CREATED"}
+{"order": 3405, "customer": "cust-33", "item": "chair", "amount": 111, "city": "Mumbai", "status": "CREATED"}
+{"order": 3406, "customer": "cust-17", "item": "laptop stand", "amount": 264, "city": "Pune", "status": "CREATED"}
+{"order": 3407, "customer": "cust-21", "item": "dock", "amount": 23, "city": "Pune", "status": "CREATED"}
+{"order": 3408, "customer": "cust-12", "item": "cable", "amount": 87, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3409, "customer": "cust-18", "item": "dock", "amount": 463, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3410, "customer": "cust-11", "item": "webcam", "amount": 63, "city": "Kolkata", "status": "CREATED"}
+{"order": 3411, "customer": "cust-34", "item": "keyboard", "amount": 330, "city": "Kolkata", "status": "CREATED"}
+{"order": 3412, "customer": "cust-24", "item": "chair", "amount": 289, "city": "Mumbai", "status": "CREATED"}
+{"order": 3413, "customer": "cust-38", "item": "monitor", "amount": 134, "city": "Mumbai", "status": "CREATED"}
+{"order": 3414, "customer": "cust-41", "item": "cable", "amount": 382, "city": "Kolkata", "status": "CREATED"}
+{"order": 3415, "customer": "cust-24", "item": "webcam", "amount": 197, "city": "Delhi", "status": "CREATED"}
+{"order": 3416, "customer": "cust-37", "item": "mouse", "amount": 189, "city": "Delhi", "status": "CREATED"}
+{"order": 3417, "customer": "cust-49", "item": "monitor", "amount": 231, "city": "Pune", "status": "CREATED"}
+{"order": 3418, "customer": "cust-12", "item": "laptop stand", "amount": 385, "city": "Chennai", "status": "CREATED"}
+{"order": 3419, "customer": "cust-19", "item": "desk lamp", "amount": 134, "city": "Delhi", "status": "CREATED"}
+{"order": 3420, "customer": "cust-41", "item": "laptop stand", "amount": 480, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3421, "customer": "cust-21", "item": "keyboard", "amount": 387, "city": "Chennai", "status": "CREATED"}
+{"order": 3422, "customer": "cust-15", "item": "mouse", "amount": 153, "city": "Mumbai", "status": "CREATED"}
+{"order": 3423, "customer": "cust-41", "item": "cable", "amount": 218, "city": "Mumbai", "status": "CREATED"}
+{"order": 3424, "customer": "cust-24", "item": "keyboard", "amount": 72, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3425, "customer": "cust-15", "item": "laptop stand", "amount": 339, "city": "Chennai", "status": "CREATED"}
+{"order": 3426, "customer": "cust-2", "item": "keyboard", "amount": 6, "city": "Mumbai", "status": "CREATED"}
+{"order": 3427, "customer": "cust-23", "item": "webcam", "amount": 59, "city": "Mumbai", "status": "CREATED"}
+{"order": 3428, "customer": "cust-23", "item": "desk lamp", "amount": 119, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3429, "customer": "cust-38", "item": "webcam", "amount": 306, "city": "Pune", "status": "CREATED"}
+{"order": 3430, "customer": "cust-14", "item": "dock", "amount": 324, "city": "Kolkata", "status": "CREATED"}
+{"order": 3431, "customer": "cust-31", "item": "mouse", "amount": 73, "city": "Chennai", "status": "CREATED"}
+{"order": 3432, "customer": "cust-16", "item": "mouse", "amount": 235, "city": "Chennai", "status": "CREATED"}
+{"order": 3433, "customer": "cust-5", "item": "mouse", "amount": 451, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3434, "customer": "cust-18", "item": "cable", "amount": 420, "city": "Delhi", "status": "CREATED"}
+{"order": 3435, "customer": "cust-1", "item": "keyboard", "amount": 335, "city": "Kolkata", "status": "CREATED"}
+{"order": 3436, "customer": "cust-36", "item": "dock", "amount": 309, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3437, "customer": "cust-38", "item": "chair", "amount": 313, "city": "Mumbai", "status": "CREATED"}
+{"order": 3438, "customer": "cust-47", "item": "chair", "amount": 132, "city": "Pune", "status": "CREATED"}
+{"order": 3439, "customer": "cust-1", "item": "keyboard", "amount": 36, "city": "Mumbai", "status": "CREATED"}
+{"order": 3440, "customer": "cust-2", "item": "cable", "amount": 100, "city": "Pune", "status": "CREATED"}
+{"order": 3441, "customer": "cust-11", "item": "keyboard", "amount": 471, "city": "Kolkata", "status": "CREATED"}
+{"order": 3442, "customer": "cust-7", "item": "keyboard", "amount": 318, "city": "Mumbai", "status": "CREATED"}
+{"order": 3443, "customer": "cust-43", "item": "headset", "amount": 77, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3444, "customer": "cust-13", "item": "desk lamp", "amount": 316, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3445, "customer": "cust-33", "item": "cable", "amount": 421, "city": "Mumbai", "status": "CREATED"}
+{"order": 3446, "customer": "cust-12", "item": "desk lamp", "amount": 163, "city": "Chennai", "status": "CREATED"}
+{"order": 3447, "customer": "cust-20", "item": "keyboard", "amount": 460, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3448, "customer": "cust-31", "item": "desk lamp", "amount": 8, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3449, "customer": "cust-28", "item": "chair", "amount": 46, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3450, "customer": "cust-42", "item": "chair", "amount": 94, "city": "Pune", "status": "CREATED"}
+{"order": 3451, "customer": "cust-7", "item": "webcam", "amount": 123, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3452, "customer": "cust-3", "item": "monitor", "amount": 176, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3453, "customer": "cust-45", "item": "webcam", "amount": 369, "city": "Chennai", "status": "CREATED"}
+{"order": 3454, "customer": "cust-18", "item": "desk lamp", "amount": 352, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3455, "customer": "cust-44", "item": "desk lamp", "amount": 140, "city": "Delhi", "status": "CREATED"}
+{"order": 3456, "customer": "cust-42", "item": "headset", "amount": 48, "city": "Mumbai", "status": "CREATED"}
+{"order": 3457, "customer": "cust-1", "item": "mouse", "amount": 138, "city": "Pune", "status": "CREATED"}
+{"order": 3458, "customer": "cust-48", "item": "headset", "amount": 488, "city": "Pune", "status": "CREATED"}
+{"order": 3459, "customer": "cust-48", "item": "dock", "amount": 103, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3460, "customer": "cust-22", "item": "laptop stand", "amount": 127, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3461, "customer": "cust-41", "item": "desk lamp", "amount": 245, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3462, "customer": "cust-34", "item": "keyboard", "amount": 444, "city": "Chennai", "status": "CREATED"}
+{"order": 3463, "customer": "cust-28", "item": "headset", "amount": 297, "city": "Delhi", "status": "CREATED"}
+{"order": 3464, "customer": "cust-14", "item": "cable", "amount": 323, "city": "Mumbai", "status": "CREATED"}
+{"order": 3465, "customer": "cust-5", "item": "laptop stand", "amount": 471, "city": "Pune", "status": "CREATED"}
+{"order": 3466, "customer": "cust-10", "item": "keyboard", "amount": 18, "city": "Chennai", "status": "CREATED"}
+{"order": 3467, "customer": "cust-7", "item": "laptop stand", "amount": 480, "city": "Pune", "status": "CREATED"}
+{"order": 3468, "customer": "cust-23", "item": "mouse", "amount": 363, "city": "Chennai", "status": "CREATED"}
+{"order": 3469, "customer": "cust-2", "item": "keyboard", "amount": 75, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3470, "customer": "cust-42", "item": "keyboard", "amount": 361, "city": "Chennai", "status": "CREATED"}
+{"order": 3471, "customer": "cust-48", "item": "keyboard", "amount": 38, "city": "Kolkata", "status": "CREATED"}
+{"order": 3472, "customer": "cust-38", "item": "dock", "amount": 107, "city": "Kolkata", "status": "CREATED"}
+{"order": 3473, "customer": "cust-35", "item": "monitor", "amount": 455, "city": "Kolkata", "status": "CREATED"}
+{"order": 3474, "customer": "cust-49", "item": "cable", "amount": 59, "city": "Pune", "status": "CREATED"}
+{"order": 3475, "customer": "cust-14", "item": "headset", "amount": 62, "city": "Chennai", "status": "CREATED"}
+{"order": 3476, "customer": "cust-3", "item": "monitor", "amount": 427, "city": "Kolkata", "status": "CREATED"}
+{"order": 3477, "customer": "cust-41", "item": "webcam", "amount": 249, "city": "Chennai", "status": "CREATED"}
+{"order": 3478, "customer": "cust-9", "item": "monitor", "amount": 410, "city": "Kolkata", "status": "CREATED"}
+{"order": 3479, "customer": "cust-42", "item": "headset", "amount": 155, "city": "Delhi", "status": "CREATED"}
+{"order": 3480, "customer": "cust-22", "item": "cable", "amount": 138, "city": "Chennai", "status": "CREATED"}
+{"order": 3481, "customer": "cust-23", "item": "webcam", "amount": 481, "city": "Delhi", "status": "CREATED"}
+{"order": 3482, "customer": "cust-4", "item": "dock", "amount": 471, "city": "Delhi", "status": "CREATED"}
+{"order": 3483, "customer": "cust-50", "item": "laptop stand", "amount": 262, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3484, "customer": "cust-19", "item": "laptop stand", "amount": 386, "city": "Chennai", "status": "CREATED"}
+{"order": 3485, "customer": "cust-27", "item": "keyboard", "amount": 228, "city": "Mumbai", "status": "CREATED"}
+{"order": 3486, "customer": "cust-50", "item": "monitor", "amount": 182, "city": "Bengaluru", "status": "CREATED"}
+{"order": 3487, "customer": "cust-46", "item": "keyboard", "amount": 280, "city": "Mumbai", "status": "CREATED"}
+{"order": 3488, "customer": "cust-14", "item": "monitor", "amount": 299, "city": "Kolkata", "status": "CREATED"}
+{"order": 3489, "customer": "cust-19", "item": "mouse", "amount": 228, "city": "Chennai", "status": "CREATED"}
+{"order": 3490, "customer": "cust-34", "item": "headset", "amount": 152, "city": "Kolkata", "status": "CREATED"}
+{"order": 3491, "customer": "cust-49", "item": "keyboard", "amount": 7, "city": "Delhi", "status": "CREATED"}
+{"order": 3492, "customer": "cust-32", "item": "monitor", "amount": 256, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3493, "customer": "cust-12", "item": "chair", "amount": 308, "city": "Delhi", "status": "CREATED"}
+{"order": 3494, "customer": "cust-33", "item": "webcam", "amount": 300, "city": "Pune", "status": "CREATED"}
+{"order": 3495, "customer": "cust-19", "item": "headset", "amount": 485, "city": "Hyderabad", "status": "CREATED"}
+{"order": 3496, "customer": "cust-15", "item": "chair", "amount": 89, "city": "Chennai", "status": "CREATED"}
+{"order": 3497, "customer": "cust-41", "item": "monitor", "amount": 256, "city": "Kolkata", "status": "CREATED"}
+{"order": 3498, "customer": "cust-45", "item": "desk lamp", "amount": 407, "city": "Chennai", "status": "CREATED"}
+{"order": 3499, "customer": "cust-41", "item": "dock", "amount": 187, "city": "Chennai", "status": "CREATED"}
