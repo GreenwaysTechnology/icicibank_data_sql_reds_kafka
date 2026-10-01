@@ -1,0 +1,8 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+  "tasks.max": "1",
+  "file": "/lab/data/in/orders.jsonl",
+  "topic": "shop-orders-json",
+  "topic.creation.default.partitions": "1",
+  "topic.creation.default.replication.factor": "3"
+}

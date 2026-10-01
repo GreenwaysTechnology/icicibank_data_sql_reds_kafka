@@ -1,0 +1,37 @@
+$ psql shop: INSERT + UPDATE
+INSERT 0 1
+UPDATE 1
+ id | name | country |       updated_at        
+----+------+---------+-------------------------
+  1 | ana  | PT      | 2026-10-01 01:29:51.579
+  2 | raj  | IN      | 2026-10-01 01:29:51.579
+  3 | li   | SG      | 2026-10-01 01:38:43.729
+  4 | sam  | US      | 2026-10-01 01:29:51.579
+  5 | mia  | DE      | 2026-10-01 01:38:43.725
+(5 rows)
+
+$ analytics: SELECT
+ id | name | country |       updated_at        | source_system 
+----+------+---------+-------------------------+---------------
+  1 | ana  | PT      | 2026-10-01 01:29:51.579 | users_db
+  2 | raj  | IN      | 2026-10-01 01:29:51.579 | users_db
+  3 | li   | SG      | 2026-10-01 01:38:43.729 | users_db
+  4 | sam  | US      | 2026-10-01 01:29:51.579 | users_db
+  5 | mia  | DE      | 2026-10-01 01:38:43.725 | users_db
+(5 rows)
+
+$ topic pg-users: payloads only
+Partition:1 Offset:0 key=4 {"id":4,"name":"sam","email":"sam@example.com","country":"US","updated_at":1790818191579,"source_system":"users_db"}
+Partition:0 Offset:0 key=1 {"id":1,"name":"ana","email":"ana@example.com","country":"PT","updated_at":1790818191579,"source_system":"users_db"}
+Partition:0 Offset:1 key=5 {"id":5,"name":"mia","email":"mia@example.com","country":"DE","updated_at":1790818723725,"source_system":"users_db"}
+Partition:2 Offset:0 key=2 {"id":2,"name":"raj","email":"raj@example.com","country":"IN","updated_at":1790818191579,"source_system":"users_db"}
+Partition:2 Offset:1 key=3 {"id":3,"name":"li","email":"li@example.com","country":"CN","updated_at":1790818191579,"source_system":"users_db"}
+Partition:2 Offset:2 key=3 {"id":3,"name":"li","email":"li@example.com","country":"SG","updated_at":1790818723729,"source_system":"users_db"}
+$ sink group
+
+GROUP                 TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                             HOST            CLIENT-ID
+connect-users-db-sink pg-users        0          2               2               0               connector-consumer-users-db-sink-0-77117f67-bd90-4785-bcd4-5ac8b4860e4c /172.21.0.6     connector-consumer-users-db-sink-0
+connect-users-db-sink pg-users        1          1               1               0               connector-consumer-users-db-sink-0-77117f67-bd90-4785-bcd4-5ac8b4860e4c /172.21.0.6     connector-consumer-users-db-sink-0
+connect-users-db-sink pg-users        2          3               3               0               connector-consumer-users-db-sink-0-77117f67-bd90-4785-bcd4-5ac8b4860e4c /172.21.0.6     connector-consumer-users-db-sink-0
+$ source offsets
+{"offsets":[{"partition":{"protocol":"1","table":"public.users"},"offset":{"timestamp_nanos":729000000,"incrementing":3,"timestamp":1790818723729}}]}

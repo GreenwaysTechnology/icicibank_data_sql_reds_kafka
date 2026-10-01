@@ -1,0 +1,6 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --group orders-app --all-topics --reset-offsets --to-latest --execute
+
+GROUP           TOPIC           PARTITION  NEW-OFFSET
+orders-app      orders          0          6
+orders-app      orders          1          4
+orders-app      orders          2          305

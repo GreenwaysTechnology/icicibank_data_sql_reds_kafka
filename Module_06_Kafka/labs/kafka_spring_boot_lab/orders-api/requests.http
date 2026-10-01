@@ -1,0 +1,28 @@
+# Requests for the VS Code "REST Client" extension or IntelliJ's HTTP client.
+# Start the app first:  .\mvnw.cmd spring-boot:run
+
+@api = http://localhost:8090/api/orders
+
+### Send an order (key = customer)
+POST {{api}}
+Content-Type: application/json
+
+{"customer": "judy", "order": 2016, "item": "usb hub", "amount": 22}
+
+### The messages the @KafkaListener received, newest first
+GET {{api}}/received
+
+### Read the topic: partition 0 from offset 0, at most 10 messages
+GET {{api}}?partition=0&offset=0&limit=10
+
+### Read all partitions, only alice's orders
+GET {{api}}?customer=alice
+
+### Partitions, leaders, replicas, ISR and offsets
+GET {{api}}/topic
+
+### An invalid order - 400 with the validation errors
+POST {{api}}
+Content-Type: application/json
+
+{"customer": "", "order": 0, "item": "pen", "amount": -5}

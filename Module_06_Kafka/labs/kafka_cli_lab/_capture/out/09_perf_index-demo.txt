@@ -1,0 +1,2 @@
+$ kafka-producer-perf-test.sh --bootstrap-server kafka1:9092 --topic index-demo --num-records 12000 --record-size 100 --throughput 4000 --command-property acks=1 linger.ms=0 batch.size=1024 | tail -1
+12000 records sent, 3985.386915 records/sec (0.38 MB/sec), 131.40 ms avg latency, 716.00 ms max latency, 37 ms 50th, 419 ms 95th, 449 ms 99th, 453 ms 99.9th.

@@ -1,0 +1,2 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/__cluster_metadata-0/00000000000000000000.log --cluster-metadata-decoder | grep -E '"name":"orders"|TOPIC_RECORD.*orders' | head -3 | cut -c1-500
+| offset: 111 CreateTime: 1790509878206 keySize: -1 valueSize: 27 sequence: -1 headerKeys: [] payload: {"type":"TOPIC_RECORD","version":0,"data":{"name":"orders","topicId":"ywkgJzfISRGP0UN2q1Y88A"}}

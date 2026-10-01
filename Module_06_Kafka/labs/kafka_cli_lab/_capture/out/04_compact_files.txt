@@ -1,0 +1,8 @@
+$ ls -l /var/lib/kafka/data/customer-profile-0/ | grep -E "\.log"; grep -h "customer-profile" /opt/kafka/logs/log-cleaner.log | tail -4
+-rw-r--r-- 1 appuser appuser      167 Sep 27 12:00 00000000000000000000.log
+-rw-r--r-- 1 appuser appuser      290 Sep 27 12:00 00000000000000000000.log.deleted
+-rw-r--r-- 1 appuser appuser      105 Sep 27 12:01 00000000000000000006.log
+[2026-09-27 12:01:34,408] INFO Cleaner 0: Cleaning log customer-profile-0 (cleaning prior to Sun Sep 27 12:00:59 GMT 2026, discarding tombstones prior to upper bound deletion horizon Thu Jan 01 00:00:00 GMT 1970)... (org.apache.kafka.storage.internals.log.Cleaner)
+[2026-09-27 12:01:34,411] INFO Cleaner 0: Cleaning LogSegment(baseOffset=0, size=290, lastModifiedTime=1790510459959, largestRecordTimestamp=1790510459930) in log customer-profile-0 into 0 with an upper bound deletion horizon 0 computed from the segment last modified time of 1790510459959,retaining deletes. (org.apache.kafka.storage.internals.log.Cleaner)
+[2026-09-27 12:01:34,426] INFO Cleaner 0: Swapping in cleaned segment LogSegment(baseOffset=0, size=167, lastModifiedTime=1790510459959, largestRecordTimestamp=1790510459930) for segment(s) [LogSegment(baseOffset=0, size=290, lastModifiedTime=1790510459959, largestRecordTimestamp=1790510459930)] in log Log(dir=/var/lib/kafka/data/customer-profile-0, topicId=Yz33qO4zTuO5a1bASNc8MQ, topic=customer-profile, partition=0, highWatermark=7, lastStableOffset=7, logStartOffset=0, logEndOffset=7) (org.apache.kafka.storage.internals.log.Cleaner)
+	Log cleaner thread 0 cleaned log customer-profile-0 (dirty section = [0, 6])

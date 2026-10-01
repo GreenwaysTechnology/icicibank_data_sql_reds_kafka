@@ -1,0 +1,11 @@
+$ grep -hE "segments-demo-0.*(Deleting segment|retention size)" /opt/kafka/logs/server.log 2>/dev/null | tail -3; echo ---; ls /opt/kafka/logs 2>/dev/null | head
+[2026-09-27 11:59:04,025] INFO [UnifiedLog partition=segments-demo-0, dir=/var/lib/kafka/data] Deleting segment LogSegment(baseOffset=0, size=1048128, lastModifiedTime=1790510284089, largestRecordTimestamp=1790510284037) due to log retention size 2097152 breach. Log size after deletion will be 3151133. (org.apache.kafka.storage.internals.log.UnifiedLog)
+[2026-09-27 11:59:04,025] INFO [UnifiedLog partition=segments-demo-0, dir=/var/lib/kafka/data] Deleting segment LogSegment(baseOffset=4992, size=1048128, lastModifiedTime=1790510284289, largestRecordTimestamp=1790510284103) due to log retention size 2097152 breach. Log size after deletion will be 2103005. (org.apache.kafka.storage.internals.log.UnifiedLog)
+---
+controller.log
+kafka-authorizer.log
+kafka-request.log
+kafkaServer-gc.log
+log-cleaner.log
+server.log
+state-change.log

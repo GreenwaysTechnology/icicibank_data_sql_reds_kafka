@@ -1,0 +1,8 @@
+$ cat /lab/config/increase-rf.json
+{
+  "version": 1,
+  "partitions": [
+    { "topic": "legacy-events", "partition": 0, "replicas": [1, 2, 3] },
+    { "topic": "legacy-events", "partition": 1, "replicas": [2, 3, 1] }
+  ]
+}

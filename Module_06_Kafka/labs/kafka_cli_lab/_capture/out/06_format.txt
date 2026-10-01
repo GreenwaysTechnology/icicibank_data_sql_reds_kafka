@@ -1,0 +1,6 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --from-beginning --max-messages 4 --formatter-property print.timestamp=true --formatter-property print.partition=true --formatter-property print.offset=true --formatter-property print.headers=true --formatter-property print.key=true --formatter-property key.separator=' | '
+CreateTime:1790510023037 | Partition:0 | Offset:0 | NO_HEADERS | alice | {"order":2001,"item":"keyboard","amount":45}
+CreateTime:1790510023055 | Partition:0 | Offset:1 | NO_HEADERS | alice | {"order":2004,"item":"headset","amount":60}
+CreateTime:1790510023056 | Partition:0 | Offset:2 | NO_HEADERS | bob | {"order":2007,"item":"cable","amount":9}
+CreateTime:1790510023056 | Partition:0 | Offset:3 | NO_HEADERS | alice | {"order":2010,"item":"laptop stand","amount":55}
+Processed a total of 4 messages

@@ -1,0 +1,4 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-app --members --verbose
+
+GROUP           CONSUMER-ID                                HOST            CLIENT-ID       #PARTITIONS     CURRENT-EPOCH   CURRENT-ASSIGNMENT   TARGET-EPOCH    TARGET-ASSIGNMENT   
+orders-app      app-1-20cddbc5-1f06-4544-bab3-65dbc0787af2 /172.21.0.2     app-1           3               -               orders:0,1,2         -               -                   

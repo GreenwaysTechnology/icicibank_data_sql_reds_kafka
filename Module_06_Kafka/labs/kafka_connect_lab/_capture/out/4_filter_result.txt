@@ -1,0 +1,12 @@
+$ docker exec connect1 bash /lab/add-order.sh 3010 erin "usb hub" 22
+{"order":3010,"customer":"erin","item":"usb hub","amount":22,"email":"erin@example.com","card":"4111111111111111"}
+=== plain sink (no filter) -Tail 2
+{"order":9999,"customer":"qa-bot","item":"test item","amount":1,"email":"qa@example.com","card":"0000000000000000"}
+{"order":3010,"customer":"erin","item":"usb hub","amount":22,"email":"erin@example.com","card":"4111111111111111"}
+=== clean sink -Tail 2
+{item=desk lamp, total=35, kafka_offset=0, kafka_partition=0, source_system=orders_feed, card=****, order=3009, customer=carol}
+{item=usb hub, total=22, kafka_offset=2, kafka_partition=0, source_system=orders_feed, card=****, order=3010, customer=erin}
+=== topic with headers (last 3)
+Partition:0	Offset:0	NO_HEADERS	{"order":3009,"customer":"carol","item":"desk lamp","amount":35,"email":"carol@example.com","card":"4111111111111111"}
+Partition:0	Offset:1	test:yes	{"order":9999,"customer":"qa-bot","item":"test item","amount":1,"email":"qa@example.com","card":"0000000000000000"}
+Partition:0	Offset:2	NO_HEADERS	{"order":3010,"customer":"erin","item":"usb hub","amount":22,"email":"erin@example.com","card":"4111111111111111"}

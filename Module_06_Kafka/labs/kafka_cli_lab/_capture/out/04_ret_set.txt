@@ -1,0 +1,2 @@
+$ kafka-configs.sh --bootstrap-server kafka1:9092 --alter --entity-type topics --entity-name segments-demo --add-config retention.bytes=2097152
+Completed updating config for topic segments-demo.

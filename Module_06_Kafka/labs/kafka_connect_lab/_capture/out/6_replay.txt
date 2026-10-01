@@ -1,0 +1,22 @@
+$ PUT .../users-db-source/stop
+HTTP/1.1 204 No Content
+$ status
+{"name":"users-db-source","connector":{"state":"STOPPED","worker_id":"connect1:8083","version":"10.9.9"},"tasks":[{"id":0,"state":"RUNNING","worker_id":"connect1:8083","version":"10.9.9"}],"type":"source"}
+$ GET offsets
+{"offsets":[{"partition":{"protocol":"1","table":"public.users"},"offset":{"timestamp_nanos":729000000,"incrementing":3,"timestamp":1790818723729}}]}
+$ DELETE offsets
+{"message":"The Connect framework-managed offsets for this connector have been reset successfully. However, if this connector manages offsets externally, they will need to be manually reset in the system that the connector uses."}
+$ GET offsets
+{"offsets":[]}
+$ PUT .../resume
+HTTP/1.1 202 Accepted
+$ get-offsets pg-users
+pg-users:0:4
+pg-users:1:2
+pg-users:2:5
+$ analytics: SELECT count(*)
+ count 
+-------
+     5
+(1 row)
+

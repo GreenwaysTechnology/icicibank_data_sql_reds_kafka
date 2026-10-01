@@ -1,0 +1,5 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic 'tmp-.*' && kafka-topics.sh --bootstrap-server kafka1:9092 --list
+audit-log
+orders
+payments
+pinned

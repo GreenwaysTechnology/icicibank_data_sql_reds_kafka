@@ -1,0 +1,5 @@
+﻿PS> docker compose ps
+NAME      IMAGE                STATUS                    PORTS
+kafka1    apache/kafka:4.3.1   Up 22 minutes (healthy)   0.0.0.0:19092->19092/tcp, [::]:19092->19092/tcp
+kafka2    apache/kafka:4.3.1   Up 17 minutes (healthy)   0.0.0.0:29092->29092/tcp, [::]:29092->29092/tcp
+kafka3    apache/kafka:4.3.1   Up 22 minutes (healthy)   0.0.0.0:39092->39092/tcp, [::]:39092->39092/tcp

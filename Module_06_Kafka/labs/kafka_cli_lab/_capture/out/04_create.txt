@@ -1,0 +1,4 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic segments-demo --replica-assignment 1 --config segment.bytes=1048576 && kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic segments-demo
+Created topic segments-demo.
+Topic: segments-demo	TopicId: JJDZ4_emRP-XgBuLLZ6teg	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=2,segment.bytes=1048576
+	Topic: segments-demo	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 

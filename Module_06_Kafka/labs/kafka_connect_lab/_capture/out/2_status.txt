@@ -1,0 +1,34 @@
+$ status
+{
+  "name": "orders-file-source",
+  "connector": {
+    "state": "RUNNING",
+    "worker_id": "connect1:8083",
+    "version": "4.3.1"
+  },
+  "tasks": [
+    {
+      "id": 0,
+      "state": "RUNNING",
+      "worker_id": "connect1:8083",
+      "version": "4.3.1"
+    }
+  ],
+  "type": "source"
+}
+$ connectors
+["orders-file-source"]
+$ describe shop-orders
+Topic: shop-orders	TopicId: vUUe-VrSQ6SSkMx9EiWGGA	PartitionCount: 3	ReplicationFactor: 3	Configs: min.insync.replicas=2
+	Topic: shop-orders	Partition: 0	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: shop-orders	Partition: 1	Leader: 2	Replicas: 2,3,1	Isr: 2,3,1	Elr: 	LastKnownElr: 
+	Topic: shop-orders	Partition: 2	Leader: 3	Replicas: 3,1,2	Isr: 3,1,2	Elr: 	LastKnownElr: 
+$ consume
+The consumer rebalance protocol (KIP-848) is production-ready! Set group.protocol=consumer to try it out. See https://kafka.apache.org/documentation/#consumer_rebalance_protocol
+Partition:2	Offset:0	null	{"order":3001,"customer":"alice","item":"keyboard","amount":45,"email":"alice@example.com","card":"4111111111111111"}
+Partition:2	Offset:1	null	{"order":3002,"customer":"dave","item":"monitor","amount":210,"email":"dave@example.com","card":"5500005555555559"}
+Partition:2	Offset:2	null	{"order":3003,"customer":"carol","item":"mouse","amount":18,"email":"carol@example.com","card":"340000000000009"}
+Partition:2	Offset:3	null	{"order":3004,"customer":"alice","item":"headset","amount":60,"email":"alice@example.com","card":"4111111111111111"}
+Partition:2	Offset:4	null	{"order":3005,"customer":"erin","item":"webcam","amount":75,"email":"erin@example.com","card":"6011000000000004"}
+Partition:2	Offset:5	null	{"order":3006,"customer":"frank","item":"dock","amount":140,"email":"frank@example.com","card":"5105105105105100"}
+Processed a total of 6 messages

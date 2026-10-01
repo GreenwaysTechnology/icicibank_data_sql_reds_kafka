@@ -1,0 +1,3 @@
+$ for t in index-demo index-dense; do printf "%-12s entries in first .index: " $t; kafka-dump-log.sh --files /var/lib/kafka/data/$t-0/00000000000000000000.index | grep -c "^offset"; done
+index-demo   entries in first .index: 229
+index-dense  entries in first .index: 1060

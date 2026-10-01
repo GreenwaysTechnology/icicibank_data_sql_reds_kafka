@@ -1,0 +1,5 @@
+﻿PS> docker images apache/kafka
+IMAGE                 ID             DISK USAGE   CONTENT SIZE   EXTRA
+apache/kafka:4.1.1    0bc1bb2478f4        667MB          232MB        
+apache/kafka:4.3.1    77e3df905404        686MB          239MB   U    
+apache/kafka:latest   77e3df905404        686MB          239MB   U    

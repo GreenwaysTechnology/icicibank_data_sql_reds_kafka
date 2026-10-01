@@ -1,0 +1,4 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic too-many-copies --replication-factor 4
+Error while executing topic command : Unable to replicate the partition 4 time(s): The target replication factor of 4 cannot be reached because only 3 broker(s) are registered or some brokers have all their log directories cordoned.
+[2026-09-27 11:51:35,320] ERROR org.apache.kafka.common.errors.InvalidReplicationFactorException: Unable to replicate the partition 4 time(s): The target replication factor of 4 cannot be reached because only 3 broker(s) are registered or some brokers have all their log directories cordoned.
+ (org.apache.kafka.tools.TopicCommand)

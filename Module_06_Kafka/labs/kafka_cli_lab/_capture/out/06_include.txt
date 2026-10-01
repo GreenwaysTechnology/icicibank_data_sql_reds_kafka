@@ -1,0 +1,2 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --include 'orders|payments' --from-beginning --max-messages 30 --timeout-ms 8000 --formatter-property print.partition=true 2>&1 | grep -c Partition
+22

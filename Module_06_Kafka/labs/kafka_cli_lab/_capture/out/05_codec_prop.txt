@@ -1,0 +1,5 @@
+$ echo 'x1' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic codec-check --command-property compression.type=lz4; echo 'x2' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic codec-check --compression-codec lz4; kafka-dump-log.sh --files /var/lib/kafka/data/codec-check-0/00000000000000000000.log | grep -o 'baseOffset: [0-9]*\|compresscodec: [a-z0-9]*'
+baseOffset: 0
+compresscodec: none
+baseOffset: 1
+compresscodec: lz4

@@ -1,0 +1,38 @@
+$ PUT orders-file-sink
+{"name":"orders-file-sink","config":{"connector.class":"org.apache.kafka.connect.file.FileStreamSinkConnector","tasks.max":"1","topics":"shop-orders","file":"/lab/data/out/shop-orders.txt","value.converter":"org.apache.kafka.connect.storage.StringConverter","name":"orders-file-sink"},"tasks":[],"type":"sink"}
+$ status
+{
+  "name": "orders-file-sink",
+  "connector": {
+    "state": "RUNNING",
+    "worker_id": "connect1:8083",
+    "version": "4.3.1"
+  },
+  "tasks": [
+    {
+      "id": 0,
+      "state": "RUNNING",
+      "worker_id": "connect1:8083",
+      "version": "4.3.1"
+    }
+  ],
+  "type": "sink"
+}
+$ Get-Content lab/data/out/shop-orders.txt
+{"order":3001,"customer":"alice","item":"keyboard","amount":45,"email":"alice@example.com","card":"4111111111111111"}
+{"order":3002,"customer":"dave","item":"monitor","amount":210,"email":"dave@example.com","card":"5500005555555559"}
+{"order":3003,"customer":"carol","item":"mouse","amount":18,"email":"carol@example.com","card":"340000000000009"}
+{"order":3004,"customer":"alice","item":"headset","amount":60,"email":"alice@example.com","card":"4111111111111111"}
+{"order":3005,"customer":"erin","item":"webcam","amount":75,"email":"erin@example.com","card":"6011000000000004"}
+{"order":3006,"customer":"frank","item":"dock","amount":140,"email":"frank@example.com","card":"5105105105105100"}
+{"order":3007,"customer":"bob","item":"cable","amount":9,"email":"bob@example.com","card":"4012888888881881"}
+{"order":3008,"customer":"dave","item":"chair","amount":320,"email":"dave@example.com","card":"5500005555555559"}
+$ group
+
+GROUP                    TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                HOST            CLIENT-ID
+connect-orders-file-sink shop-orders     0          0               0               0               connector-consumer-orders-file-sink-0-5e7f632d-f25b-4c05-80e0-9ea8bb6b3f8d /172.21.0.6     connector-consumer-orders-file-sink-0
+connect-orders-file-sink shop-orders     1          0               0               0               connector-consumer-orders-file-sink-0-5e7f632d-f25b-4c05-80e0-9ea8bb6b3f8d /172.21.0.6     connector-consumer-orders-file-sink-0
+connect-orders-file-sink shop-orders     2          8               8               0               connector-consumer-orders-file-sink-0-5e7f632d-f25b-4c05-80e0-9ea8bb6b3f8d /172.21.0.6     connector-consumer-orders-file-sink-0
+$ expand status
+orders-file-sink sink RUNNING [(0, 'RUNNING', 'connect1:8083')]
+orders-file-source source RUNNING [(0, 'RUNNING', 'connect1:8083')]

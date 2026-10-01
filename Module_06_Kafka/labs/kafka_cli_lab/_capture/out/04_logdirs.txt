@@ -1,0 +1,2 @@
+$ kafka-log-dirs.sh --bootstrap-server kafka1:9092 --describe --topic-list segments-demo --broker-list 1 | tail -1
+{"brokers":[{"broker":1,"logDirs":[{"partitions":[{"partition":"segments-demo-0","size":4199261,"offsetLag":0,"isFuture":false}],"error":null,"logDir":"/var/lib/kafka/data"}]}],"version":1}

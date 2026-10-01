@@ -1,0 +1,7 @@
+$ kafka-reassign-partitions.sh --bootstrap-server kafka1:9092 --reassignment-json-file /lab/config/increase-rf.json --execute
+Current partition replica assignment
+
+{"version":1,"partitions":[{"topic":"legacy-events","partition":0,"replicas":[3],"log_dirs":["/var/lib/kafka/data"]},{"topic":"legacy-events","partition":1,"replicas":[1],"log_dirs":["/var/lib/kafka/data"]}]}
+
+Save this to use as the --reassignment-json-file option during rollback
+Successfully started partition reassignments for legacy-events-0,legacy-events-1

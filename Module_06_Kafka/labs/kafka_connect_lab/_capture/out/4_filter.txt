@@ -1,0 +1,4 @@
+$ PUT orders-clean-sink (with filter)
+HTTP 200
+$ produce test message with header
+exit 0

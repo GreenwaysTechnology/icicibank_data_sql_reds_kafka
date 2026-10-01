@@ -1,0 +1,9 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+  "tasks.max": "1",
+  "file": "/lab/data/in/orders.jsonl",
+  "topic": "shop-orders",
+  "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "topic.creation.default.partitions": "3",
+  "topic.creation.default.replication.factor": "3"
+}

@@ -1,0 +1,4 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --delete --group orders-app
+
+Error: Deletion of some consumer groups failed:
+* Group 'orders-app' could not be deleted due to: org.apache.kafka.common.errors.GroupNotEmptyException: The group is not empty.

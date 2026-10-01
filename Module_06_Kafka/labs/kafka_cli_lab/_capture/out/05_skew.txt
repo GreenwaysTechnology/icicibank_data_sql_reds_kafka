@@ -1,0 +1,4 @@
+$ printf 'cust-1:a\ncust-2:b\ncust-3:c\ncust-1:d\ncust-2:e\ncust-3:f\n' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic key-skew --reader-property parse.key=true --reader-property key.separator=: && kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic key-skew
+key-skew:0:0
+key-skew:1:6
+key-skew:2:0

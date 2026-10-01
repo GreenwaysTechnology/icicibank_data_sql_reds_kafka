@@ -1,0 +1,6 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic customer-profile --from-beginning --timeout-ms 6000 --formatter-property print.offset=true --formatter-property print.key=true 2>&1 | grep -v -E 'TimeoutException|ERROR'
+Offset:3	carol	{"city":"Delhi","tier":"silver"}
+Offset:4	alice	{"city":"Bengaluru","tier":"gold"}
+Offset:5	bob	null
+Offset:6	dave	{"city":"Mumbai","tier":"silver"}
+Processed a total of 4 messages

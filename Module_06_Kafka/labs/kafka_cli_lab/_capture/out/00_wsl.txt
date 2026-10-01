@@ -1,0 +1,10 @@
+﻿PS> wsl --status
+Default Distribution: Ubuntu
+
+Default Version: 2
+
+WSL1 is not supported with your current machine configuration.
+
+Please enable the "Windows Subsystem for Linux" optional component to use WSL1.
+
+

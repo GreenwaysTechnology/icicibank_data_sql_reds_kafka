@@ -1,0 +1,6 @@
+$ restart
+HTTP/1.1 202 Accepted
+$ get-offsets
+shop-orders:0:0
+shop-orders:1:0
+shop-orders:2:8

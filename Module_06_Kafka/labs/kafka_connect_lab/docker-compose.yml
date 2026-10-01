@@ -1,0 +1,80 @@
+# ---------------------------------------------------------------------------
+#  Apache Kafka Training | Kafka Connect Lab
+#
+#  Kafka Connect workers and a PostgreSQL database, attached to the 3-broker
+#  cluster of the Kafka CLI Lab (start that first: kafka_cli_lab/docker-compose.yml).
+#  Connect runs from the same apache/kafka:4.3.1 image as the brokers - it ships
+#  connect-distributed.sh and the FileStream connectors.
+#
+#      docker compose up -d                     # connect1 + postgres
+#      docker compose --profile scale up -d     # also connect2 (Lab 6)
+#      docker compose logs -f connect1
+#      docker compose down                      # stop, keep the database volume
+#      docker compose down -v                   # stop and delete the database
+#
+#  Connect REST API  ->  http://localhost:8083   (connect2: http://localhost:8084)
+#  PostgreSQL        ->  docker exec -it postgres psql -U lab -d shop
+#                        (or localhost:15432, user lab / password lab, from a GUI tool)
+#  ./lab on Windows  ->  /lab in the Connect containers  (configs, data files)
+#  ./plugins         ->  /plugins                        (the JDBC connector, Lab 5)
+# ---------------------------------------------------------------------------
+name: kafka_connect_lab
+
+x-connect: &connect
+  image: apache/kafka:4.3.1
+  entrypoint: ["/opt/kafka/bin/connect-distributed.sh"]
+  restart: unless-stopped
+  environment:
+    KAFKA_HEAP_OPTS: "-Xms256m -Xmx512m"
+  volumes:
+    - ./lab:/lab
+    - ./plugins:/plugins
+  healthcheck:
+    test: ["CMD-SHELL", "wget -qO- http://localhost:8083/ > /dev/null || exit 1"]
+    interval: 10s
+    timeout: 5s
+    retries: 18
+    start_period: 20s
+
+services:
+
+  connect1:
+    <<: *connect
+    container_name: connect1
+    hostname: connect1
+    command: ["/lab/config/connect1.properties"]
+    ports:
+      - "8083:8083"
+
+  connect2:
+    <<: *connect
+    container_name: connect2
+    hostname: connect2
+    command: ["/lab/config/connect2.properties"]
+    ports:
+      - "8084:8083"
+    profiles: ["scale"]
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab
+      POSTGRES_DB: shop
+    ports:
+      - "15432:5432"              # 5432 is often taken by a local PostgreSQL
+    volumes:
+      - ./lab/sql:/docker-entrypoint-initdb.d:ro   # creates and fills the users table
+      - pg_data:/var/lib/postgresql/data
+
+# join the CLI lab's network, so kafka1:9092 ... resolve
+networks:
+  default:
+    name: kafka_cli_lab_default
+    external: true
+
+volumes:
+  pg_data:

@@ -1,0 +1,19 @@
+$ mkdir -p /tmp/meta && cp /var/lib/kafka/data/__cluster_metadata-0/00000000000000000000.log /tmp/meta/ && kafka-metadata-shell.sh --snapshot /tmp/meta/00000000000000000000.log ls /image/topics/byName 2>&1 | head -20; echo ---; kafka-metadata-shell.sh --snapshot /tmp/meta/00000000000000000000.log cat /image/topics/byName/orders/0 2>&1 | head -30
+__consumer_offsets
+audit-log
+codec-check
+comp-gzip
+comp-lz4
+comp-none
+comp-zstd
+customer-profile
+key-skew
+legacy-events
+orders
+payments
+perf-test
+pinned
+segments-demo
+strict-payments
+---
+PartitionRegistration(replicas=[3, 1, 2], directories=[HRx9RyH0pi-j8zhurmQcgA, W6ZXRWs45VFCVyxnSoUExg, 9-duCaGAc4VxlM-rPcTcMA], isr=[1, 2, 3], removingReplicas=[], addingReplicas=[], elr=[], lastKnownElr=[], leader=3, leaderRecoveryState=RECOVERED, leaderEpoch=0, partitionEpoch=2)

@@ -1,0 +1,2 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic orders --partitions 3 --if-not-exists; echo "exit code: $?"
+exit code: 0

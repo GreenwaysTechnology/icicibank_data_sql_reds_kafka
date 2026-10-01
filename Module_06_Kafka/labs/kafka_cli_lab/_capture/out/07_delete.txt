@@ -1,0 +1,6 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --delete --group orders-app; kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --list
+Deletion of requested consumer groups ('orders-app') was successful.
+console-consumer-15844
+orders-reporting
+console-consumer-83412
+console-consumer-50275

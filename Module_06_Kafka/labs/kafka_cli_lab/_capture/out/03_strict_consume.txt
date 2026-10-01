@@ -1,0 +1,2 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic strict-payments --from-beginning --timeout-ms 5000 2>&1 | grep -E "Processed|payment"
+Processed a total of 0 messages

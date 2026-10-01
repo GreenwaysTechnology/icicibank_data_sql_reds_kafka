@@ -1,0 +1,4 @@
+﻿PS> docker version --format 'Client {{.Client.Version}} / Server {{.Server.Version}} ({{.Server.Os}}/{{.Server.Arch}})'
+Client 29.8.0 / Server 29.8.0 (linux/amd64)
+PS> docker compose version
+Docker Compose version v5.5.1

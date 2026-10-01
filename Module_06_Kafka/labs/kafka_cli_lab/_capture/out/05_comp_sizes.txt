@@ -1,0 +1,5 @@
+$ du -b /var/lib/kafka/data/comp-*/*.log
+669235	/var/lib/kafka/data/comp-gzip-0/00000000000000000000.log
+1240001	/var/lib/kafka/data/comp-lz4-0/00000000000000000000.log
+6040650	/var/lib/kafka/data/comp-none-0/00000000000000000000.log
+760843	/var/lib/kafka/data/comp-zstd-0/00000000000000000000.log

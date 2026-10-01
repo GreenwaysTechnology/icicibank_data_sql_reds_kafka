@@ -1,0 +1,2 @@
+$ kafka-producer-perf-test.sh --bootstrap-server kafka1:9092 --topic comp-lz4 --num-records 50000 --payload-file /lab/data/payloads.txt --throughput -1 --command-property acks=all linger.ms=20 batch.size=65536 compression.type=lz4 | tail -1
+50000 records sent, 32743.942371 records/sec (3.46 MB/sec), 14.30 ms avg latency, 929.00 ms max latency, 11 ms 50th, 30 ms 95th, 75 ms 99th, 119 ms 99.9th.

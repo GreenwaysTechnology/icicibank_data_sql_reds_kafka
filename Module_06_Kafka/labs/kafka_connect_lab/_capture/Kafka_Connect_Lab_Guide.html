@@ -1,0 +1,1250 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Apache Kafka Connect Lab Guide</title><style>
+@page {
+  size: A4;
+  margin: 17mm 15mm 17mm 15mm;
+  @top-left { content: "APACHE KAFKA  ·  CONNECT LAB GUIDE"; font: 600 7.5pt 'Segoe UI', sans-serif;
+              letter-spacing: .12em; color: #A8A29E; }
+  @top-right { content: "Kafka Connect 4.3.1 · Docker"; font: 7.5pt 'Segoe UI', sans-serif; color: #A8A29E; }
+  @bottom-right { content: counter(page); font: 8pt 'Bahnschrift SemiBold', 'Segoe UI', sans-serif;
+                  color: #EA580C; }
+  @bottom-left { content: "Outputs captured from Kafka Connect on a 3-broker Apache Kafka 4.3.1 cluster";
+                 font: 7.5pt 'Segoe UI', sans-serif; color: #A8A29E; }
+}
+@page cover { margin: 0; @top-left { content: none; } @top-right { content: none; }
+              @bottom-right { content: none; } @bottom-left { content: none; } }
+:root { --ink:#1C1917; --mid:#44403C; --mute:#78716C; --faint:#A8A29E; --line:#E7E5E0; --card:#F7F6F3;
+        --tan:#EA580C; --tan-dk:#C2410C; --tan-bg:#FFEDD5; --cyan:#0E7490; --cyan-bg:#D9F2F7;
+        --gold:#A16207; --gold-bg:#FEF9C3; --indigo:#4F46E5; --indigo-bg:#E0E7FF; --graphite:#18181B;
+        --green:#15803D; --green-bg:#DCFCE7; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.6pt; line-height: 1.5; color: var(--ink);
+       margin: 0; }
+
+/* cover */
+.cover { page: cover; height: 297mm; background: var(--graphite); color: #fff; position: relative;
+         overflow: hidden; break-after: page; }
+.cover .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 9mm; background: var(--tan); }
+.cover .inner { position: absolute; left: 26mm; right: 20mm; top: 48mm; }
+.cover .kicker { font: 600 10pt 'Segoe UI'; letter-spacing: .32em; color: #FB923C; }
+.cover h1 { font: 38pt/1.1 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; margin: 10mm 0 5mm; color: #fff;
+            border: 0; }
+.cover .sub { font-size: 14pt; color: #D6D3D1; max-width: 140mm; }
+.cover .chips { margin-top: 12mm; }
+.cover .chip { display: inline-block; border: 1.2pt solid #C2410C; color: #FDBA74; border-radius: 12pt;
+               padding: 2.5pt 11pt; margin: 0 5pt 6pt 0; font: 600 9pt Consolas, monospace; }
+.cover .toc { margin-top: 16mm; column-count: 2; column-gap: 12mm; }
+.cover .toc div { font-size: 9.6pt; color: #E7E5E4; padding: 2mm 0; border-bottom: .6pt solid #3F3F46;
+                  break-inside: avoid; display: flex; }
+.cover .toc b { color: #FB923C; font-family: 'Bahnschrift SemiBold'; font-weight: normal;
+                flex: 0 0 9mm; }
+.cover .cells { position: absolute; left: 26mm; bottom: 26mm; }
+.cover .cells span { display: inline-block; width: 9mm; height: 6mm; margin-right: 1.6mm; border-radius: 1mm;
+                     background: #27272A; color: #78716C; font: 7pt Consolas; text-align: center;
+                     line-height: 6mm; }
+.cover .cells span.h1 { background: #7C2D12; color: #fff; } .cover .cells span.h2 { background: #C2410C; color:#fff; }
+.cover .cells span.h3 { background: #EA580C; color: #fff; } .cover .cells span.h4 { background: #FB923C; color:#fff; }
+.cover .foot { position: absolute; left: 26mm; bottom: 14mm; font-size: 9pt; color: #A8A29E; }
+
+/* chapters */
+.chapter { break-before: page; }
+.chapter:first-of-type { break-before: auto; }
+h1 { font: 22pt/1.15 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--graphite); margin: 0 0 4mm;
+     padding: 0 0 3mm; border-bottom: 2.4pt solid var(--tan); }
+h2 { font: 13.5pt/1.25 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--graphite);
+     margin: 7mm 0 2.5mm; padding-left: 3mm; border-left: 3.2pt solid var(--tan); break-after: avoid; }
+h3 { font: 11pt 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--tan-dk); margin: 5mm 0 2mm;
+     break-after: avoid; }
+p { margin: 1.6mm 0 2.2mm; }
+ul, ol { margin: 1.5mm 0 2.5mm; padding-left: 6mm; }
+li { margin: .8mm 0; }
+strong { color: var(--graphite); }
+a { color: var(--cyan); text-decoration: none; }
+code { font-family: Consolas, monospace; font-size: 8.6pt; background: var(--card); border: .5pt solid var(--line);
+       border-radius: 2pt; padding: 0 2pt; color: var(--tan-dk); }
+
+/* code blocks */
+pre { margin: 2mm 0 3mm; border-radius: 3pt; padding: 4.4mm 3.5mm 2.6mm; position: relative; line-height: 1.32;
+      white-space: pre-wrap; overflow-wrap: anywhere; break-inside: auto; }
+pre code { display: block; background: none; border: 0; padding: 0; color: inherit; font-size: 8.1pt;
+            line-height: 1.32; }
+pre::before { position: absolute; top: 0; right: 0; font: 600 6.5pt 'Segoe UI', sans-serif;
+              letter-spacing: .1em; padding: 1pt 6pt; border-radius: 0 3pt 0 3pt; }
+pre.language-kafka { background: var(--graphite); color: #E7E5E4; border-left: 3pt solid var(--tan); }
+pre.language-kafka::before { content: "KAFKA1 SHELL"; background: var(--tan); color: #fff; }
+pre.language-powershell { background: #0F2537; color: #E2E8F0; border-left: 3pt solid #38BDF8; }
+pre.language-powershell::before { content: "POWERSHELL"; background: #0369A1; color: #fff; }
+pre.language-java, pre.language-yaml, pre.language-xml { background: #1C1B22; color: #E7E5E4;
+                                                         border-left: 3pt solid #22D3EE; }
+pre.language-java::before { content: "JAVA"; background: var(--cyan); color: #fff; }
+pre.language-yaml::before { content: "YAML"; background: var(--cyan); color: #fff; }
+pre.language-xml::before { content: "XML"; background: var(--cyan); color: #fff; }
+pre.language-java .cm, pre.language-yaml .cm, pre.language-xml .cm { color: #8A9AA3; }
+pre.language-connect { background: #1F2A1E; color: #E7E5E4; border-left: 3pt solid #84CC16; }
+pre.language-connect::before { content: "CONNECT1 SHELL"; background: #4D7C0F; color: #fff; }
+pre.language-sql { background: #172033; color: #E2E8F0; border-left: 3pt solid #818CF8; }
+pre.language-sql::before { content: "PSQL"; background: var(--indigo); color: #fff; }
+pre.language-properties { background: #1C1B22; color: #E7E5E4; border-left: 3pt solid #22D3EE; }
+pre.language-properties::before { content: "PROPERTIES"; background: var(--cyan); color: #fff; }
+pre.language-connect .cm, pre.language-sql .cm, pre.language-properties .cm { color: #8A9AA3; }
+pre.language-json, pre.language-http { background: #fff; color: var(--mid); border: .6pt solid var(--line);
+                                        border-left: 3pt solid var(--indigo); }
+pre.language-json::before { content: "JSON"; background: var(--indigo); color: #fff; }
+pre.language-http::before { content: "HTTP"; background: var(--indigo); color: #fff; }
+pre.language-text { background: #fff; color: var(--ink); border: .6pt solid var(--line);
+                    border-left: 3pt solid var(--tan); line-height: 1.22; white-space: pre; overflow: hidden; }
+pre.language-text code { font-size: 7.6pt; line-height: 1.22; }
+pre.language-text::before { content: "DIAGRAM"; background: var(--tan-bg); color: var(--tan-dk); }
+.adm pre.language-output code { font-size: 7.1pt; }   /* wide CLI tables fit inside a solution box */
+p.file { font: 600 8.2pt Consolas, monospace; color: var(--cyan); margin: 4mm 0 -1mm; }
+pre.language-output { background: var(--card); color: var(--mid); border: .6pt solid var(--line);
+                      border-left: 3pt solid var(--faint); }
+pre.language-output::before { content: "OUTPUT"; background: var(--line); color: var(--mute); }
+pre.language-output code { font-size: 7.6pt; }
+.cm { color: #8A8580; font-style: italic; }
+pre.language-powershell .cm { color: #7DA2C3; }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; margin: 2mm 0 3.5mm; font-size: 8.6pt; break-inside: auto; }
+th { background: var(--graphite); color: #fff; text-align: left; font-weight: 600; padding: 1.6mm 2.2mm; }
+td { border-bottom: .6pt solid var(--line); padding: 1.4mm 2.2mm; vertical-align: top; }
+tr:nth-child(even) td { background: #FBFAF8; }
+td code, th code { font-size: 7.9pt; }
+
+/* admonitions */
+.adm { margin: 3mm 0 4mm; border-radius: 3pt; padding: 2.4mm 3.6mm 1.2mm; break-inside: auto; }
+.adm-title { font: 600 7.8pt 'Segoe UI', sans-serif; letter-spacing: .12em; text-transform: uppercase;
+             margin-bottom: 1mm; }
+.adm.note { background: var(--indigo-bg); border-left: 3pt solid var(--indigo); }
+.adm.note .adm-title { color: var(--indigo); }
+.adm.tip { background: var(--cyan-bg); border-left: 3pt solid var(--cyan); }
+.adm.tip .adm-title { color: var(--cyan); }
+.adm.warning { background: var(--gold-bg); border-left: 3pt solid var(--gold); }
+.adm.warning .adm-title { color: var(--gold); }
+.adm.solution { background: #fff; border: .8pt solid #BBF7D0; border-left: 3pt solid var(--green);
+                padding-top: 2.8mm; }
+.adm.solution .adm-title { color: var(--green); }
+.adm.solution .adm-title::before { content: "\2714  "; }
+.adm pre.language-output { background: #fff; }
+.adm.solution pre.language-output { background: var(--card); }
+
+/* "Task" paragraphs */
+p.task { background: var(--tan-bg); border-left: 3pt solid var(--tan); padding: 2mm 3mm; border-radius: 3pt; }
+</style></head><body><section class="cover"><div class="edge"></div><div class="inner">
+<div class="kicker">APACHE KAFKA TRAINING  ·  CONNECT LAB</div>
+<h1>Apache Kafka<br>Connect Lab Guide</h1>
+<div class="sub">Move data between files, PostgreSQL and Kafka with free connectors only - FileStream
+and JDBC - then transform it with SMTs, catch bad records in a dead letter queue, and scale the
+Connect cluster. Every output was captured on the CLI lab's three-broker Kafka 4.3.1 cluster.</div>
+<div class="chips"><span class="chip">FILESTREAM</span><span class="chip">JDBC</span><span class="chip">POSTGRESQL</span><span class="chip">SMT</span><span class="chip">PREDICATES</span><span class="chip">DLQ</span><span class="chip">REST API</span><span class="chip">WORKERS</span></div>
+<div class="toc"><div><b>0</b><span>Overview and Setup</span></div><div><b>1</b><span>The Connect Worker</span></div><div><b>2</b><span>File Source: from a File into a Topic</span></div><div><b>3</b><span>File Sink: from a Topic into a File</span></div><div><b>4</b><span>Single Message Transforms</span></div><div><b>5</b><span>Database to Database with JDBC</span></div><div><b>6</b><span>Running Connect: Errors, Pausing, Scaling, Replaying</span></div><div><b>7</b><span>Cheat Sheet and Troubleshooting</span></div></div></div>
+<div class="cells"><span class="">0</span><span class="">1</span><span class="">2</span><span class="">3</span><span class="">4</span><span class="">5</span><span class="">6</span><span class="">7</span><span class="h1">8</span><span class="h2">9</span><span class="h3">10</span><span class="h4">11</span></div>
+<div class="foot">Kafka Connect 4.3.1 on Docker  ·  October 2026</div></section><section class="chapter"><h1>Lab 0 · Overview and Setup</h1>
+<p><strong>Goal:</strong> see what you will build, start a Kafka Connect worker and a PostgreSQL database next to the CLI lab's cluster, and check that Connect answers.</p>
+<h2>What you will build</h2>
+<p>Kafka Connect moves data between Kafka and other systems using <strong>connectors you configure, not code you write</strong>. In this lab you run Connect from the same <code>apache/kafka:4.3.1</code> image as the brokers and build three pipelines, using only free connectors:</p>
+<pre class="language-text"><code class="language-text">  ┌──────────────── lab\data\in\orders.jsonl ─────────────────┐
+  │                                                           ▼
+  │   FileStreamSource ──▶ topic shop-orders ──▶ FileStreamSink ──▶ lab\data\out\shop-orders.txt
+  │                                │
+  │                                └──▶ FileStreamSink + SMTs ──▶ lab\data\out\shop-orders-clean.txt
+  │                                     (mask card, drop email, rename, tag, filter)   │ bad records
+  │                                                                                    ▼
+  │                                                                         topic shop-orders-dlq
+  │
+  │   PostgreSQL shop.users ──▶ JdbcSource + InsertField ──▶ topic pg-users ──▶ JdbcSink ──▶ analytics.users_replica
+  │                             source_system = users_db
+  │
+  └── every connector runs in the Connect cluster &quot;connect-lab&quot;: worker connect1 (+ connect2 in Lab 6)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Connector</th>
+<th>Ships with</th>
+<th>License</th>
+<th>Used in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileStreamSourceConnector</code></td>
+<td>Apache Kafka (<code>libs/connect-file-4.3.1.jar</code>)</td>
+<td>Apache 2.0</td>
+<td>Labs 2, 4, 6</td>
+</tr>
+<tr>
+<td><code>FileStreamSinkConnector</code></td>
+<td>Apache Kafka</td>
+<td>Apache 2.0</td>
+<td>Labs 3, 4, 6</td>
+</tr>
+<tr>
+<td>26 SMTs and 3 predicates</td>
+<td>Apache Kafka (<code>connect-transforms</code>)</td>
+<td>Apache 2.0</td>
+<td>Labs 4, 5, 6</td>
+</tr>
+<tr>
+<td><code>JdbcSourceConnector</code>, <code>JdbcSinkConnector</code></td>
+<td>Confluent Hub, <code>kafka-connect-jdbc</code> 10.9.9</td>
+<td>Confluent Community License - free to use</td>
+<td>Labs 5, 6</td>
+</tr>
+</tbody>
+</table>
+<div class="adm note"><div class="adm-title">The FileStream connectors are for learning</div><div class="adm-body"><p>The Kafka project calls the FileStream connectors examples. They read and write one local file, they cannot run more than one task usefully, and they do not survive a file being rotated. Use them to learn how Connect works, not to ship logs to production.</p></div></div>
+<h2>What you need</h2>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The <strong>Kafka CLI Lab</strong> cluster, running</td>
+<td>In <code>kafka_cli_lab</code>: <code>docker compose ps</code> shows <code>kafka1</code>, <code>kafka2</code>, <code>kafka3</code> <code>(healthy)</code></td>
+</tr>
+<tr>
+<td>Docker Desktop with about 1.5 GB of free memory</td>
+<td>Connect needs 512 MB per worker, PostgreSQL about 100 MB</td>
+</tr>
+<tr>
+<td>Internet access, once</td>
+<td>Lab 5 downloads the JDBC connector from Confluent Hub (28 MB unpacked)</td>
+</tr>
+<tr>
+<td><code>curl.exe</code></td>
+<td>Ships with Windows 10 and 11</td>
+</tr>
+</tbody>
+</table>
+<p>The lab joins the CLI lab's Docker network, <code>kafka_cli_lab_default</code>. The Connect workers reach the brokers as <code>kafka1:9092</code> and so on, and the brokers see them as ordinary clients.</p>
+<h2>The files</h2>
+<pre class="language-text"><code class="language-text">kafka_connect_lab/
+├── docker-compose.yml               connect1, connect2 (profile &quot;scale&quot;), postgres
+├── get-jdbc-connector.ps1           downloads the JDBC connector into plugins\ (Lab 5)
+├── Kafka_Connect_Lab_Guide.pdf      this book
+├── lab/                             mounted at /lab in the Connect containers
+│   ├── config/connect1.properties   worker settings (connect2.properties: the same, other host name)
+│   ├── connectors/*.json            one file per connector configuration
+│   ├── data/in/orders.jsonl         the file the source connector reads
+│   ├── data/out/                    where the sink connectors write
+│   ├── sql/01_shop.sql              creates and fills shop.users, creates database analytics
+│   └── add-order.sh                 appends an order to orders.jsonl (from inside the container)
+├── plugins/                         mounted at /plugins - extra connectors go here
+├── guide/, build_pdf.py             the chapters of this book and the script that builds it
+└── _capture/out/                    the raw outputs captured for this book
+</code></pre>
+<h2>Exercise 0.1 · Start Connect and PostgreSQL</h2>
+<p class="task"><strong>Task:</strong> with the CLI lab's cluster running, start this lab's containers and wait until <code>connect1</code> is healthy.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">cd D:\trainings\Apache_Kafka_Training\labs\kafka_connect_lab
+docker compose up -d
+docker compose ps
+</code></pre>
+<pre class="language-output"><code class="language-output">NAME       IMAGE                COMMAND                  SERVICE    STATUS                    PORTS
+connect1   apache/kafka:4.3.1   &quot;/opt/kafka/bin/conn…&quot;   connect1   Up 19 seconds (healthy)   0.0.0.0:8083-&gt;8083/tcp
+postgres   postgres:16-alpine   &quot;docker-entrypoint.s…&quot;   postgres   Up 20 seconds             0.0.0.0:15432-&gt;5432/tcp
+</code></pre>
+<p>(Columns trimmed.) The <code>COMMAND</code> shows the trick: the broker image, started with <code>connect-distributed.sh</code> instead of the broker. A Connect worker is a Kafka <strong>client</strong> that ships in the Kafka distribution, the same way the CLI tools do.</p>
+<p>PostgreSQL publishes <strong>15432</strong> on Windows, because 5432 is often taken by a local installation. The lab itself only uses <code>docker exec</code>.</p></div></div>
+<h2>Exercise 0.2 · Hello, Connect</h2>
+<p class="task"><strong>Task:</strong> call the root of the Connect REST API. Which Kafka cluster is the worker connected to?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s localhost:8083/
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;version&quot;:&quot;4.3.1&quot;,&quot;commit&quot;:&quot;26b251a451ce941d&quot;,&quot;kafka_cluster_id&quot;:&quot;mXRdmJ0FRR-s1q-6q0Gqew&quot;}
+</code></pre>
+<p><code>kafka_cluster_id</code> is the <code>CLUSTER_ID</code> from the CLI lab's <code>docker-compose.yml</code>, so the worker is talking to the right cluster. <strong>Everything in Connect is done through this REST API</strong>: creating connectors, checking their status, pausing them. There is no Connect CLI tool.</p></div></div>
+<div class="adm tip"><div class="adm-title">Shells used in this book</div><div class="adm-body"><p><strong>POWERSHELL</strong> blocks run on Windows, in the <code>kafka_connect_lab</code> folder. <strong>KAFKA1 SHELL</strong> blocks run in the broker container (<code>docker exec -it kafka1 bash</code>). <strong>CONNECT1 SHELL</strong> blocks run in the Connect container (<code>docker exec -it connect1 bash</code>). <strong>PSQL</strong> blocks are SQL for <code>docker exec -it postgres psql -U lab -d shop</code>.</p></div></div></section><section class="chapter"><h1>Lab 1 · The Connect Worker</h1>
+<p><strong>Goal:</strong> read the worker's configuration, see which plugins it can load, and find the internal topics and group in which a Connect cluster keeps its state.</p>
+<h2>The worker's configuration</h2>
+<p class="file">connect1.properties</p>
+
+<pre class="language-properties"><code class="language-properties"><span class="cm"># ---------------------------------------------------------------</span>
+<span class="cm">#  connect1.properties - Kafka Connect worker 1 (distributed mode)</span>
+<span class="cm"># ---------------------------------------------------------------</span>
+
+<span class="cm"># the cluster - internal listener names, Connect runs on the Docker network</span>
+bootstrap.servers=kafka1:9092,kafka2:9092,kafka3:9092
+
+<span class="cm"># workers with the same group.id form one Connect cluster</span>
+group.id=connect-lab
+
+<span class="cm"># where the Connect cluster keeps its state - three compacted internal topics</span>
+config.storage.topic=connect-configs
+offset.storage.topic=connect-offsets
+status.storage.topic=connect-status
+config.storage.replication.factor=3
+offset.storage.replication.factor=3
+status.storage.replication.factor=3
+
+<span class="cm"># default converters - a connector can override them</span>
+key.converter=org.apache.kafka.connect.storage.StringConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter.schemas.enable=false
+
+<span class="cm"># save source offsets every 10 s (default 60 s) - quicker to watch in a lab</span>
+offset.flush.interval.ms=10000
+
+<span class="cm"># lab only: when a worker leaves, wait at most 30 s (default 5 min) before its</span>
+<span class="cm"># connectors and tasks are given to the other workers</span>
+scheduled.rebalance.max.delay.ms=30000
+
+<span class="cm"># REST API</span>
+listeners=http://0.0.0.0:8083
+rest.advertised.host.name=connect1
+rest.advertised.port=8083
+
+<span class="cm"># where connector plugins are: the FileStream connectors ship in Kafka's libs,</span>
+<span class="cm"># anything else (the JDBC connector, Lab 5) goes in /plugins</span>
+plugin.path=/opt/kafka/libs/connect-file-4.3.1.jar,/plugins
+</code></pre>
+<p>Four groups of settings matter:</p>
+<ul>
+<li><strong><code>bootstrap.servers</code></strong> - Connect is a Kafka client like any other.</li>
+<li><strong><code>group.id</code></strong> - every worker started with <code>connect-lab</code> joins the <strong>same Connect cluster</strong>. The workers share the connectors among themselves, much as consumers in a group share partitions. Lab 6 starts a second worker.</li>
+<li><strong>The three storage topics</strong> - a Connect cluster keeps no state on disk. Connector configs, source offsets and connector status all live <strong>in Kafka</strong>.</li>
+<li><strong>Converters</strong> - how a connector's data becomes the bytes of a Kafka message, and back. These are defaults: each connector can override them, and most connectors in this lab do.</li>
+</ul>
+<p>Two settings only shorten waits for the lab: <code>offset.flush.interval.ms</code> (Lab 2) and <code>scheduled.rebalance.max.delay.ms</code> (Lab 6).</p>
+<h2>Exercise 1.1 · What can this worker run?</h2>
+<p class="task"><strong>Task:</strong> list the connector plugins the worker found on its <code>plugin.path</code>.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s localhost:8083/connector-plugins
+</code></pre>
+<pre class="language-output"><code class="language-output">[
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;, &quot;type&quot;: &quot;sink&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.mirror.MirrorCheckpointConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.mirror.MirrorHeartbeatConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.mirror.MirrorSourceConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;4.3.1&quot;}
+]
+</code></pre>
+<p>(One plugin per line, for reading.) Five connectors ship with Apache Kafka. The two <strong>FileStream</strong> connectors are the ones used in this lab. The three <strong>Mirror</strong> connectors are MirrorMaker 2, which copies topics between clusters. A worker can only run a connector whose class it can load. In Lab 5 you add the JDBC connector to this list.</p></div></div>
+<h2>Exercise 1.2 · Transforms, predicates and converters</h2>
+<p class="task"><strong>Task:</strong> the same endpoint lists every plugin type when you add <code>?connectorsOnly=false</code>. How many transformations ship with Kafka?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s &quot;localhost:8083/connector-plugins?connectorsOnly=false&quot;
+</code></pre>
+<p>Counted by type, with the transformations and predicates listed:</p>
+<pre class="language-output"><code class="language-output">transformation: 26   header_converter: 10   converter: 9   source: 4   predicate: 3   sink: 1
+
+Cast$Key  Cast$Value  DropHeaders  ExtractField$Key  ExtractField$Value  Filter
+Flatten$Key  Flatten$Value  HeaderFrom$Key  HeaderFrom$Value  HoistField$Key  HoistField$Value
+InsertField$Key  InsertField$Value  InsertHeader  MaskField$Key  MaskField$Value  RegexRouter
+ReplaceField$Key  ReplaceField$Value  SetSchemaMetadata$Key  SetSchemaMetadata$Value
+TimestampConverter$Key  TimestampConverter$Value  TimestampRouter  ValueToKey
+
+predicates: HasHeaderKey  RecordIsTombstone  TopicNameMatches
+</code></pre>
+<p>(Package names <code>org.apache.kafka.connect.transforms[.predicates]</code> dropped.) These are the <strong>Single Message Transforms</strong> from the lesson. Most come in a <code>$Key</code> and a <code>$Value</code> flavour, depending on which part of the record they change. You will use <code>MaskField</code>, <code>ReplaceField</code>, <code>InsertField</code>, <code>Filter</code>, <code>HasHeaderKey</code>, <code>ValueToKey</code> and <code>ExtractField</code>.</p></div></div>
+<h2>Exercise 1.3 · Where Connect keeps its state</h2>
+<p class="task"><strong>Task:</strong> find the worker's internal topics, and describe them. What kind of topics are they?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-topics.sh --bootstrap-server kafka1:9092 --list | grep connect
+kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic connect-offsets | head -1
+kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic connect-configs | head -1
+kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic connect-status | head -1
+</code></pre>
+<pre class="language-output"><code class="language-output">connect-configs
+connect-offsets
+connect-status
+Topic: connect-offsets  TopicId: WPKG-enmQM2ISPVkvQMqyw PartitionCount: 25  ReplicationFactor: 3    Configs: min.insync.replicas=2,cleanup.policy=compact
+Topic: connect-configs  TopicId: y_v_b1SOTwqNAqG_x1XVvg PartitionCount: 1   ReplicationFactor: 3    Configs: min.insync.replicas=2,cleanup.policy=compact
+Topic: connect-status   TopicId: PvKJnb7wSBSuZOR2C6gy1w PartitionCount: 5   ReplicationFactor: 3    Configs: min.insync.replicas=2,cleanup.policy=compact
+</code></pre>
+<p>The worker created all three on its first start. They are <strong>compacted</strong> topics (CLI Lab 4): only the latest value per key matters, which is exactly what you want for "the config of connector X" or "the offset of file Y". <code>connect-configs</code> has a <strong>single partition</strong> on purpose, so that every worker reads the config changes in the same order.</p>
+<p>This is why you can stop every worker, start them again, and find all your connectors running as before.</p></div></div>
+<h2>Exercise 1.4 · The worker group</h2>
+<p class="task"><strong>Task:</strong> list every group in the cluster with <code>kafka-groups.sh</code>. Is <code>connect-lab</code> a consumer group?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-groups.sh --bootstrap-server kafka1:9092 --list
+</code></pre>
+<pre class="language-output"><code class="language-output">GROUP                TYPE                 PROTOCOL
+connect-lab          Classic              connect
+orders-api           Classic              consumer
+</code></pre>
+<p><code>connect-lab</code> uses the group coordinator from the Consumers lesson, but with protocol <strong><code>connect</code></strong> instead of <code>consumer</code>. The workers use it to share connectors and tasks, not partitions. <code>kafka-consumer-groups.sh</code> ignores such groups, which is why <code>kafka-groups.sh</code> exists. (<code>orders-api</code> is from the Spring Boot lab. Your list may have other groups.)</p></div></div></section><section class="chapter"><h1>Lab 2 · File Source: from a File into a Topic</h1>
+<p><strong>Goal:</strong> create your first connector with one REST call. Watch it read a file into a topic and follow new lines as they are added. Then see how it remembers its place, and what a converter does.</p>
+<p>The input is <code>lab\data\in\orders.jsonl</code>: one order per line, as JSON, with personal data such as an email and a card number. In Lab 4 you mask those.</p>
+<pre class="language-output"><code class="language-output">{&quot;order&quot;:3001,&quot;customer&quot;:&quot;alice&quot;,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45,&quot;email&quot;:&quot;alice@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+{&quot;order&quot;:3002,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;monitor&quot;,&quot;amount&quot;:210,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+... six orders, 3001 to 3006
+</code></pre>
+<h2>Exercise 2.1 · Create the connector</h2>
+<p class="task"><strong>Task:</strong> create the connector <code>orders-file-source</code> from <code>lab\connectors\orders-file-source.json</code>.</p>
+<p class="file">orders-file-source.json</p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;connector.class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;,
+  &quot;tasks.max&quot;: &quot;1&quot;,
+  &quot;file&quot;: &quot;/lab/data/in/orders.jsonl&quot;,
+  &quot;topic&quot;: &quot;shop-orders&quot;,
+  &quot;value.converter&quot;: &quot;org.apache.kafka.connect.storage.StringConverter&quot;,
+  &quot;topic.creation.default.partitions&quot;: &quot;3&quot;,
+  &quot;topic.creation.default.replication.factor&quot;: &quot;3&quot;
+}
+</code></pre>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X PUT localhost:8083/connectors/orders-file-source/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-file-source.json&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 201 Created
+Location: http://localhost:8083/connectors/orders-file-source
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;orders-file-source&quot;,&quot;config&quot;:{&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;,&quot;tasks.max&quot;:&quot;1&quot;,&quot;file&quot;:&quot;/lab/data/in/orders.jsonl&quot;,&quot;topic&quot;:&quot;shop-orders&quot;,...},&quot;tasks&quot;:[],&quot;type&quot;:&quot;source&quot;}
+</code></pre>
+<p>That is the whole deployment: <strong>a name and a JSON config, sent with <code>PUT /connectors/&lt;name&gt;/config</code></strong>. <code>201 Created</code> means the connector is new. Send the same request again and you get <code>200 OK</code>, which is why <code>PUT</code> is the verb to use in scripts: it creates or updates, and repeating it does no harm.</p>
+<p>What each line of the config does:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connector.class</code></td>
+<td>The plugin to run - it must be on the worker's <code>plugin.path</code></td>
+</tr>
+<tr>
+<td><code>tasks.max</code></td>
+<td>At most this many tasks. A file can only be read by one</td>
+</tr>
+<tr>
+<td><code>file</code>, <code>topic</code></td>
+<td>The connector's own settings - every connector has different ones</td>
+</tr>
+<tr>
+<td><code>value.converter</code></td>
+<td>Overrides the worker default: write each line as plain text, not as JSON (Exercise 2.5)</td>
+</tr>
+<tr>
+<td><code>topic.creation.default.*</code></td>
+<td>Let Connect <strong>create</strong> <code>shop-orders</code> with 3 partitions and replication factor 3. The cluster has <code>auto.create.topics.enable=false</code></td>
+</tr>
+</tbody>
+</table></div></div>
+<h2>Exercise 2.2 · Is it running?</h2>
+<p class="task"><strong>Task:</strong> check the connector's status, then look at the topic it created and read it.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s localhost:8083/connectors/orders-file-source/status
+</code></pre>
+<pre class="language-output"><code class="language-output">{
+  &quot;name&quot;: &quot;orders-file-source&quot;,
+  &quot;connector&quot;: {&quot;state&quot;: &quot;RUNNING&quot;, &quot;worker_id&quot;: &quot;connect1:8083&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  &quot;tasks&quot;: [
+    {&quot;id&quot;: 0, &quot;state&quot;: &quot;RUNNING&quot;, &quot;worker_id&quot;: &quot;connect1:8083&quot;, &quot;version&quot;: &quot;4.3.1&quot;}
+  ],
+  &quot;type&quot;: &quot;source&quot;
+}
+</code></pre>
+<p>A <strong>connector</strong> plans the work, and its <strong>tasks</strong> do it. Both are running on worker <code>connect1</code>.</p>
+<pre class="language-kafka"><code class="language-kafka">kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic shop-orders | head -1
+kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic shop-orders --from-beginning --max-messages 6 \
+  --formatter-property print.key=true --formatter-property print.partition=true --formatter-property print.offset=true
+</code></pre>
+<pre class="language-output"><code class="language-output">Topic: shop-orders  TopicId: vUUe-VrSQ6SSkMx9EiWGGA PartitionCount: 3   ReplicationFactor: 3    Configs: min.insync.replicas=2
+Partition:2 Offset:0    null    {&quot;order&quot;:3001,&quot;customer&quot;:&quot;alice&quot;,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45,&quot;email&quot;:&quot;alice@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+Partition:2 Offset:1    null    {&quot;order&quot;:3002,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;monitor&quot;,&quot;amount&quot;:210,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+Partition:2 Offset:2    null    {&quot;order&quot;:3003,&quot;customer&quot;:&quot;carol&quot;,&quot;item&quot;:&quot;mouse&quot;,&quot;amount&quot;:18,&quot;email&quot;:&quot;carol@example.com&quot;,&quot;card&quot;:&quot;340000000000009&quot;}
+Partition:2 Offset:3    null    {&quot;order&quot;:3004,&quot;customer&quot;:&quot;alice&quot;,&quot;item&quot;:&quot;headset&quot;,&quot;amount&quot;:60,&quot;email&quot;:&quot;alice@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+Partition:2 Offset:4    null    {&quot;order&quot;:3005,&quot;customer&quot;:&quot;erin&quot;,&quot;item&quot;:&quot;webcam&quot;,&quot;amount&quot;:75,&quot;email&quot;:&quot;erin@example.com&quot;,&quot;card&quot;:&quot;6011000000000004&quot;}
+Partition:2 Offset:5    null    {&quot;order&quot;:3006,&quot;customer&quot;:&quot;frank&quot;,&quot;item&quot;:&quot;dock&quot;,&quot;amount&quot;:140,&quot;email&quot;:&quot;frank@example.com&quot;,&quot;card&quot;:&quot;5105105105105100&quot;}
+Processed a total of 6 messages
+</code></pre>
+<p>One message per line, all with key <strong><code>null</code></strong>: a line of a file has no key. With no key, the producer inside Connect used the <strong>sticky partitioner</strong> (CLI Lab 5), so all six lines went into one batch and one partition, partition 2.</p></div></div>
+<h2>Exercise 2.3 · New lines arrive</h2>
+<p class="task"><strong>Task:</strong> add two orders to the end of <code>orders.jsonl</code>. Try it from PowerShell first.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">Add-Content lab\data\in\orders.jsonl '{&quot;order&quot;:3007,&quot;customer&quot;:&quot;bob&quot;,&quot;item&quot;:&quot;cable&quot;,&quot;amount&quot;:9}'
+</code></pre>
+<pre class="language-output"><code class="language-output">Add-Content : The process cannot access the file 'D:\trainings\Apache_Kafka_Training\labs\kafka_connect_lab\lab\data\in\orders.jsonl'
+because it is being used by another process.
+</code></pre>
+<p>The connector keeps the file <strong>open</strong> so it can follow it, and Docker Desktop then refuses Windows programs write access to it. Write from <strong>inside</strong> the container instead, where the file is an ordinary Linux file:</p>
+<pre class="language-powershell"><code class="language-powershell">docker exec -it connect1 bash
+</code></pre>
+<pre class="language-connect"><code class="language-connect">echo '{&quot;order&quot;:3007,&quot;customer&quot;:&quot;bob&quot;,&quot;item&quot;:&quot;cable&quot;,&quot;amount&quot;:9,&quot;email&quot;:&quot;bob@example.com&quot;,&quot;card&quot;:&quot;4012888888881881&quot;}' &gt;&gt; /lab/data/in/orders.jsonl
+echo '{&quot;order&quot;:3008,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;chair&quot;,&quot;amount&quot;:320,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}' &gt;&gt; /lab/data/in/orders.jsonl
+exit
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic shop-orders --partition 2 --offset 6 --max-messages 2 \
+  --formatter-property print.offset=true
+</code></pre>
+<pre class="language-output"><code class="language-output">Offset:6    {&quot;order&quot;:3007,&quot;customer&quot;:&quot;bob&quot;,&quot;item&quot;:&quot;cable&quot;,&quot;amount&quot;:9,&quot;email&quot;:&quot;bob@example.com&quot;,&quot;card&quot;:&quot;4012888888881881&quot;}
+Offset:7    {&quot;order&quot;:3008,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;chair&quot;,&quot;amount&quot;:320,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+</code></pre>
+<p>Both lines were in Kafka within a second. The source task polls the file for new lines, much as <code>tail -f</code> does.</p></div></div>
+<div class="adm tip"><div class="adm-title">A shortcut for the rest of the lab</div><div class="adm-body"><p><code>lab\add-order.sh</code> appends one order for you, and runs inside the container:</p>
+<pre class="language-powershell"><code class="language-powershell">docker exec connect1 bash /lab/add-order.sh 3009 carol &quot;desk lamp&quot; 35
+</code></pre></div></div>
+<h2>Exercise 2.4 · How does it know where it was?</h2>
+<p class="task"><strong>Task:</strong> ask Connect for the connector's <strong>offsets</strong>, and compare them with the size of the file. Then restart the connector and its task. Are the orders sent again?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s localhost:8083/connectors/orders-file-source/offsets
+(Get-Item lab\data\in\orders.jsonl).Length
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;offsets&quot;:[{&quot;partition&quot;:{&quot;filename&quot;:&quot;/lab/data/in/orders.jsonl&quot;},&quot;offset&quot;:{&quot;position&quot;:918}}]}
+918
+</code></pre>
+<p>A source connector's offset is not a Kafka offset but <strong>a position in the source system</strong>, in whatever form suits that system. For a file, it is the byte position: 918, the file's length, so the connector has read everything. The worker stores it in <strong><code>connect-offsets</code></strong>, every <code>offset.flush.interval.ms</code> (10 s in this lab).</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X POST &quot;localhost:8083/connectors/orders-file-source/restart?includeTasks=true&quot;
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic shop-orders
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 202 Accepted
+shop-orders:0:0
+shop-orders:1:0
+shop-orders:2:8
+</code></pre>
+<p>Still 8 messages. The restarted task read its stored position and carried on from byte 918, without reading the file again. (A crash <strong>between</strong> writing to Kafka and saving the offset can repeat the last few lines. Source connectors are at-least-once unless they support exactly-once.)</p></div></div>
+<h2>Exercise 2.5 · What a converter does</h2>
+<p class="task"><strong>Task:</strong> create a second source connector on the same file, without the <code>value.converter</code> line, so it uses the worker default <code>JsonConverter</code>. Its topic is <code>shop-orders-json</code>. Compare one message with <code>shop-orders</code>, then delete the connector.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><p><code>lab\connectors\orders-file-source-json.json</code> is the same config without the converter line, writing to <code>shop-orders-json</code> (one partition):</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -X PUT localhost:8083/connectors/orders-file-source-json/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-file-source-json.json&quot;
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic shop-orders-json --from-beginning --max-messages 1
+</code></pre>
+<pre class="language-output"><code class="language-output">&quot;{\&quot;order\&quot;:3001,\&quot;customer\&quot;:\&quot;alice\&quot;,\&quot;item\&quot;:\&quot;keyboard\&quot;,\&quot;amount\&quot;:45,\&quot;email\&quot;:\&quot;alice@example.com\&quot;,\&quot;card\&quot;:\&quot;4111111111111111\&quot;}&quot;
+Processed a total of 1 messages
+</code></pre>
+<p>The FileStream source hands each line to Connect as a <strong>string</strong>. The <code>JsonConverter</code> then did its job: it wrote that string as a <strong>JSON string</strong>, with quotes around it and every inner quote escaped. Nothing failed, and the data is still awkward for any consumer to use. <strong>The connector decides what the data is; the converter decides how it becomes bytes.</strong> For text that is already JSON, <code>StringConverter</code> is the right choice.</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X DELETE localhost:8083/connectors/orders-file-source-json
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 204 No Content
+</code></pre>
+<p>Deleting a connector stops it and removes its config. Its topic, <code>shop-orders-json</code>, stays. You can delete it with <code>kafka-topics.sh --delete</code> if you like.</p></div></div></section><section class="chapter"><h1>Lab 3 · File Sink: from a Topic into a File</h1>
+<p><strong>Goal:</strong> add the other half: a sink connector that writes <code>shop-orders</code> to a file. You then have a complete pipeline, file → Kafka → file. You will also see that a sink connector is, underneath, a consumer group.</p>
+<h2>Exercise 3.1 · Create the sink</h2>
+<p class="task"><strong>Task:</strong> create <code>orders-file-sink</code> from <code>lab\connectors\orders-file-sink.json</code>, check its status, and open the file it writes.</p>
+<p class="file">orders-file-sink.json</p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;connector.class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;,
+  &quot;tasks.max&quot;: &quot;1&quot;,
+  &quot;topics&quot;: &quot;shop-orders&quot;,
+  &quot;file&quot;: &quot;/lab/data/out/shop-orders.txt&quot;,
+  &quot;value.converter&quot;: &quot;org.apache.kafka.connect.storage.StringConverter&quot;
+}
+</code></pre>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -X PUT localhost:8083/connectors/orders-file-sink/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-file-sink.json&quot;
+curl.exe -s localhost:8083/connectors/orders-file-sink/status
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;name&quot;:&quot;orders-file-sink&quot;,&quot;config&quot;:{&quot;connector.class&quot;:&quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;,...},&quot;tasks&quot;:[],&quot;type&quot;:&quot;sink&quot;}
+{&quot;name&quot;:&quot;orders-file-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,&quot;worker_id&quot;:&quot;connect1:8083&quot;,&quot;version&quot;:&quot;4.3.1&quot;},&quot;tasks&quot;:[{&quot;id&quot;:0,&quot;state&quot;:&quot;RUNNING&quot;,&quot;worker_id&quot;:&quot;connect1:8083&quot;,&quot;version&quot;:&quot;4.3.1&quot;}],&quot;type&quot;:&quot;sink&quot;}
+</code></pre>
+<pre class="language-powershell"><code class="language-powershell">Get-Content lab\data\out\shop-orders.txt
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;order&quot;:3001,&quot;customer&quot;:&quot;alice&quot;,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45,&quot;email&quot;:&quot;alice@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+{&quot;order&quot;:3002,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;monitor&quot;,&quot;amount&quot;:210,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+{&quot;order&quot;:3003,&quot;customer&quot;:&quot;carol&quot;,&quot;item&quot;:&quot;mouse&quot;,&quot;amount&quot;:18,&quot;email&quot;:&quot;carol@example.com&quot;,&quot;card&quot;:&quot;340000000000009&quot;}
+{&quot;order&quot;:3004,&quot;customer&quot;:&quot;alice&quot;,&quot;item&quot;:&quot;headset&quot;,&quot;amount&quot;:60,&quot;email&quot;:&quot;alice@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+{&quot;order&quot;:3005,&quot;customer&quot;:&quot;erin&quot;,&quot;item&quot;:&quot;webcam&quot;,&quot;amount&quot;:75,&quot;email&quot;:&quot;erin@example.com&quot;,&quot;card&quot;:&quot;6011000000000004&quot;}
+{&quot;order&quot;:3006,&quot;customer&quot;:&quot;frank&quot;,&quot;item&quot;:&quot;dock&quot;,&quot;amount&quot;:140,&quot;email&quot;:&quot;frank@example.com&quot;,&quot;card&quot;:&quot;5105105105105100&quot;}
+{&quot;order&quot;:3007,&quot;customer&quot;:&quot;bob&quot;,&quot;item&quot;:&quot;cable&quot;,&quot;amount&quot;:9,&quot;email&quot;:&quot;bob@example.com&quot;,&quot;card&quot;:&quot;4012888888881881&quot;}
+{&quot;order&quot;:3008,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;chair&quot;,&quot;amount&quot;:320,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+</code></pre>
+<p>A sink uses <code>topics</code>, plural (or <code>topics.regex</code>): <strong>one sink can read many topics</strong>. It read <code>shop-orders</code> from the beginning, so the file holds all eight orders. Windows can <strong>read</strong> the output file while the connector has it open. Only writing to it is blocked.</p></div></div>
+<h2>Exercise 3.2 · A sink is a consumer group</h2>
+<p class="task"><strong>Task:</strong> a sink connector consumes, so it must belong to a consumer group. Find it with <code>kafka-consumer-groups.sh</code>.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group connect-orders-file-sink
+</code></pre>
+<pre class="language-output"><code class="language-output">GROUP                     TOPIC        PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  CONSUMER-ID
+connect-orders-file-sink  shop-orders  0          0               0               0    connector-consumer-orders-file-sink-0-5e7f632d
+connect-orders-file-sink  shop-orders  1          0               0               0    connector-consumer-orders-file-sink-0-5e7f632d
+connect-orders-file-sink  shop-orders  2          8               8               0    connector-consumer-orders-file-sink-0-5e7f632d
+</code></pre>
+<p>(Spacing tightened; <code>HOST</code> and <code>CLIENT-ID</code> columns and the end of each consumer id left out.) Every sink connector gets the group <strong><code>connect-&lt;connector name&gt;</code></strong>, and each task is a member of it. Unlike a source connector's file position, <strong>a sink's offsets are ordinary committed consumer offsets</strong> in <code>__consumer_offsets</code>. Everything from the Consumers lesson applies: lag, <code>--reset-offsets</code> while the connector is stopped, and at-least-once delivery.</p></div></div>
+<h2>Exercise 3.3 · The whole pipeline, live</h2>
+<p class="task"><strong>Task:</strong> add order 3009 with <code>add-order.sh</code> and look at the last lines of the output file.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker exec connect1 bash /lab/add-order.sh 3009 carol &quot;desk lamp&quot; 35
+Get-Content lab\data\out\shop-orders.txt -Tail 2
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;order&quot;:3009,&quot;customer&quot;:&quot;carol&quot;,&quot;item&quot;:&quot;desk lamp&quot;,&quot;amount&quot;:35,&quot;email&quot;:&quot;carol@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+
+{&quot;order&quot;:3008,&quot;customer&quot;:&quot;dave&quot;,&quot;item&quot;:&quot;chair&quot;,&quot;amount&quot;:320,&quot;email&quot;:&quot;dave@example.com&quot;,&quot;card&quot;:&quot;5500005555555559&quot;}
+{&quot;order&quot;:3009,&quot;customer&quot;:&quot;carol&quot;,&quot;item&quot;:&quot;desk lamp&quot;,&quot;amount&quot;:35,&quot;email&quot;:&quot;carol@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+</code></pre>
+<p>One line appended to one file showed up in another file, about a second later. Between them: a source connector producing, a topic replicated three times, and a sink connector consuming. No code was written. Any other consumer can read the same orders from <code>shop-orders</code> at the same time, or a week later.</p></div></div>
+<h2>Exercise 3.4 · All connectors at once</h2>
+<p class="task"><strong>Task:</strong> list every connector with its status in one call.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s &quot;localhost:8083/connectors?expand=status&quot;
+</code></pre>
+<p>One line per connector, shortened from the JSON:</p>
+<pre class="language-output"><code class="language-output">orders-file-sink    sink    RUNNING  task 0 RUNNING on connect1:8083
+orders-file-source  source  RUNNING  task 0 RUNNING on connect1:8083
+</code></pre>
+<p><code>?expand=status</code> (or <code>?expand=info</code> for the configs) turns the list of names from <code>GET /connectors</code> into a full overview. It is the call to use in a monitoring script.</p></div></div></section><section class="chapter"><h1>Lab 4 · Single Message Transforms</h1>
+<p><strong>Goal:</strong> clean the orders on their way out of Kafka with a chain of built-in SMTs: mask the card number, drop the email, rename a field, and tag each message with where it came from. Then drop test messages with a <code>Filter</code> and a predicate. You write no code, only configuration.</p>
+<h2>Exercise 4.1 · A chain of transforms</h2>
+<p class="task"><strong>Task:</strong> create <code>orders-clean-sink</code>. It reads <code>shop-orders</code> again, parses each message as JSON, transforms it, and writes it to <code>lab\data\out\shop-orders-clean.txt</code>. Read the config first: what will a line look like?</p>
+<p class="file">orders-clean-sink.json</p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;connector.class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;,
+  &quot;tasks.max&quot;: &quot;1&quot;,
+  &quot;topics&quot;: &quot;shop-orders&quot;,
+  &quot;file&quot;: &quot;/lab/data/out/shop-orders-clean.txt&quot;,
+  &quot;value.converter&quot;: &quot;org.apache.kafka.connect.json.JsonConverter&quot;,
+  &quot;value.converter.schemas.enable&quot;: &quot;false&quot;,
+
+  &quot;transforms&quot;: &quot;mask,rename,tag&quot;,
+
+  &quot;transforms.mask.type&quot;: &quot;org.apache.kafka.connect.transforms.MaskField$Value&quot;,
+  &quot;transforms.mask.fields&quot;: &quot;card&quot;,
+  &quot;transforms.mask.replacement&quot;: &quot;****&quot;,
+
+  &quot;transforms.rename.type&quot;: &quot;org.apache.kafka.connect.transforms.ReplaceField$Value&quot;,
+  &quot;transforms.rename.exclude&quot;: &quot;email&quot;,
+  &quot;transforms.rename.renames&quot;: &quot;amount:total&quot;,
+
+  &quot;transforms.tag.type&quot;: &quot;org.apache.kafka.connect.transforms.InsertField$Value&quot;,
+  &quot;transforms.tag.static.field&quot;: &quot;source_system&quot;,
+  &quot;transforms.tag.static.value&quot;: &quot;orders_feed&quot;,
+  &quot;transforms.tag.partition.field&quot;: &quot;kafka_partition&quot;,
+  &quot;transforms.tag.offset.field&quot;: &quot;kafka_offset&quot;
+}
+</code></pre>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -o NUL -w &quot;HTTP %{http_code}\n&quot; -X PUT localhost:8083/connectors/orders-clean-sink/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-clean-sink.json&quot;
+Get-Content lab\data\out\shop-orders-clean.txt
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP 201
+{item=keyboard, total=45, kafka_offset=0, kafka_partition=2, source_system=orders_feed, card=****, order=3001, customer=alice}
+{item=monitor, total=210, kafka_offset=1, kafka_partition=2, source_system=orders_feed, card=****, order=3002, customer=dave}
+{item=mouse, total=18, kafka_offset=2, kafka_partition=2, source_system=orders_feed, card=****, order=3003, customer=carol}
+{item=headset, total=60, kafka_offset=3, kafka_partition=2, source_system=orders_feed, card=****, order=3004, customer=alice}
+{item=webcam, total=75, kafka_offset=4, kafka_partition=2, source_system=orders_feed, card=****, order=3005, customer=erin}
+{item=dock, total=140, kafka_offset=5, kafka_partition=2, source_system=orders_feed, card=****, order=3006, customer=frank}
+{item=cable, total=9, kafka_offset=6, kafka_partition=2, source_system=orders_feed, card=****, order=3007, customer=bob}
+{item=chair, total=320, kafka_offset=7, kafka_partition=2, source_system=orders_feed, card=****, order=3008, customer=dave}
+{item=desk lamp, total=35, kafka_offset=0, kafka_partition=0, source_system=orders_feed, card=****, order=3009, customer=carol}
+</code></pre>
+<p>What happened to every record, step by step:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What it did to <code>{"order":3001, ..., "amount":45, "email":"alice@...", "card":"4111..."}</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JsonConverter</code> (<code>schemas.enable=false</code>)</td>
+<td>Parsed the bytes into a map of fields. <strong>SMTs need structure</strong>: they cannot change a field inside a plain string</td>
+</tr>
+<tr>
+<td><code>mask</code> - <code>MaskField$Value</code></td>
+<td><code>card</code> became <code>****</code></td>
+</tr>
+<tr>
+<td><code>rename</code> - <code>ReplaceField$Value</code></td>
+<td><code>email</code> removed, <code>amount</code> renamed to <code>total</code></td>
+</tr>
+<tr>
+<td><code>tag</code> - <code>InsertField$Value</code></td>
+<td>Added <code>source_system=orders_feed</code> (a fixed value), plus <code>kafka_partition</code> and <code>kafka_offset</code> (where the record came from)</td>
+</tr>
+<tr>
+<td><code>FileStreamSink</code></td>
+<td>Wrote the result as text</td>
+</tr>
+</tbody>
+</table>
+<p>The transforms run <strong>in the order listed in <code>transforms</code></strong>, each one on the previous one's output. The <code>{key=value, ...}</code> format is how a Java map prints itself, which is all the FileStream sink knows how to do. A real sink, such as the JDBC sink in Lab 5, writes proper columns.</p>
+<p>Order 3009 is in partition <strong>0</strong>: the source's producer had moved on to a new batch, and so to another partition. <code>shop-orders</code> itself is unchanged. The SMTs only shaped what this one sink wrote. <code>orders-file-sink</code> and any consumer still see the full data, card numbers included.</p></div></div>
+<div class="adm warning"><div class="adm-title">Masking on the way out is too late for real PII</div><div class="adm-body"><p>Here the card numbers are masked only in one output file. They are still stored in the topic, in clear text. To keep personal data out of Kafka completely, mask it in the <strong>source</strong> connector, before it is ever written. Lab 5 puts SMTs on a source.</p></div></div>
+<h2>Exercise 4.2 · Filter out test messages</h2>
+<p class="task"><strong>Task:</strong> a QA tool marks its test orders with a header named <code>test</code>. Change <code>orders-clean-sink</code> so that it drops every message that has this header, and only those. Then send one test order and one real order.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><p><code>Filter</code> drops every record, so on its own it is useless. Combined with a <strong>predicate</strong>, it drops only the records the predicate matches. <code>lab\connectors\orders-clean-sink-filter.json</code> puts it first in the chain:</p>
+<pre class="language-json"><code class="language-json">&quot;transforms&quot;: &quot;dropTests,mask,rename,tag&quot;,
+
+&quot;transforms.dropTests.type&quot;: &quot;org.apache.kafka.connect.transforms.Filter&quot;,
+&quot;transforms.dropTests.predicate&quot;: &quot;isTest&quot;,
+&quot;predicates&quot;: &quot;isTest&quot;,
+&quot;predicates.isTest.type&quot;: &quot;org.apache.kafka.connect.transforms.predicates.HasHeaderKey&quot;,
+&quot;predicates.isTest.name&quot;: &quot;test&quot;,
+</code></pre>
+<p><code>PUT</code> the new config to the <strong>same</strong> connector name. That updates it, and the task restarts with the new chain:</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -o NUL -w &quot;HTTP %{http_code}\n&quot; -X PUT localhost:8083/connectors/orders-clean-sink/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-clean-sink-filter.json&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP 200
+</code></pre>
+<p>Send a test order with a header, then a real one. The console producer reads a header from the start of the line, up to a tab:</p>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic shop-orders --reader-property parse.headers=true
+&gt;test:yes   {&quot;order&quot;:9999,&quot;customer&quot;:&quot;qa-bot&quot;,&quot;item&quot;:&quot;test item&quot;,&quot;amount&quot;:1,&quot;email&quot;:&quot;qa@example.com&quot;,&quot;card&quot;:&quot;0000000000000000&quot;}
+&gt;^C
+</code></pre>
+<pre class="language-powershell"><code class="language-powershell">docker exec connect1 bash /lab/add-order.sh 3010 erin &quot;usb hub&quot; 22
+Get-Content lab\data\out\shop-orders.txt -Tail 2
+Get-Content lab\data\out\shop-orders-clean.txt -Tail 2
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;order&quot;:9999,&quot;customer&quot;:&quot;qa-bot&quot;,&quot;item&quot;:&quot;test item&quot;,&quot;amount&quot;:1,&quot;email&quot;:&quot;qa@example.com&quot;,&quot;card&quot;:&quot;0000000000000000&quot;}
+{&quot;order&quot;:3010,&quot;customer&quot;:&quot;erin&quot;,&quot;item&quot;:&quot;usb hub&quot;,&quot;amount&quot;:22,&quot;email&quot;:&quot;erin@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+
+{item=desk lamp, total=35, kafka_offset=0, kafka_partition=0, source_system=orders_feed, card=****, order=3009, customer=carol}
+{item=usb hub, total=22, kafka_offset=2, kafka_partition=0, source_system=orders_feed, card=****, order=3010, customer=erin}
+</code></pre>
+<p>The plain sink wrote both messages. The clean sink jumped from offset 0 to offset <strong>2</strong>: offset 1, the test order, was dropped. Check with the headers shown:</p>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic shop-orders --partition 0 --offset 0 --max-messages 3 \
+  --formatter-property print.headers=true --formatter-property print.offset=true
+</code></pre>
+<pre class="language-output"><code class="language-output">Offset:0    NO_HEADERS  {&quot;order&quot;:3009,&quot;customer&quot;:&quot;carol&quot;,&quot;item&quot;:&quot;desk lamp&quot;,&quot;amount&quot;:35,...}
+Offset:1    test:yes    {&quot;order&quot;:9999,&quot;customer&quot;:&quot;qa-bot&quot;,&quot;item&quot;:&quot;test item&quot;,&quot;amount&quot;:1,...}
+Offset:2    NO_HEADERS  {&quot;order&quot;:3010,&quot;customer&quot;:&quot;erin&quot;,&quot;item&quot;:&quot;usb hub&quot;,&quot;amount&quot;:22,...}
+</code></pre>
+<p>(Values shortened.) Kafka ships three predicates: <code>HasHeaderKey</code>, <code>TopicNameMatches</code> and <code>RecordIsTombstone</code>. They test the record's envelope, not the contents of its fields. To filter on a field value, such as "orders over 100", you need either an SMT from another project or <strong>stream processing</strong> (Module 10).</p></div></div>
+<h2>Exercise 4.3 · Think about it</h2>
+<ol>
+<li>Why can no SMT turn <code>{"amount":45}</code> and <code>{"amount":60}</code> into a running total for alice? <em>(SMTs see one message at a time and remember nothing. That is the "stateless" rule from the lesson.)</em></li>
+<li>You add <code>ValueToKey</code> with <code>fields=customer</code> to <code>orders-file-source</code>. Why does it fail? <em>(The source produces a plain string. Like every SMT that works on fields, <code>ValueToKey</code> needs structured data, which a JSON-parsing converter on a sink, or a structured source such as JDBC, provides.)</em></li>
+<li><code>ReplaceField</code> used to be configured with <code>blacklist</code> and <code>whitelist</code>. Which settings replaced them? <em>(<code>exclude</code> and <code>include</code>.)</em></li>
+</ol></section><section class="chapter"><h1>Lab 5 · Database to Database with JDBC</h1>
+<p><strong>Goal:</strong> build the lesson's own example. A source connector reads the <code>users</code> table from PostgreSQL and adds <code>source_system = users_db</code> to every message. A sink connector then writes those messages into a table in <strong>another</strong> database. You will see inserts and updates flow through, and the sink create its table by itself.</p>
+<p>The JDBC connector is not part of Apache Kafka. It is Confluent's, free to use under the Confluent Community License, and installed from Confluent Hub. It polls tables with SQL queries, so it needs no special setup in the database. (A CDC connector such as Debezium reads the database's transaction log instead, and so also sees deletes. It is free too, but needs more setup.)</p>
+<h2>Exercise 5.1 · Install a connector plugin</h2>
+<p class="task"><strong>Task:</strong> download the JDBC connector into <code>plugins\</code>, restart the worker, and check that it now lists the JDBC connectors.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">powershell -ExecutionPolicy Bypass -File .\get-jdbc-connector.ps1
+</code></pre>
+<pre class="language-output"><code class="language-output">Downloading https://hub-downloads.confluent.io/api/plugins/confluentinc/kafka-connect-jdbc/versions/10.9.9/confluentinc-kafka-connect-jdbc-10.9.9.zip
+Installed: plugins\confluentinc-kafka-connect-jdbc-10.9.9
+
+Name                             KB
+----                             --
+common-utils-7.0.12.jar          17
+kafka-connect-jdbc-10.9.9.jar   359
+mssql-jdbc-12.8.2.jre8.jar     1178
+ojdbc8-19.7.0.0.jar            4296
+postgresql-42.7.12.jar         1116
+sqlite-jdbc-3.41.2.2.jar      12550
+...                                     (19 jars)
+</code></pre>
+<p>The connector, <code>kafka-connect-jdbc</code>, comes <strong>with the JDBC drivers</strong> it needs: PostgreSQL, SQL Server, Oracle and SQLite. That is a plugin: a folder of jars that the worker loads in its <strong>own class loader</strong>, isolated from other plugins, so two connectors can use different versions of the same library.</p>
+<pre class="language-powershell"><code class="language-powershell">docker compose restart connect1
+curl.exe -s localhost:8083/connector-plugins
+</code></pre>
+<pre class="language-output"><code class="language-output">[
+  {&quot;class&quot;: &quot;io.confluent.connect.jdbc.JdbcSinkConnector&quot;, &quot;type&quot;: &quot;sink&quot;, &quot;version&quot;: &quot;10.9.9&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSinkConnector&quot;, &quot;type&quot;: &quot;sink&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  {&quot;class&quot;: &quot;io.confluent.connect.jdbc.JdbcSourceConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;10.9.9&quot;},
+  {&quot;class&quot;: &quot;org.apache.kafka.connect.file.FileStreamSourceConnector&quot;, &quot;type&quot;: &quot;source&quot;, &quot;version&quot;: &quot;4.3.1&quot;},
+  ... the three Mirror connectors
+]
+</code></pre>
+<p>Workers scan <code>plugin.path</code> <strong>only at startup</strong>, so a new plugin needs a restart. Notice that your three connectors carried on after the restart without you doing anything. Their configs and offsets are in Kafka (Lab 1).</p></div></div>
+<h2>Exercise 5.2 · The source table</h2>
+<p class="task"><strong>Task:</strong> look at the <code>users</code> table in the <code>shop</code> database.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker exec -it postgres psql -U lab -d shop
+</code></pre>
+<pre class="language-sql"><code class="language-sql">SELECT * FROM users;
+</code></pre>
+<pre class="language-output"><code class="language-output"> id | name |      email      | country |       updated_at
+----+------+-----------------+---------+-------------------------
+  1 | ana  | ana@example.com | PT      | 2026-10-01 01:29:51.579
+  2 | raj  | raj@example.com | IN      | 2026-10-01 01:29:51.579
+  3 | li   | li@example.com  | CN      | 2026-10-01 01:29:51.579
+  4 | sam  | sam@example.com | US      | 2026-10-01 01:29:51.579
+(4 rows)
+</code></pre>
+<p><code>lab\sql\01_shop.sql</code> created this table when the container first started. Two columns matter to the connector: <code>id</code> only ever grows, and a trigger sets <strong><code>updated_at</code></strong> on every <code>UPDATE</code>.</p></div></div>
+<h2>Exercise 5.3 · The source connector, with the lesson's SMT</h2>
+<p class="task"><strong>Task:</strong> create <code>users-db-source</code> and read the topic it fills. What is the key of each message? Where did <code>source_system</code> come from?</p>
+<p class="file">users-db-source.json</p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;connector.class&quot;: &quot;io.confluent.connect.jdbc.JdbcSourceConnector&quot;,
+  &quot;tasks.max&quot;: &quot;1&quot;,
+  &quot;connection.url&quot;: &quot;jdbc:postgresql://postgres:5432/shop&quot;,
+  &quot;connection.user&quot;: &quot;lab&quot;,
+  &quot;connection.password&quot;: &quot;lab&quot;,
+  &quot;table.whitelist&quot;: &quot;users&quot;,
+  &quot;mode&quot;: &quot;timestamp+incrementing&quot;,
+  &quot;incrementing.column.name&quot;: &quot;id&quot;,
+  &quot;timestamp.column.name&quot;: &quot;updated_at&quot;,
+  &quot;poll.interval.ms&quot;: &quot;2000&quot;,
+  &quot;topic.prefix&quot;: &quot;pg-&quot;,
+  &quot;topic.creation.default.partitions&quot;: &quot;3&quot;,
+  &quot;topic.creation.default.replication.factor&quot;: &quot;3&quot;,
+
+  &quot;value.converter&quot;: &quot;org.apache.kafka.connect.json.JsonConverter&quot;,
+  &quot;value.converter.schemas.enable&quot;: &quot;true&quot;,
+
+  &quot;transforms&quot;: &quot;addSource,idToKey,keyOnly&quot;,
+
+  &quot;transforms.addSource.type&quot;: &quot;org.apache.kafka.connect.transforms.InsertField$Value&quot;,
+  &quot;transforms.addSource.static.field&quot;: &quot;source_system&quot;,
+  &quot;transforms.addSource.static.value&quot;: &quot;users_db&quot;,
+
+  &quot;transforms.idToKey.type&quot;: &quot;org.apache.kafka.connect.transforms.ValueToKey&quot;,
+  &quot;transforms.idToKey.fields&quot;: &quot;id&quot;,
+
+  &quot;transforms.keyOnly.type&quot;: &quot;org.apache.kafka.connect.transforms.ExtractField$Key&quot;,
+  &quot;transforms.keyOnly.field&quot;: &quot;id&quot;
+}
+</code></pre>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -o NUL -w &quot;HTTP %{http_code}\n&quot; -X PUT localhost:8083/connectors/users-db-source/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/users-db-source.json&quot;
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic pg-users --from-beginning --max-messages 4 \
+  --formatter-property print.key=true --formatter-property print.partition=true
+</code></pre>
+<p>One message in full, formatted:</p>
+<pre class="language-output"><code class="language-output">Partition:2 2   {&quot;schema&quot;: {&quot;type&quot;: &quot;struct&quot;, &quot;name&quot;: &quot;users&quot;, &quot;optional&quot;: false,
+                     &quot;fields&quot;: [{&quot;field&quot;: &quot;id&quot;,            &quot;type&quot;: &quot;int32&quot;,  &quot;optional&quot;: false},
+                                {&quot;field&quot;: &quot;name&quot;,          &quot;type&quot;: &quot;string&quot;, &quot;optional&quot;: false},
+                                {&quot;field&quot;: &quot;email&quot;,         &quot;type&quot;: &quot;string&quot;, &quot;optional&quot;: false},
+                                {&quot;field&quot;: &quot;country&quot;,       &quot;type&quot;: &quot;string&quot;, &quot;optional&quot;: false},
+                                {&quot;field&quot;: &quot;updated_at&quot;,    &quot;type&quot;: &quot;int64&quot;,  &quot;optional&quot;: false,
+                                 &quot;name&quot;: &quot;org.apache.kafka.connect.data.Timestamp&quot;, &quot;version&quot;: 1},
+                                {&quot;field&quot;: &quot;source_system&quot;, &quot;type&quot;: &quot;string&quot;, &quot;optional&quot;: true}]},
+                  &quot;payload&quot;: {&quot;id&quot;: 2, &quot;name&quot;: &quot;raj&quot;, &quot;email&quot;: &quot;raj@example.com&quot;, &quot;country&quot;: &quot;IN&quot;,
+                              &quot;updated_at&quot;: 1790818191579, &quot;source_system&quot;: &quot;users_db&quot;}}
+</code></pre>
+<p>The four messages, payload only:</p>
+<pre class="language-output"><code class="language-output">Partition:2  key=2  {&quot;id&quot;:2,&quot;name&quot;:&quot;raj&quot;,&quot;email&quot;:&quot;raj@example.com&quot;,&quot;country&quot;:&quot;IN&quot;,&quot;updated_at&quot;:1790818191579,&quot;source_system&quot;:&quot;users_db&quot;}
+Partition:2  key=3  {&quot;id&quot;:3,&quot;name&quot;:&quot;li&quot;,&quot;email&quot;:&quot;li@example.com&quot;,&quot;country&quot;:&quot;CN&quot;,&quot;updated_at&quot;:1790818191579,&quot;source_system&quot;:&quot;users_db&quot;}
+Partition:0  key=1  {&quot;id&quot;:1,&quot;name&quot;:&quot;ana&quot;,&quot;email&quot;:&quot;ana@example.com&quot;,&quot;country&quot;:&quot;PT&quot;,&quot;updated_at&quot;:1790818191579,&quot;source_system&quot;:&quot;users_db&quot;}
+Partition:1  key=4  {&quot;id&quot;:4,&quot;name&quot;:&quot;sam&quot;,&quot;email&quot;:&quot;sam@example.com&quot;,&quot;country&quot;:&quot;US&quot;,&quot;updated_at&quot;:1790818191579,&quot;source_system&quot;:&quot;users_db&quot;}
+</code></pre>
+<ul>
+<li><strong>One row, one message</strong>, in topic <code>topic.prefix</code> + table name: <code>pg-users</code>.</li>
+<li><strong><code>source_system: "users_db"</code></strong> is in every message, though the table has no such column. That is <code>InsertField</code>, exactly as in the lesson.</li>
+<li><strong>The key is the row's <code>id</code>.</strong> <code>ValueToKey</code> copied <code>id</code> into the key as a small struct, and <code>ExtractField$Key</code> reduced that struct to the plain value. Now every version of row 3 goes to the same partition, in order.</li>
+<li><strong>The schema travels with every message</strong>, because <code>schemas.enable=true</code>. The JDBC <strong>sink</strong> needs it to know the column types. That costs a lot of bytes per message. With <strong>Schema Registry</strong> (Module 8) and Avro, a message carries a 4-byte schema id instead.</li>
+</ul></div></div>
+<h2>Exercise 5.4 · The sink connector</h2>
+<p class="task"><strong>Task:</strong> create <code>users-db-sink</code>, which writes <code>pg-users</code> into the table <code>users_replica</code> in the <strong><code>analytics</code></strong> database. The table does not exist yet. Look at it afterwards.</p>
+<p class="file">users-db-sink.json</p>
+
+<pre class="language-json"><code class="language-json">{
+  &quot;connector.class&quot;: &quot;io.confluent.connect.jdbc.JdbcSinkConnector&quot;,
+  &quot;tasks.max&quot;: &quot;1&quot;,
+  &quot;topics&quot;: &quot;pg-users&quot;,
+  &quot;connection.url&quot;: &quot;jdbc:postgresql://postgres:5432/analytics&quot;,
+  &quot;connection.user&quot;: &quot;lab&quot;,
+  &quot;connection.password&quot;: &quot;lab&quot;,
+  &quot;table.name.format&quot;: &quot;users_replica&quot;,
+  &quot;auto.create&quot;: &quot;true&quot;,
+  &quot;insert.mode&quot;: &quot;upsert&quot;,
+  &quot;pk.mode&quot;: &quot;record_value&quot;,
+  &quot;pk.fields&quot;: &quot;id&quot;,
+
+  &quot;value.converter&quot;: &quot;org.apache.kafka.connect.json.JsonConverter&quot;,
+  &quot;value.converter.schemas.enable&quot;: &quot;true&quot;
+}
+</code></pre>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -o NUL -w &quot;HTTP %{http_code}\n&quot; -X PUT localhost:8083/connectors/users-db-sink/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/users-db-sink.json&quot;
+docker exec -it postgres psql -U lab -d analytics
+</code></pre>
+<pre class="language-sql"><code class="language-sql">\d users_replica
+SELECT * FROM users_replica ORDER BY id;
+</code></pre>
+<pre class="language-output"><code class="language-output">                         Table &quot;public.users_replica&quot;
+    Column     |            Type             | Collation | Nullable | Default
+---------------+-----------------------------+-----------+----------+---------
+ id            | integer                     |           | not null |
+ name          | text                        |           | not null |
+ email         | text                        |           | not null |
+ country       | text                        |           | not null |
+ updated_at    | timestamp without time zone |           | not null |
+ source_system | text                        |           |          |
+Indexes:
+    &quot;users_replica_pkey&quot; PRIMARY KEY, btree (id)
+
+ id | name |      email      | country |       updated_at        | source_system
+----+------+-----------------+---------+-------------------------+---------------
+  1 | ana  | ana@example.com | PT      | 2026-10-01 01:29:51.579 | users_db
+  2 | raj  | raj@example.com | IN      | 2026-10-01 01:29:51.579 | users_db
+  3 | li   | li@example.com  | CN      | 2026-10-01 01:29:51.579 | users_db
+  4 | sam  | sam@example.com | US      | 2026-10-01 01:29:51.579 | users_db
+(4 rows)
+</code></pre>
+<p><code>auto.create=true</code> built the table <strong>from the schema in the messages</strong>: <code>int32</code> became <code>integer</code>, the <code>Timestamp</code> type became <code>timestamp</code>, and <code>pk.fields=id</code> became the primary key. The new column <code>source_system</code> came along, because to the sink it is just another field.</p></div></div>
+<h2>Exercise 5.5 · Changes flow through</h2>
+<p class="task"><strong>Task:</strong> in <code>shop</code>, add a user and change li's country. What reaches the replica, and how?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-sql"><code class="language-sql">INSERT INTO users (name, email, country) VALUES ('mia', 'mia@example.com', 'DE');
+UPDATE users SET country = 'SG' WHERE name = 'li';
+</code></pre>
+<p>A few seconds later, in <code>analytics</code>:</p>
+<pre class="language-sql"><code class="language-sql">SELECT id, name, country, updated_at, source_system FROM users_replica ORDER BY id;
+</code></pre>
+<pre class="language-output"><code class="language-output"> id | name | country |       updated_at        | source_system
+----+------+---------+-------------------------+---------------
+  1 | ana  | PT      | 2026-10-01 01:29:51.579 | users_db
+  2 | raj  | IN      | 2026-10-01 01:29:51.579 | users_db
+  3 | li   | SG      | 2026-10-01 01:38:43.729 | users_db
+  4 | sam  | US      | 2026-10-01 01:29:51.579 | users_db
+  5 | mia  | DE      | 2026-10-01 01:38:43.725 | users_db
+(5 rows)
+</code></pre>
+<p>The topic shows how: every <code>poll.interval.ms</code> (2 s), the source asks for rows whose <code>updated_at</code> or <code>id</code> is past its last offset.</p>
+<pre class="language-output"><code class="language-output">Partition:2 Offset:1 key=3 {&quot;id&quot;:3,&quot;name&quot;:&quot;li&quot;,&quot;email&quot;:&quot;li@example.com&quot;,&quot;country&quot;:&quot;CN&quot;,...}
+Partition:2 Offset:2 key=3 {&quot;id&quot;:3,&quot;name&quot;:&quot;li&quot;,&quot;email&quot;:&quot;li@example.com&quot;,&quot;country&quot;:&quot;SG&quot;,...}
+Partition:0 Offset:1 key=5 {&quot;id&quot;:5,&quot;name&quot;:&quot;mia&quot;,&quot;email&quot;:&quot;mia@example.com&quot;,&quot;country&quot;:&quot;DE&quot;,...}
+</code></pre>
+<p>The update became a <strong>new message</strong> with the same key, in the same partition, after the old one. The topic keeps li's history. The sink, with <code>insert.mode=upsert</code>, turned it into an <code>UPDATE</code> of row 3.</p>
+<p>The source's offset is again a position in <strong>its</strong> world, not Kafka's:</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s localhost:8083/connectors/users-db-source/offsets
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;offsets&quot;:[{&quot;partition&quot;:{&quot;protocol&quot;:&quot;1&quot;,&quot;table&quot;:&quot;public.users&quot;},&quot;offset&quot;:{&quot;timestamp_nanos&quot;:729000000,&quot;incrementing&quot;:3,&quot;timestamp&quot;:1790818723729}}]}
+</code></pre></div></div>
+<div class="adm warning"><div class="adm-title">What a polling source cannot see</div><div class="adm-body"><p>A <strong>deleted</strong> row produces no message. The query cannot find a row that is no longer there. An <code>UPDATE</code> that does not change <code>updated_at</code> is missed too, which is why this table has a trigger. When you need deletes and every change, use log-based CDC: <strong>Debezium</strong>, which reads PostgreSQL's write-ahead log.</p></div></div></section><section class="chapter"><h1>Lab 6 · Running Connect: Errors, Pausing, Scaling, Replaying</h1>
+<p><strong>Goal:</strong> the jobs you do once connectors are running: handle a poison message with a <strong>dead letter queue</strong>, pause and resume a connector, add a second worker and lose it again, and replay a source from the beginning.</p>
+<h2>Exercise 6.1 · A poison message</h2>
+<p class="task"><strong>Task:</strong> append a line that is not JSON to <code>orders.jsonl</code>. What happens to <code>orders-file-sink</code>, which writes text, and to <code>orders-clean-sink</code>, which parses JSON?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker exec connect1 bash -c &quot;echo this is not json &gt;&gt; /lab/data/in/orders.jsonl&quot;
+curl.exe -s localhost:8083/connectors/orders-file-sink/status
+curl.exe -s localhost:8083/connectors/orders-clean-sink/status
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;name&quot;:&quot;orders-file-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,...},&quot;tasks&quot;:[{&quot;id&quot;:0,&quot;state&quot;:&quot;RUNNING&quot;,...}],&quot;type&quot;:&quot;sink&quot;}
+{&quot;name&quot;:&quot;orders-clean-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,...},&quot;tasks&quot;:[{&quot;id&quot;:0,&quot;state&quot;:&quot;FAILED&quot;,&quot;worker_id&quot;:&quot;connect1:8083&quot;,
+ &quot;trace&quot;:&quot;org.apache.kafka.connect.errors.ConnectException: Tolerance exceeded in error handler
+    at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(...)
+    ...
+ Caused by: org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error:
+    ...
+ Caused by: com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'this': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+    ...&quot;}],&quot;type&quot;:&quot;sink&quot;}
+</code></pre>
+<p>(Stack trace shortened.) The plain sink does not care: it wrote <code>this is not json</code> into its file. The clean sink's <strong>task FAILED</strong>, while its connector still says RUNNING, so always check the tasks. With the default <code>errors.tolerance=none</code>, a record that cannot be converted stops the task. It does not skip the record, because skipping silently would lose data. The bad record stays at its offset. Restarting the task alone would fail on it again.</p></div></div>
+<h2>Exercise 6.2 · A dead letter queue</h2>
+<p class="task"><strong>Task:</strong> let <code>orders-clean-sink</code> skip records it cannot handle, but put them in a topic <code>shop-orders-dlq</code> so nothing is lost. Then look at what landed there.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><p><code>lab\connectors\orders-clean-sink-dlq.json</code> adds five lines to the previous config:</p>
+<pre class="language-json"><code class="language-json">&quot;errors.tolerance&quot;: &quot;all&quot;,
+&quot;errors.deadletterqueue.topic.name&quot;: &quot;shop-orders-dlq&quot;,
+&quot;errors.deadletterqueue.topic.replication.factor&quot;: &quot;3&quot;,
+&quot;errors.deadletterqueue.context.headers.enable&quot;: &quot;true&quot;,
+&quot;errors.log.enable&quot;: &quot;true&quot;,
+</code></pre>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -o NUL -w &quot;HTTP %{http_code}\n&quot; -X PUT localhost:8083/connectors/orders-clean-sink/config -H &quot;Content-Type: application/json&quot; --data &quot;@lab/connectors/orders-clean-sink-dlq.json&quot;
+curl.exe -s localhost:8083/connectors/orders-clean-sink/status
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP 200
+{&quot;name&quot;:&quot;orders-clean-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;RUNNING&quot;,...},&quot;tasks&quot;:[{&quot;id&quot;:0,&quot;state&quot;:&quot;RUNNING&quot;,...}],&quot;type&quot;:&quot;sink&quot;}
+</code></pre>
+<p>The config change restarted the failed task. This time the bad record went to the DLQ, and the task carried on:</p>
+<pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic shop-orders-dlq --from-beginning --max-messages 1 \
+  --formatter-property print.headers=true
+</code></pre>
+<pre class="language-output"><code class="language-output">__connect.errors.topic:shop-orders,__connect.errors.partition:1,__connect.errors.offset:0,
+__connect.errors.connector.name:orders-clean-sink,__connect.errors.task.id:0,
+__connect.errors.stage:VALUE_CONVERTER,__connect.errors.class.name:org.apache.kafka.connect.json.JsonConverter,
+__connect.errors.exception.class.name:org.apache.kafka.connect.errors.DataException,
+__connect.errors.exception.message:Converting byte[] to Kafka Connect data failed due to serialization error: ,
+__connect.errors.exception.stacktrace:...   this is not json
+</code></pre>
+<p>(Headers wrapped and the stack trace cut.) The original message, <code>this is not json</code>, is unchanged. The <strong>headers</strong> record where it came from (<code>shop-orders</code>, partition 1, offset 0), which <strong>stage</strong> failed (<code>VALUE_CONVERTER</code>) and why. Someone can fix it and produce it again, or a small consumer can do that automatically.</p>
+<p>Dead letter queues exist only for <strong>sink</strong> connectors, and they catch failures in converters and transforms. An error thrown by the external system, for example a database constraint violation, is handled by the connector itself.</p></div></div>
+<h2>Exercise 6.3 · Pause and resume</h2>
+<p class="task"><strong>Task:</strong> pause <code>orders-file-sink</code>, add an order, and look at the output file and the sink's lag. Then resume it.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X PUT localhost:8083/connectors/orders-file-sink/pause
+curl.exe -s localhost:8083/connectors/orders-file-sink/status
+docker exec connect1 bash /lab/add-order.sh 3011 frank &quot;laptop stand&quot; 55
+Get-Content lab\data\out\shop-orders.txt -Tail 1
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 202 Accepted
+{&quot;name&quot;:&quot;orders-file-sink&quot;,&quot;connector&quot;:{&quot;state&quot;:&quot;PAUSED&quot;,...},&quot;tasks&quot;:[{&quot;id&quot;:0,&quot;state&quot;:&quot;PAUSED&quot;,...}],&quot;type&quot;:&quot;sink&quot;}
+{&quot;order&quot;:3011,&quot;customer&quot;:&quot;frank&quot;,&quot;item&quot;:&quot;laptop stand&quot;,&quot;amount&quot;:55,&quot;email&quot;:&quot;frank@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+this is not json
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group connect-orders-file-sink
+</code></pre>
+<pre class="language-output"><code class="language-output">GROUP                     TOPIC        PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  CONSUMER-ID
+connect-orders-file-sink  shop-orders  0          3               3               0    connector-consumer-orders-file-sink-0-019f231b
+connect-orders-file-sink  shop-orders  1          1               2               1    connector-consumer-orders-file-sink-0-019f231b
+connect-orders-file-sink  shop-orders  2          8               8               0    connector-consumer-orders-file-sink-0-019f231b
+</code></pre>
+<p>(Columns trimmed as in Lab 3.) The order is in the topic, but not in the file: <strong>lag 1</strong>. A paused task stays in its group, so its partitions are not given to anyone else. It just stops processing.</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X PUT localhost:8083/connectors/orders-file-sink/resume
+Get-Content lab\data\out\shop-orders.txt -Tail 1
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 202 Accepted
+{&quot;order&quot;:3011,&quot;customer&quot;:&quot;frank&quot;,&quot;item&quot;:&quot;laptop stand&quot;,&quot;amount&quot;:55,&quot;email&quot;:&quot;frank@example.com&quot;,&quot;card&quot;:&quot;4111111111111111&quot;}
+</code></pre>
+<p>Pausing is how you hold back a sink while its target system is under maintenance. Nothing is lost: the messages wait in Kafka.</p></div></div>
+<h2>Exercise 6.4 · Scale out: a second worker</h2>
+<p class="task"><strong>Task:</strong> start <code>connect2</code>, with the same <code>group.id</code> and a different host name. Where do the five connectors run now?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker compose --profile scale up -d
+curl.exe -s &quot;localhost:8083/connectors?expand=status&quot;
+</code></pre>
+<p>Shortened to one line per connector:</p>
+<pre class="language-output"><code class="language-output">orders-clean-sink    connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+orders-file-sink     connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-source   connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-sink        connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+users-db-source      connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+</code></pre>
+<p>The new worker joined the Connect cluster <code>connect-lab</code>, and the group <strong>rebalanced</strong>: two connectors and their tasks moved to <code>connect2</code>. You did nothing but start a process. Either worker answers the REST API with the same picture, and a request to one worker for a connector on the other is forwarded. Both workers mount the same <code>plugins\</code> folder, so <code>connect2</code> can run the JDBC sink too. <strong>Every worker needs every plugin.</strong></p></div></div>
+<h2>Exercise 6.5 · Losing a worker</h2>
+<p class="task"><strong>Task:</strong> stop <code>connect2</code> and keep checking the status. How long until its connectors run again?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker compose stop connect2
+curl.exe -s &quot;localhost:8083/connectors?expand=status&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">right after the stop:
+orders-clean-sink    connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+users-db-sink        connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+... the other three on connect1
+
+34 seconds later:
+orders-clean-sink    connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-sink     connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-source   connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-sink        connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-source      connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+</code></pre>
+<p>Two lessons. First, <strong>status can be stale</strong>: a worker that is gone cannot report that its tasks stopped. Second, the surviving worker waited before taking over. Connect's rebalancing assumes a departed worker may be restarting, and gives it <strong><code>scheduled.rebalance.max.delay.ms</code></strong> to come back, so that a rolling restart does not move everything twice. The default is <strong>5 minutes</strong>. This lab sets 30 s, which is why the move took 34 s.</p></div></div>
+<h2>Exercise 6.6 · Replay a source</h2>
+<p class="task"><strong>Task:</strong> make <code>users-db-source</code> read the whole table again. You must <strong>stop</strong> the connector, delete its offsets and resume it. Does the replica get duplicate rows?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -i -X PUT localhost:8083/connectors/users-db-source/stop
+curl.exe -s localhost:8083/connectors/users-db-source/offsets
+curl.exe -s -X DELETE localhost:8083/connectors/users-db-source/offsets
+curl.exe -s localhost:8083/connectors/users-db-source/offsets
+curl.exe -s -i -X PUT localhost:8083/connectors/users-db-source/resume
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 204 No Content
+{&quot;offsets&quot;:[{&quot;partition&quot;:{&quot;protocol&quot;:&quot;1&quot;,&quot;table&quot;:&quot;public.users&quot;},&quot;offset&quot;:{&quot;timestamp_nanos&quot;:729000000,&quot;incrementing&quot;:3,&quot;timestamp&quot;:1790818723729}}]}
+{&quot;message&quot;:&quot;The Connect framework-managed offsets for this connector have been reset successfully. However, if this connector manages offsets externally, they will need to be manually reset in the system that the connector uses.&quot;}
+{&quot;offsets&quot;:[]}
+HTTP/1.1 202 Accepted
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic pg-users
+</code></pre>
+<pre class="language-sql"><code class="language-sql">SELECT count(*) FROM users_replica;
+</code></pre>
+<pre class="language-output"><code class="language-output">pg-users:0:4
+pg-users:1:2
+pg-users:2:5
+count
+-------
+     5
+</code></pre>
+<p><code>STOPPED</code> is stronger than <code>PAUSED</code>: the tasks are shut down completely, which is what Connect requires before it lets you change offsets. With the offsets gone, the source read all 5 rows again: the topic grew from 6 to <strong>11</strong> messages. The replica still has <strong>5 rows</strong>. The sink <strong>upserts</strong> by primary key, so writing the same row twice has the same effect as writing it once. This is the at-least-once world of Kafka: <strong>make the sink idempotent</strong>, and duplicates do no harm.</p></div></div></section><section class="chapter"><h1>Lab 7 · Cheat Sheet and Troubleshooting</h1>
+<h2>The REST API</h2>
+<p>Base URL <code>http://localhost:8083</code>. Every worker answers for the whole Connect cluster.</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /</code></td>
+<td>Worker version and the Kafka cluster id</td>
+</tr>
+<tr>
+<td><code>GET /connector-plugins[?connectorsOnly=false]</code></td>
+<td>Connector plugins the worker can load (plus transforms, predicates, converters)</td>
+</tr>
+<tr>
+<td><code>GET /connectors[?expand=status&amp;expand=info]</code></td>
+<td>All connectors, optionally with status and config</td>
+</tr>
+<tr>
+<td><code>PUT /connectors/{name}/config</code></td>
+<td><strong>Create or update</strong> a connector. Body: the config JSON. <code>201</code> new, <code>200</code> updated</td>
+</tr>
+<tr>
+<td><code>GET /connectors/{name}/status</code></td>
+<td>Connector and task states, worker ids, the stack trace of a failed task</td>
+</tr>
+<tr>
+<td><code>GET /connectors/{name}/config</code></td>
+<td>The current config</td>
+</tr>
+<tr>
+<td><code>PUT /connectors/{name}/pause</code> · <code>/resume</code></td>
+<td>Hold processing. Tasks stay assigned</td>
+</tr>
+<tr>
+<td><code>PUT /connectors/{name}/stop</code></td>
+<td>Shut the tasks down completely: state <code>STOPPED</code></td>
+</tr>
+<tr>
+<td><code>POST /connectors/{name}/restart?includeTasks=true&amp;onlyFailed=true</code></td>
+<td>Restart the connector and (only the failed) tasks</td>
+</tr>
+<tr>
+<td><code>GET /connectors/{name}/offsets</code></td>
+<td>Source: positions in the source system. Sink: consumer offsets</td>
+</tr>
+<tr>
+<td><code>DELETE /connectors/{name}/offsets</code></td>
+<td>Reset offsets. The connector must be <code>STOPPED</code></td>
+</tr>
+<tr>
+<td><code>DELETE /connectors/{name}</code></td>
+<td>Remove the connector. Its topics and committed offsets stay</td>
+</tr>
+</tbody>
+</table>
+<p>With <code>curl.exe</code> in PowerShell: send config bodies from a file with <code>--data "@file.json"</code>, and put URLs that contain <code>?</code> or <code>&amp;</code> in quotes.</p>
+<h2>Connector settings used in this lab</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Where</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>connector.class</code>, <code>tasks.max</code></td>
+<td>all</td>
+<td>The plugin, and the upper limit of parallel tasks</td>
+</tr>
+<tr>
+<td><code>topic</code> / <code>topics</code>, <code>topics.regex</code></td>
+<td>source / sink</td>
+<td>Where to write / what to read</td>
+</tr>
+<tr>
+<td><code>key.converter</code>, <code>value.converter</code>, <code>...converter.schemas.enable</code></td>
+<td>all</td>
+<td>Override the worker's converters</td>
+</tr>
+<tr>
+<td><code>topic.creation.default.partitions</code>, <code>.replication.factor</code></td>
+<td>source</td>
+<td>Let Connect create the topics it writes to</td>
+</tr>
+<tr>
+<td><code>transforms</code>, <code>transforms.&lt;name&gt;.type</code>, <code>transforms.&lt;name&gt;.*</code></td>
+<td>all</td>
+<td>The SMT chain, in order</td>
+</tr>
+<tr>
+<td><code>predicates</code>, <code>predicates.&lt;name&gt;.type</code>, <code>transforms.&lt;t&gt;.predicate</code></td>
+<td>all</td>
+<td>Apply a transform only to matching records</td>
+</tr>
+<tr>
+<td><code>errors.tolerance</code>, <code>errors.deadletterqueue.*</code>, <code>errors.log.enable</code></td>
+<td>sink</td>
+<td>Skip bad records and keep them in a DLQ</td>
+</tr>
+<tr>
+<td><code>mode</code>, <code>incrementing.column.name</code>, <code>timestamp.column.name</code>, <code>topic.prefix</code>, <code>poll.interval.ms</code></td>
+<td>JDBC source</td>
+<td>How changed rows are found</td>
+</tr>
+<tr>
+<td><code>insert.mode</code>, <code>pk.mode</code>, <code>pk.fields</code>, <code>auto.create</code>, <code>table.name.format</code></td>
+<td>JDBC sink</td>
+<td>How rows are written</td>
+</tr>
+</tbody>
+</table>
+<h2>Built-in SMTs at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>SMT</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InsertField</code></td>
+<td>Adds a fixed value, or the topic, partition, offset or timestamp</td>
+</tr>
+<tr>
+<td><code>ReplaceField</code></td>
+<td><code>include</code> / <code>exclude</code> fields, <code>renames=old:new</code></td>
+</tr>
+<tr>
+<td><code>MaskField</code></td>
+<td>Replaces field values with a null-like value or a <code>replacement</code></td>
+</tr>
+<tr>
+<td><code>ValueToKey</code>, <code>ExtractField</code></td>
+<td>Build the key from value fields; pull one field out of a struct</td>
+</tr>
+<tr>
+<td><code>Cast</code>, <code>TimestampConverter</code></td>
+<td>Change a field's type or a timestamp's format</td>
+</tr>
+<tr>
+<td><code>HoistField</code>, <code>Flatten</code></td>
+<td>Wrap a value in a struct; flatten nested structs to <code>a.b</code> names</td>
+</tr>
+<tr>
+<td><code>RegexRouter</code>, <code>TimestampRouter</code></td>
+<td>Change the topic name</td>
+</tr>
+<tr>
+<td><code>Filter</code> + <code>HasHeaderKey</code> / <code>TopicNameMatches</code> / <code>RecordIsTombstone</code></td>
+<td>Drop matching records</td>
+</tr>
+<tr>
+<td><code>InsertHeader</code>, <code>HeaderFrom</code>, <code>DropHeaders</code></td>
+<td>Work with headers</td>
+</tr>
+</tbody>
+</table>
+<h2>Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Add-Content : ... being used by another process</code></td>
+<td>The FileStream source holds the file open, and Docker Desktop then blocks writes from Windows</td>
+<td>Append inside the container: <code>docker exec connect1 bash /lab/add-order.sh ...</code></td>
+</tr>
+<tr>
+<td><code>Failed to find any class that implements Connector ... JdbcSourceConnector</code></td>
+<td>The plugin is not on <code>plugin.path</code>, or the worker started before it was installed</td>
+<td>Check <code>plugins\</code>, then <code>docker compose restart connect1</code> (and <code>connect2</code>)</td>
+</tr>
+<tr>
+<td>Source task FAILED: <code>UNKNOWN_TOPIC_OR_PARTITION</code> / topic not present</td>
+<td>The cluster has <code>auto.create.topics.enable=false</code></td>
+<td>Add <code>topic.creation.default.replication.factor</code> and <code>.partitions</code>, or create the topic first</td>
+</tr>
+<tr>
+<td>Sink task FAILED: <code>JsonParseException</code></td>
+<td>A message is not JSON, but the converter is <code>JsonConverter</code></td>
+<td>Fix the producer, or use <code>errors.tolerance=all</code> with a DLQ (Lab 6)</td>
+</tr>
+<tr>
+<td><code>JsonConverter with schemas.enable requires "schema" and "payload" fields</code></td>
+<td>The sink expects the schema envelope, but the topic has plain JSON</td>
+<td>Make producer and sink agree on <code>schemas.enable</code> - or use Schema Registry</td>
+</tr>
+<tr>
+<td>JDBC sink: <code>Sink connector ... requires records with a non-null Struct value and non-null Struct schema</code></td>
+<td>The data has no schema (plain JSON)</td>
+<td><code>value.converter.schemas.enable=true</code> on both sides, or Avro with Schema Registry</td>
+</tr>
+<tr>
+<td>Messages show up as <code>"{\"order\":...}"</code></td>
+<td>A string was written by <code>JsonConverter</code></td>
+<td>Use <code>StringConverter</code> for text that is already JSON (Lab 2.5)</td>
+</tr>
+<tr>
+<td>Status says RUNNING for a worker that is gone</td>
+<td>A dead worker cannot update its status</td>
+<td>Wait for the rebalance - up to <code>scheduled.rebalance.max.delay.ms</code> (5 min by default)</td>
+</tr>
+<tr>
+<td>A connector's tasks do nothing after a worker restart</td>
+<td>Same delay, while the cluster waits for the worker to return</td>
+<td>Same - or restart the connector</td>
+</tr>
+</tbody>
+</table>
+<h2>Cleaning up</h2>
+<pre class="language-powershell"><code class="language-powershell"><span class="cm"># delete one connector (its topics and data stay)</span>
+curl.exe -s -X DELETE localhost:8083/connectors/orders-clean-sink
+
+<span class="cm"># stop the lab, keep the PostgreSQL data          / and delete it</span>
+docker compose --profile scale down
+docker compose --profile scale down -v
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka"><span class="cm"># the topics this lab created, if you want them gone</span>
+kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic 'shop-orders.*|pg-users'
+<span class="cm"># the Connect cluster's state - only with every worker stopped</span>
+kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic 'connect-(configs|offsets|status)'
+</code></pre>
+<p>Deleting the three <code>connect-*</code> topics resets the Connect cluster completely: every connector config and every source offset is gone.</p></section></body></html>

@@ -1,0 +1,5 @@
+$ kafka-configs.sh --bootstrap-server kafka1:9092 --describe --entity-type topics --entity-name audit-log
+Dynamic configs for topic audit-log are:
+  cleanup.policy=delete sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:cleanup.policy=delete, DEFAULT_CONFIG:log.cleanup.policy=delete}
+  compression.type=zstd sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:compression.type=zstd, DEFAULT_CONFIG:compression.type=producer}
+  retention.ms=604800000 sensitive=false synonyms={DYNAMIC_TOPIC_CONFIG:retention.ms=604800000}

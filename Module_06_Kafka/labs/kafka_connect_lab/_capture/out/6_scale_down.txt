@@ -1,0 +1,14 @@
+$ docker compose stop connect2   (07:11:40)
+ Container connect2 Stopped 
+$ status right away (07:11:43)
+orders-clean-sink    connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+orders-file-sink     connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-source   connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-sink        connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+users-db-source      connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+$ status after 34s (07:12:17)
+orders-clean-sink    connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-sink     connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-source   connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-sink        connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-source      connector@connect1:8083  tasks: 0 RUNNING@connect1:8083

@@ -1,0 +1,3 @@
+$ echo 'payment-1' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic strict-payments --command-property acks=1; echo "exit code: $?"; kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic strict-payments
+exit code: 0
+strict-payments:0:0

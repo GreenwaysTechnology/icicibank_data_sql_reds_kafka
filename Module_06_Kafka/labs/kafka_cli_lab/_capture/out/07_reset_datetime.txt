@@ -1,0 +1,6 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --group orders-app --topic orders --reset-offsets --to-datetime $(date -u -d @$(($(date +%s)-600)) +%Y-%m-%dT%H:%M:%S.000) --dry-run
+
+GROUP           TOPIC           PARTITION  NEW-OFFSET
+orders-app      orders          0          5
+orders-app      orders          1          3
+orders-app      orders          2          3

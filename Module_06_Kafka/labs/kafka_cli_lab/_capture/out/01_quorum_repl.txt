@@ -1,0 +1,5 @@
+$ kafka-metadata-quorum.sh --bootstrap-server kafka1:9092 describe --replication
+NodeId	DirectoryId           	LogEndOffset	Lag	LastFetchTimestamp	LastCaughtUpTimestamp	Status  	
+2     	AAAAAAAAAAAAAAAAAAAAAA	94          	0  	1790509870079     	1790509870079        	Leader  	
+1     	AAAAAAAAAAAAAAAAAAAAAA	94          	0  	1790509869709     	1790509869709        	Follower	
+3     	AAAAAAAAAAAAAAAAAAAAAA	94          	0  	1790509869709     	1790509869709        	Follower	

@@ -1,0 +1,4 @@
+$ kafka-broker-api-versions.sh --bootstrap-server kafka1:9092 | grep -E '^kafka'
+kafka3:9092 (id: 3 rack: null isFenced: false) -> (
+kafka1:9092 (id: 1 rack: null isFenced: false) -> (
+kafka2:9092 (id: 2 rack: null isFenced: false) -> (

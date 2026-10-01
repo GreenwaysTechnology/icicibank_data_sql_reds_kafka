@@ -1,0 +1,7 @@
+$ cat /var/lib/kafka/data/orders-0/partition.metadata; echo; echo ---; cat /var/lib/kafka/data/orders-0/leader-epoch-checkpoint
+version: 0
+topic_id: ywkgJzfISRGP0UN2q1Y88A
+---
+0
+1
+0 0

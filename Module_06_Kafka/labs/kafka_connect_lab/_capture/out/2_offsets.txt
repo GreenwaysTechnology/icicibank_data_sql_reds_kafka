@@ -1,0 +1,1 @@
+﻿{"offsets":[{"partition":{"filename":"/lab/data/in/orders.jsonl"},"offset":{"position":918}}]}

@@ -1,0 +1,4 @@
+$ kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic strict-payments; kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic strict-payments --from-beginning --max-messages 1
+strict-payments:0:1
+payment-1
+Processed a total of 1 messages

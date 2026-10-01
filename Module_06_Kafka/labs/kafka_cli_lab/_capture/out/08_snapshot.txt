@@ -1,0 +1,2 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/segments-demo-0/00000000000000019968.snapshot
+Dumping /var/lib/kafka/data/segments-demo-0/00000000000000019968.snapshot

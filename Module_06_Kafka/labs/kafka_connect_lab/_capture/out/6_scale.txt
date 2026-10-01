@@ -1,0 +1,9 @@
+$ docker compose --profile scale up -d  ->  connect2
+$ curl.exe -s "localhost:8083/connectors?expand=status"
+orders-clean-sink    connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+orders-file-sink     connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+orders-file-source   connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+users-db-sink        connector@connect2:8083  tasks: 0 RUNNING@connect2:8083
+users-db-source      connector@connect1:8083  tasks: 0 RUNNING@connect1:8083
+$ same answer from connect2
+["orders-file-source","orders-clean-sink","users-db-source","users-db-sink","orders-file-sink"]

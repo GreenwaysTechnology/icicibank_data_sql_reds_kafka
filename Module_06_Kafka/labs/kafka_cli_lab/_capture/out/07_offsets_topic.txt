@@ -1,0 +1,20 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic __consumer_offsets | head -4; kafka-topics.sh --bootstrap-server kafka1:9092 --list
+Topic: __consumer_offsets	TopicId: nmQYx_6ZThG2B5qpu-IUSw	PartitionCount: 50	ReplicationFactor: 3	Configs: compression.type=producer,min.insync.replicas=2,cleanup.policy=compact,segment.bytes=104857600
+	Topic: __consumer_offsets	Partition: 0	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 1	Leader: 2	Replicas: 2,3,1	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: __consumer_offsets	Partition: 2	Leader: 3	Replicas: 3,1,2	Isr: 1,2,3	Elr: 	LastKnownElr: 
+__consumer_offsets
+audit-log
+comp-gzip
+comp-lz4
+comp-none
+comp-zstd
+customer-profile
+key-skew
+legacy-events
+orders
+payments
+perf-test
+pinned
+segments-demo
+strict-payments

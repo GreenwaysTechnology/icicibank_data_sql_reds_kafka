@@ -1,0 +1,12 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --from-beginning --max-messages 10 --formatter-property print.partition=true --formatter-property print.key=true
+Partition:0	alice	{"order":2001,"item":"keyboard","amount":45}
+Partition:0	alice	{"order":2004,"item":"headset","amount":60}
+Partition:0	bob	{"order":2007,"item":"cable","amount":9}
+Partition:0	alice	{"order":2010,"item":"laptop stand","amount":55}
+Partition:1	dave	{"order":2002,"item":"monitor","amount":210}
+Partition:1	frank	{"order":2006,"item":"dock","amount":140}
+Partition:1	dave	{"order":2008,"item":"chair","amount":320}
+Partition:2	carol	{"order":2003,"item":"mouse","amount":18}
+Partition:2	erin	{"order":2005,"item":"webcam","amount":75}
+Partition:2	carol	{"order":2009,"item":"desk lamp","amount":35}
+Processed a total of 10 messages

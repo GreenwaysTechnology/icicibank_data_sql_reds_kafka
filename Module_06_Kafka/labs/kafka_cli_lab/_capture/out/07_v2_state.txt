@@ -1,0 +1,4 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-v2 --state
+
+GROUP           COORDINATOR (ID)          ASSIGNMENT-STRATEGY  STATE                #MEMBERS
+orders-v2       kafka3:9092  (3)          uniform              Stable               2

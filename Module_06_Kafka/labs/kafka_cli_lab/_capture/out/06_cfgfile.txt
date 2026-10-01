@@ -1,0 +1,14 @@
+$ grep -v '^#' /lab/config/consumer.properties | grep . ; kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --command-config /lab/config/consumer.properties --max-messages 5 --formatter-property print.key=true
+client.id=lab-consumer
+group.id=orders-reporting
+auto.offset.reset=earliest
+enable.auto.commit=true
+auto.commit.interval.ms=5000
+max.poll.records=100
+isolation.level=read_committed
+alice	{"order":2001,"item":"keyboard","amount":45}
+alice	{"order":2004,"item":"headset","amount":60}
+bob	{"order":2007,"item":"cable","amount":9}
+alice	{"order":2010,"item":"laptop stand","amount":55}
+grace	{"order":2011,"item":"pen","amount":3}
+Processed a total of 5 messages

@@ -1,0 +1,6 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/orders-0/00000000000000000000.log | head -8
+Dumping /var/lib/kafka/data/orders-0/00000000000000000000.log
+Log starting offset: 0
+baseOffset: 0 lastOffset: 3 count: 4 baseSequence: 0 lastSequence: 3 producerId: 0 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 0 CreateTime: 1790510023056 size: 282 magic: 2 compresscodec: none crc: 123657965 isvalid: true
+baseOffset: 4 lastOffset: 4 count: 1 baseSequence: 0 lastSequence: 0 producerId: 1 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 282 CreateTime: 1790510098947 size: 111 magic: 2 compresscodec: none crc: 570975783 isvalid: true
+baseOffset: 5 lastOffset: 5 count: 1 baseSequence: 0 lastSequence: 0 producerId: 7 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 393 CreateTime: 1790510578789 size: 142 magic: 2 compresscodec: none crc: 2384294184 isvalid: true

@@ -1,0 +1,7 @@
+$ ls -l /var/lib/kafka/data/orders-0/
+total 12
+-rw-r--r-- 1 appuser appuser 10485760 Sep 27 11:51 00000000000000000000.index
+-rw-r--r-- 1 appuser appuser      535 Sep 27 12:02 00000000000000000000.log
+-rw-r--r-- 1 appuser appuser 10485756 Sep 27 11:51 00000000000000000000.timeindex
+-rw-r--r-- 1 appuser appuser        8 Sep 27 11:53 leader-epoch-checkpoint
+-rw-r--r-- 1 appuser appuser       43 Sep 27 11:51 partition.metadata

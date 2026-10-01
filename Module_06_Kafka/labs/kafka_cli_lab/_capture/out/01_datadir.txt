@@ -1,0 +1,15 @@
+$ ls -l /var/lib/kafka/data && cat /var/lib/kafka/data/meta.properties
+total 20
+drwxr-xr-x 2 appuser appuser 4096 Sep 27 11:50 __cluster_metadata-0
+-rw-r--r-- 1 appuser appuser  411 Sep 27 11:50 bootstrap.checkpoint
+-rw-r--r-- 1 appuser appuser    0 Sep 27 11:50 cleaner-offset-checkpoint
+-rw-r--r-- 1 appuser appuser    4 Sep 27 11:51 log-start-offset-checkpoint
+-rw-r--r-- 1 appuser appuser  122 Sep 27 11:50 meta.properties
+-rw-r--r-- 1 appuser appuser    4 Sep 27 11:51 recovery-point-offset-checkpoint
+-rw-r--r-- 1 appuser appuser    0 Sep 27 11:50 replication-offset-checkpoint
+#
+#Sun Sep 27 11:50:28 GMT 2026
+cluster.id=mXRdmJ0FRR-s1q-6q0Gqew
+directory.id=W6ZXRWs45VFCVyxnSoUExg
+node.id=1
+version=1

@@ -1,0 +1,12 @@
+$ kafka-configs.sh --bootstrap-server kafka1:9092 --describe --entity-type brokers --entity-name 1 --all | grep -E 'num.partitions|default.replication|log.retention.hours|log.segment.bytes|auto.create|min.insync'
+  auto.create.topics.enable=false sensitive=false synonyms={STATIC_BROKER_CONFIG:auto.create.topics.enable=false, DEFAULT_CONFIG:auto.create.topics.enable=true}
+  default.replication.factor=3 sensitive=false synonyms={STATIC_BROKER_CONFIG:default.replication.factor=3, DEFAULT_CONFIG:default.replication.factor=1}
+  log.retention.hours=168 sensitive=false synonyms={DEFAULT_CONFIG:log.retention.hours=168}
+  log.segment.bytes=1073741824 sensitive=false synonyms={DEFAULT_CONFIG:log.segment.bytes=1073741824}
+  metadata.log.segment.bytes=1073741824 sensitive=false synonyms={DEFAULT_CONFIG:metadata.log.segment.bytes=1073741824}
+  min.insync.replicas=2 sensitive=false synonyms={DYNAMIC_DEFAULT_BROKER_CONFIG:min.insync.replicas=2, STATIC_BROKER_CONFIG:min.insync.replicas=2, DEFAULT_CONFIG:min.insync.replicas=1}
+  num.partitions=3 sensitive=false synonyms={STATIC_BROKER_CONFIG:num.partitions=3, DEFAULT_CONFIG:num.partitions=1}
+  offsets.topic.num.partitions=50 sensitive=false synonyms={DEFAULT_CONFIG:offsets.topic.num.partitions=50}
+  share.coordinator.state.topic.num.partitions=50 sensitive=false synonyms={DEFAULT_CONFIG:share.coordinator.state.topic.num.partitions=50}
+  transaction.state.log.num.partitions=50 sensitive=false synonyms={DEFAULT_CONFIG:transaction.state.log.num.partitions=50}
+  transaction.state.log.segment.bytes=104857600 sensitive=false synonyms={DEFAULT_CONFIG:transaction.state.log.segment.bytes=104857600}

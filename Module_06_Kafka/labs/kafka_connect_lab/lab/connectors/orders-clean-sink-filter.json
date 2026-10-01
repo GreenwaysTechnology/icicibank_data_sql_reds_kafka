@@ -1,0 +1,30 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+  "tasks.max": "1",
+  "topics": "shop-orders",
+  "file": "/lab/data/out/shop-orders-clean.txt",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter.schemas.enable": "false",
+
+  "transforms": "dropTests,mask,rename,tag",
+
+  "transforms.dropTests.type": "org.apache.kafka.connect.transforms.Filter",
+  "transforms.dropTests.predicate": "isTest",
+  "predicates": "isTest",
+  "predicates.isTest.type": "org.apache.kafka.connect.transforms.predicates.HasHeaderKey",
+  "predicates.isTest.name": "test",
+
+  "transforms.mask.type": "org.apache.kafka.connect.transforms.MaskField$Value",
+  "transforms.mask.fields": "card",
+  "transforms.mask.replacement": "****",
+
+  "transforms.rename.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+  "transforms.rename.exclude": "email",
+  "transforms.rename.renames": "amount:total",
+
+  "transforms.tag.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+  "transforms.tag.static.field": "source_system",
+  "transforms.tag.static.value": "orders_feed",
+  "transforms.tag.partition.field": "kafka_partition",
+  "transforms.tag.offset.field": "kafka_offset"
+}

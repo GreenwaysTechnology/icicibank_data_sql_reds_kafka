@@ -1,0 +1,9 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/index-demo-0/00000000000000000000.timeindex | head -8
+Dumping /var/lib/kafka/data/index-demo-0/00000000000000000000.timeindex
+timestamp: 1790511121224 offset: 47
+timestamp: 1790511121229 offset: 87
+timestamp: 1790511121232 offset: 127
+timestamp: 1790511121235 offset: 159
+timestamp: 1790511121238 offset: 191
+timestamp: 1790511121240 offset: 231
+timestamp: 1790511121244 offset: 287

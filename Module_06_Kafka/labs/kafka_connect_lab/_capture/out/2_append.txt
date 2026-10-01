@@ -1,0 +1,9 @@
+﻿Offset:6	{"order":3007,"customer":"bob","item":"cable","amount":9,"email":"bob@example.com","card":"4012888888881881"}
+Offset:7	{"order":3008,"customer":"dave","item":"chair","amount":320,"email":"dave@example.com","card":"5500005555555559"}
+docker : Processed a total of 2 messages
+At line:1 char:730
++ ... nds 3; $o = docker exec kafka1 kafka-console-consumer.sh --bootstrap- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Processed a total of 2 messages:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

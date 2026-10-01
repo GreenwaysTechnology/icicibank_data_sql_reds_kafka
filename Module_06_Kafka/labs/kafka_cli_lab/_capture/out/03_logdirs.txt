@@ -1,0 +1,4 @@
+$ kafka-log-dirs.sh --bootstrap-server kafka1:9092 --describe --topic-list orders --broker-list 1
+Querying brokers for log directories information
+Received log directory information from brokers 1
+{"brokers":[{"broker":1,"logDirs":[{"partitions":[{"partition":"orders-0","size":282,"offsetLag":0,"isFuture":false},{"partition":"orders-1","size":222,"offsetLag":0,"isFuture":false},{"partition":"orders-2","size":224,"offsetLag":0,"isFuture":false}],"error":null,"logDir":"/var/lib/kafka/data"}]}],"version":1}

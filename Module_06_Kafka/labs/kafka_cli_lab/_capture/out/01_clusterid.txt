@@ -1,0 +1,2 @@
+$ kafka-cluster.sh cluster-id --bootstrap-server kafka1:9092
+Cluster ID: mXRdmJ0FRR-s1q-6q0Gqew

@@ -1,0 +1,1 @@
+$ kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic orders --reader-property parse.key=true --reader-property key.separator=: < /lab/data/orders.txt

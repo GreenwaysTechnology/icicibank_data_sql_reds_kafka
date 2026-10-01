@@ -1,0 +1,2 @@
+$ echo 'grace:{"order":2011,"item":"pen","amount":3}' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic orders --reader-property parse.key=true --reader-property key.separator=: --command-property acks=all; echo "exit code: $?"
+exit code: 0

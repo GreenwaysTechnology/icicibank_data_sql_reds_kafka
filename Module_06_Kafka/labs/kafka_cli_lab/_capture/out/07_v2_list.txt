@@ -1,0 +1,7 @@
+$ kafka-groups.sh --bootstrap-server kafka1:9092 --list
+GROUP                  TYPE                   PROTOCOL              
+console-consumer-15844 Classic                consumer               
+orders-v2              Consumer               consumer               
+orders-reporting       Classic                consumer               
+console-consumer-50275 Classic                consumer               
+console-consumer-83412 Classic                consumer               

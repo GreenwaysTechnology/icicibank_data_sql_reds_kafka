@@ -1,0 +1,5 @@
+$ docker exec connect1 bash /lab/add-order.sh 3009 carol "desk lamp" 35
+{"order":3009,"customer":"carol","item":"desk lamp","amount":35,"email":"carol@example.com","card":"4111111111111111"}
+$ Get-Content lab\data\out\shop-orders.txt -Tail 2
+{"order":3008,"customer":"dave","item":"chair","amount":320,"email":"dave@example.com","card":"5500005555555559"}
+{"order":3009,"customer":"carol","item":"desk lamp","amount":35,"email":"carol@example.com","card":"4111111111111111"}

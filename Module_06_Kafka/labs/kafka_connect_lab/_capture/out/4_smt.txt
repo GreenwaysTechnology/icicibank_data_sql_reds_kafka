@@ -1,0 +1,14 @@
+$ PUT orders-clean-sink
+HTTP 201
+$ status
+RUNNING [(0, 'RUNNING')]
+$ Get-Content lab\data\out\shop-orders-clean.txt
+{item=keyboard, total=45, kafka_offset=0, kafka_partition=2, source_system=orders_feed, card=****, order=3001, customer=alice}
+{item=monitor, total=210, kafka_offset=1, kafka_partition=2, source_system=orders_feed, card=****, order=3002, customer=dave}
+{item=mouse, total=18, kafka_offset=2, kafka_partition=2, source_system=orders_feed, card=****, order=3003, customer=carol}
+{item=headset, total=60, kafka_offset=3, kafka_partition=2, source_system=orders_feed, card=****, order=3004, customer=alice}
+{item=webcam, total=75, kafka_offset=4, kafka_partition=2, source_system=orders_feed, card=****, order=3005, customer=erin}
+{item=dock, total=140, kafka_offset=5, kafka_partition=2, source_system=orders_feed, card=****, order=3006, customer=frank}
+{item=cable, total=9, kafka_offset=6, kafka_partition=2, source_system=orders_feed, card=****, order=3007, customer=bob}
+{item=chair, total=320, kafka_offset=7, kafka_partition=2, source_system=orders_feed, card=****, order=3008, customer=dave}
+{item=desk lamp, total=35, kafka_offset=0, kafka_partition=0, source_system=orders_feed, card=****, order=3009, customer=carol}

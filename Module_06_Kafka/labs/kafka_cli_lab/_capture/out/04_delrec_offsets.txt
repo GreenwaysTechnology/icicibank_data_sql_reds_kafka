@@ -1,0 +1,5 @@
+$ kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic segments-demo --time -2; ls -l /var/lib/kafka/data/segments-demo-0/ | grep -E "\.log"
+segments-demo:0:12000
+-rw-r--r-- 1 appuser appuser  1048128 Sep 27 11:58 00000000000000009984.log
+-rw-r--r-- 1 appuser appuser  1048128 Sep 27 11:58 00000000000000014976.log
+-rw-r--r-- 1 appuser appuser     6749 Sep 27 11:58 00000000000000019968.log

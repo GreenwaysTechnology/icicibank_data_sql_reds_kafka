@@ -1,0 +1,12 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/orders-0/00000000000000000000.log --print-data-log | head -12
+Dumping /var/lib/kafka/data/orders-0/00000000000000000000.log
+Log starting offset: 0
+baseOffset: 0 lastOffset: 3 count: 4 baseSequence: 0 lastSequence: 3 producerId: 0 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 0 CreateTime: 1790510023056 size: 282 magic: 2 compresscodec: none crc: 123657965 isvalid: true
+| offset: 0 CreateTime: 1790510023037 keySize: 5 valueSize: 44 sequence: 0 headerKeys: [] key: alice payload: {"order":2001,"item":"keyboard","amount":45}
+| offset: 1 CreateTime: 1790510023055 keySize: 5 valueSize: 43 sequence: 1 headerKeys: [] key: alice payload: {"order":2004,"item":"headset","amount":60}
+| offset: 2 CreateTime: 1790510023056 keySize: 3 valueSize: 40 sequence: 2 headerKeys: [] key: bob payload: {"order":2007,"item":"cable","amount":9}
+| offset: 3 CreateTime: 1790510023056 keySize: 5 valueSize: 48 sequence: 3 headerKeys: [] key: alice payload: {"order":2010,"item":"laptop stand","amount":55}
+baseOffset: 4 lastOffset: 4 count: 1 baseSequence: 0 lastSequence: 0 producerId: 1 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 282 CreateTime: 1790510098947 size: 111 magic: 2 compresscodec: none crc: 570975783 isvalid: true
+| offset: 4 CreateTime: 1790510098947 keySize: 5 valueSize: 38 sequence: 0 headerKeys: [] key: grace payload: {"order":2011,"item":"pen","amount":3}
+baseOffset: 5 lastOffset: 5 count: 1 baseSequence: 0 lastSequence: 0 producerId: 7 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 393 CreateTime: 1790510578789 size: 142 magic: 2 compresscodec: none crc: 2384294184 isvalid: true
+| offset: 5 CreateTime: 1790510578789 keySize: 5 valueSize: 44 sequence: 0 headerKeys: [source,trace] key: grace payload: {"order":2012,"item":"notebook","amount":12}

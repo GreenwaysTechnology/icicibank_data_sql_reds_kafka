@@ -1,0 +1,8 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-reporting
+
+Consumer group 'orders-reporting' has no active members.
+
+GROUP            TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+orders-reporting orders          0          5               6               1               -               -               -
+orders-reporting orders          1          0               3               3               -               -               -
+orders-reporting orders          2          0               3               3               -               -               -

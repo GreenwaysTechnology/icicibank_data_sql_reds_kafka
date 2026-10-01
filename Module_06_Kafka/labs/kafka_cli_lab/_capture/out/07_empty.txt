@@ -1,0 +1,6 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-app --state
+
+Consumer group 'orders-app' has no active members.
+
+GROUP           COORDINATOR (ID)          ASSIGNMENT-STRATEGY  STATE                #MEMBERS
+orders-app      kafka1:9092  (1)          -                    Empty                0

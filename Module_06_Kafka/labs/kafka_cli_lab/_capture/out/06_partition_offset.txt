@@ -1,0 +1,4 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --partition 1 --offset 1 --max-messages 2 --formatter-property print.offset=true --formatter-property print.key=true
+Offset:1	frank	{"order":2006,"item":"dock","amount":140}
+Offset:2	dave	{"order":2008,"item":"chair","amount":320}
+Processed a total of 2 messages

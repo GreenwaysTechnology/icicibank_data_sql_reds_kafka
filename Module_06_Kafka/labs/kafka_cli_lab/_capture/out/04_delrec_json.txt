@@ -1,0 +1,5 @@
+$ echo '{"partitions":[{"topic":"segments-demo","partition":0,"offset":12000}],"version":1}' > /tmp/delete.json && cat /tmp/delete.json && kafka-delete-records.sh --bootstrap-server kafka1:9092 --offset-json-file /tmp/delete.json
+{"partitions":[{"topic":"segments-demo","partition":0,"offset":12000}],"version":1}
+Executing records delete operation
+Records delete operation completed:
+partition: segments-demo-0	low_watermark: 12000

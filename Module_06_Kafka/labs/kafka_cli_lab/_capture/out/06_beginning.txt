@@ -1,0 +1,5 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --from-beginning --max-messages 3
+{"order":2001,"item":"keyboard","amount":45}
+{"order":2004,"item":"headset","amount":60}
+{"order":2007,"item":"cable","amount":9}
+Processed a total of 3 messages

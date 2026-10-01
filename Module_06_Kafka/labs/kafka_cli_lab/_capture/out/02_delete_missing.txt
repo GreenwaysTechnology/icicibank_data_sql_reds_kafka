@@ -1,0 +1,9 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic no-such-topic
+Error while executing topic command : Topic 'no-such-topic' does not exist as expected
+[2026-09-27 11:53:24,710] ERROR java.lang.IllegalArgumentException: Topic 'no-such-topic' does not exist as expected
+	at org.apache.kafka.tools.TopicCommand.ensureTopicExists(TopicCommand.java:207)
+	at org.apache.kafka.tools.TopicCommand$TopicService.deleteTopic(TopicCommand.java:626)
+	at org.apache.kafka.tools.TopicCommand.execute(TopicCommand.java:113)
+	at org.apache.kafka.tools.TopicCommand.mainNoExit(TopicCommand.java:90)
+	at org.apache.kafka.tools.TopicCommand.main(TopicCommand.java:85)
+ (org.apache.kafka.tools.TopicCommand)

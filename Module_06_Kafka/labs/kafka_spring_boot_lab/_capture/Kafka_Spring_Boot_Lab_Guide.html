@@ -1,0 +1,1435 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Apache Kafka Spring Boot Lab Guide</title><style>
+@page {
+  size: A4;
+  margin: 17mm 15mm 17mm 15mm;
+  @top-left { content: "APACHE KAFKA  ·  SPRING BOOT LAB GUIDE"; font: 600 7.5pt 'Segoe UI', sans-serif;
+              letter-spacing: .12em; color: #A8A29E; }
+  @top-right { content: "Spring Boot 4.1 · Kafka 4.3.1"; font: 7.5pt 'Segoe UI', sans-serif; color: #A8A29E; }
+  @bottom-right { content: counter(page); font: 8pt 'Bahnschrift SemiBold', 'Segoe UI', sans-serif;
+                  color: #EA580C; }
+  @bottom-left { content: "Outputs captured from orders-api on a 3-broker Apache Kafka 4.3.1 cluster";
+                 font: 7.5pt 'Segoe UI', sans-serif; color: #A8A29E; }
+}
+@page cover { margin: 0; @top-left { content: none; } @top-right { content: none; }
+              @bottom-right { content: none; } @bottom-left { content: none; } }
+:root { --ink:#1C1917; --mid:#44403C; --mute:#78716C; --faint:#A8A29E; --line:#E7E5E0; --card:#F7F6F3;
+        --tan:#EA580C; --tan-dk:#C2410C; --tan-bg:#FFEDD5; --cyan:#0E7490; --cyan-bg:#D9F2F7;
+        --gold:#A16207; --gold-bg:#FEF9C3; --indigo:#4F46E5; --indigo-bg:#E0E7FF; --graphite:#18181B;
+        --green:#15803D; --green-bg:#DCFCE7; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.6pt; line-height: 1.5; color: var(--ink);
+       margin: 0; }
+
+/* cover */
+.cover { page: cover; height: 297mm; background: var(--graphite); color: #fff; position: relative;
+         overflow: hidden; break-after: page; }
+.cover .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 9mm; background: var(--tan); }
+.cover .inner { position: absolute; left: 26mm; right: 20mm; top: 48mm; }
+.cover .kicker { font: 600 10pt 'Segoe UI'; letter-spacing: .32em; color: #FB923C; }
+.cover h1 { font: 38pt/1.1 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; margin: 10mm 0 5mm; color: #fff;
+            border: 0; }
+.cover .sub { font-size: 14pt; color: #D6D3D1; max-width: 140mm; }
+.cover .chips { margin-top: 12mm; }
+.cover .chip { display: inline-block; border: 1.2pt solid #C2410C; color: #FDBA74; border-radius: 12pt;
+               padding: 2.5pt 11pt; margin: 0 5pt 6pt 0; font: 600 9pt Consolas, monospace; }
+.cover .toc { margin-top: 16mm; column-count: 2; column-gap: 12mm; }
+.cover .toc div { font-size: 9.6pt; color: #E7E5E4; padding: 2mm 0; border-bottom: .6pt solid #3F3F46;
+                  break-inside: avoid; display: flex; }
+.cover .toc b { color: #FB923C; font-family: 'Bahnschrift SemiBold'; font-weight: normal;
+                flex: 0 0 9mm; }
+.cover .cells { position: absolute; left: 26mm; bottom: 26mm; }
+.cover .cells span { display: inline-block; width: 9mm; height: 6mm; margin-right: 1.6mm; border-radius: 1mm;
+                     background: #27272A; color: #78716C; font: 7pt Consolas; text-align: center;
+                     line-height: 6mm; }
+.cover .cells span.h1 { background: #7C2D12; color: #fff; } .cover .cells span.h2 { background: #C2410C; color:#fff; }
+.cover .cells span.h3 { background: #EA580C; color: #fff; } .cover .cells span.h4 { background: #FB923C; color:#fff; }
+.cover .foot { position: absolute; left: 26mm; bottom: 14mm; font-size: 9pt; color: #A8A29E; }
+
+/* chapters */
+.chapter { break-before: page; }
+.chapter:first-of-type { break-before: auto; }
+h1 { font: 22pt/1.15 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--graphite); margin: 0 0 4mm;
+     padding: 0 0 3mm; border-bottom: 2.4pt solid var(--tan); }
+h2 { font: 13.5pt/1.25 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--graphite);
+     margin: 7mm 0 2.5mm; padding-left: 3mm; border-left: 3.2pt solid var(--tan); break-after: avoid; }
+h3 { font: 11pt 'Bahnschrift SemiBold', 'Segoe UI', sans-serif; color: var(--tan-dk); margin: 5mm 0 2mm;
+     break-after: avoid; }
+p { margin: 1.6mm 0 2.2mm; }
+ul, ol { margin: 1.5mm 0 2.5mm; padding-left: 6mm; }
+li { margin: .8mm 0; }
+strong { color: var(--graphite); }
+a { color: var(--cyan); text-decoration: none; }
+code { font-family: Consolas, monospace; font-size: 8.6pt; background: var(--card); border: .5pt solid var(--line);
+       border-radius: 2pt; padding: 0 2pt; color: var(--tan-dk); }
+
+/* code blocks */
+pre { margin: 2mm 0 3mm; border-radius: 3pt; padding: 4.4mm 3.5mm 2.6mm; position: relative; line-height: 1.32;
+      white-space: pre-wrap; overflow-wrap: anywhere; break-inside: auto; }
+pre code { display: block; background: none; border: 0; padding: 0; color: inherit; font-size: 8.1pt;
+            line-height: 1.32; }
+pre::before { position: absolute; top: 0; right: 0; font: 600 6.5pt 'Segoe UI', sans-serif;
+              letter-spacing: .1em; padding: 1pt 6pt; border-radius: 0 3pt 0 3pt; }
+pre.language-kafka { background: var(--graphite); color: #E7E5E4; border-left: 3pt solid var(--tan); }
+pre.language-kafka::before { content: "KAFKA1 SHELL"; background: var(--tan); color: #fff; }
+pre.language-powershell { background: #0F2537; color: #E2E8F0; border-left: 3pt solid #38BDF8; }
+pre.language-powershell::before { content: "POWERSHELL"; background: #0369A1; color: #fff; }
+pre.language-java, pre.language-yaml, pre.language-xml { background: #1C1B22; color: #E7E5E4;
+                                                         border-left: 3pt solid #22D3EE; }
+pre.language-java::before { content: "JAVA"; background: var(--cyan); color: #fff; }
+pre.language-yaml::before { content: "YAML"; background: var(--cyan); color: #fff; }
+pre.language-xml::before { content: "XML"; background: var(--cyan); color: #fff; }
+pre.language-java .cm, pre.language-yaml .cm, pre.language-xml .cm { color: #8A9AA3; }
+pre.language-json, pre.language-http { background: #fff; color: var(--mid); border: .6pt solid var(--line);
+                                        border-left: 3pt solid var(--indigo); }
+pre.language-json::before { content: "JSON"; background: var(--indigo); color: #fff; }
+pre.language-http::before { content: "HTTP"; background: var(--indigo); color: #fff; }
+pre.language-text { background: #fff; color: var(--ink); border: .6pt solid var(--line);
+                    border-left: 3pt solid var(--tan); line-height: 1.22; white-space: pre; overflow: hidden; }
+pre.language-text code { font-size: 7.6pt; line-height: 1.22; }
+pre.language-text::before { content: "DIAGRAM"; background: var(--tan-bg); color: var(--tan-dk); }
+.adm pre.language-output code { font-size: 7.1pt; }   /* wide CLI tables fit inside a solution box */
+p.file { font: 600 8.2pt Consolas, monospace; color: var(--cyan); margin: 4mm 0 -1mm; }
+pre.language-output { background: var(--card); color: var(--mid); border: .6pt solid var(--line);
+                      border-left: 3pt solid var(--faint); }
+pre.language-output::before { content: "OUTPUT"; background: var(--line); color: var(--mute); }
+pre.language-output code { font-size: 7.6pt; }
+.cm { color: #8A8580; font-style: italic; }
+pre.language-powershell .cm { color: #7DA2C3; }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; margin: 2mm 0 3.5mm; font-size: 8.6pt; break-inside: auto; }
+th { background: var(--graphite); color: #fff; text-align: left; font-weight: 600; padding: 1.6mm 2.2mm; }
+td { border-bottom: .6pt solid var(--line); padding: 1.4mm 2.2mm; vertical-align: top; }
+tr:nth-child(even) td { background: #FBFAF8; }
+td code, th code { font-size: 7.9pt; }
+
+/* admonitions */
+.adm { margin: 3mm 0 4mm; border-radius: 3pt; padding: 2.4mm 3.6mm 1.2mm; break-inside: auto; }
+.adm-title { font: 600 7.8pt 'Segoe UI', sans-serif; letter-spacing: .12em; text-transform: uppercase;
+             margin-bottom: 1mm; }
+.adm.note { background: var(--indigo-bg); border-left: 3pt solid var(--indigo); }
+.adm.note .adm-title { color: var(--indigo); }
+.adm.tip { background: var(--cyan-bg); border-left: 3pt solid var(--cyan); }
+.adm.tip .adm-title { color: var(--cyan); }
+.adm.warning { background: var(--gold-bg); border-left: 3pt solid var(--gold); }
+.adm.warning .adm-title { color: var(--gold); }
+.adm.solution { background: #fff; border: .8pt solid #BBF7D0; border-left: 3pt solid var(--green);
+                padding-top: 2.8mm; }
+.adm.solution .adm-title { color: var(--green); }
+.adm.solution .adm-title::before { content: "\2714  "; }
+.adm pre.language-output { background: #fff; }
+.adm.solution pre.language-output { background: var(--card); }
+
+/* "Task" paragraphs */
+p.task { background: var(--tan-bg); border-left: 3pt solid var(--tan); padding: 2mm 3mm; border-radius: 3pt; }
+</style></head><body><section class="cover"><div class="edge"></div><div class="inner">
+<div class="kicker">APACHE KAFKA TRAINING  ·  HANDS-ON LABS</div>
+<h1>Apache Kafka<br>Spring Boot Lab Guide</h1>
+<div class="sub">Build a Spring Boot REST API that sends and reads the CLI lab's orders, then watch
+partitions, offsets, consumer groups and broker failures from Java. Every output was captured from
+the app running against the lab's three-broker Kafka 4.3.1 cluster.</div>
+<div class="chips"><span class="chip">SPRING BOOT 4</span><span class="chip">KAFKATEMPLATE</span><span class="chip">@KAFKALISTENER</span><span class="chip">REST API</span><span class="chip">OFFSETS</span><span class="chip">CONSUMER GROUPS</span><span class="chip">ADMIN API</span></div>
+<div class="toc"><div><b>0</b><span>Overview and Setup</span></div><div><b>1</b><span>Build and Run the App</span></div><div><b>2</b><span>The Code, File by File</span></div><div><b>3</b><span>Send Messages over REST</span></div><div><b>4</b><span>Get Messages over REST</span></div><div><b>5</b><span>Failures and Scaling</span></div><div><b>6</b><span>API Reference and Troubleshooting</span></div></div></div>
+<div class="cells"><span class="">0</span><span class="">1</span><span class="">2</span><span class="">3</span><span class="">4</span><span class="">5</span><span class="">6</span><span class="">7</span><span class="h1">8</span><span class="h2">9</span><span class="h3">10</span><span class="h4">11</span></div>
+<div class="foot">Spring Boot 4.1  ·  Kafka 4.3.1 on Docker  ·  October 2026</div></section><section class="chapter"><h1>Lab 0 · Overview and Setup</h1>
+<p><strong>Goal:</strong> see what the app does, check that you have everything it needs, and find your way around the project.</p>
+<h2>What you will build</h2>
+<p><code>orders-api</code> is a small Spring Boot 4 application that connects to the three-broker cluster from the <strong>Kafka CLI Lab</strong>. It uses the same <code>orders</code> topic you created in Lab 2 and filled in Lab 5. The key of each message is the customer, and the value is the order as JSON:</p>
+<pre class="language-output"><code class="language-output">alice:{&quot;order&quot;:2001,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45}
+</code></pre>
+<p>The app does with Java code what you did with the command-line tools. It sends orders through a REST endpoint and receives them with a consumer group. It can read the topic from any offset and describe the topic's partitions.</p>
+<pre class="language-text"><code class="language-text">              PowerShell · curl.exe · browser · VS Code REST Client
+                                      │  HTTP  localhost:8090
+                                      ▼
+┌─────────────────────────── orders-api  (Spring Boot 4.1) ───────────────────────────┐
+│ OrderController                                                                     │
+│  POST /api/orders     GET /api/orders     GET /api/orders/received   GET .../topic  │
+│        │                    │                       │                     │         │
+│  OrderProducer        OrderReader           OrderListener          TopicInspector   │
+│  KafkaTemplate        assign() + seek()     @KafkaListener         Admin API        │
+│  key = customer       no group, no commit   group &quot;orders-api&quot;     leaders, offsets │
+└──────────────────────────────────────┬──────────────────────────────────────────────┘
+                                       │  localhost:19092 · 29092 · 39092  (EXTERNAL)
+                                       ▼
+          kafka1 ── kafka2 ── kafka3         topic orders: 3 partitions × 3 replicas
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>What it does</th>
+<th>Kafka API underneath</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/orders</code></td>
+<td>Sends one order. Returns the partition and offset it was stored at</td>
+<td><code>KafkaTemplate.send()</code> - a producer</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/orders/received</code></td>
+<td>The last 50 messages the listener received, newest first</td>
+<td><code>@KafkaListener</code> - consumer group <code>orders-api</code></td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/orders</code></td>
+<td>Reads the topic from any offset, optionally one partition or one customer</td>
+<td>a consumer with <code>assign()</code> and <code>seek()</code></td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/orders/topic</code></td>
+<td>Leader, replicas, ISR, first and next offset of every partition</td>
+<td><code>Admin.describeTopics()</code>, <code>listOffsets()</code></td>
+</tr>
+</tbody>
+</table>
+<h2>What you need</h2>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Why</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The CLI lab cluster, running</td>
+<td>The app connects to it</td>
+<td><code>docker compose ps</code> in <code>kafka_cli_lab</code> shows three brokers <code>(healthy)</code></td>
+</tr>
+<tr>
+<td>JDK 21 or newer</td>
+<td>Spring Boot 4 needs Java 17+. The project targets 21</td>
+<td><code>java -version</code></td>
+</tr>
+<tr>
+<td>Internet access for the first build</td>
+<td>The Maven wrapper downloads Maven 3.9.16 and the libraries</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>curl.exe</code></td>
+<td>Ships with Windows 10 and 11</td>
+<td><code>curl.exe --version</code></td>
+</tr>
+</tbody>
+</table>
+<p>You do <strong>not</strong> need to install Maven: <code>mvnw.cmd</code> downloads the right version the first time it runs. An IDE is optional. IntelliJ IDEA, or VS Code with the <em>Extension Pack for Java</em>, opens the <code>orders-api</code> folder as a Maven project.</p>
+<div class="adm tip"><div class="adm-title">Two shells in this book</div><div class="adm-body"><p>Blocks labelled <strong>POWERSHELL</strong> run on Windows. Run them in the <code>orders-api</code> folder unless the text says otherwise. Blocks labelled <strong>KAFKA1 SHELL</strong> run inside the broker container: open one with <code>docker exec -it kafka1 bash</code>, as in the CLI lab.</p></div></div>
+<div class="adm note"><div class="adm-title">Versions used in this book</div><div class="adm-body"><p>Spring Boot 4.1.1, Spring for Apache Kafka 4.1.1, Kafka clients 4.2.1, Java 21 and Maven 3.9.16. The brokers are Apache Kafka 4.3.1 from the CLI lab. A 4.2 client talks to a 4.3 broker without any problem: clients and brokers negotiate the API versions they share.</p></div></div>
+<h2>The files</h2>
+<pre class="language-text"><code class="language-text">kafka_spring_boot_lab/
+├── README.md
+├── Kafka_Spring_Boot_Lab_Guide.pdf       this book
+├── send-orders.ps1                       posts every line of orders.txt to the API
+├── guide/                                the chapters of this book (Markdown)
+├── build_pdf.py                          builds the PDF
+└── orders-api/                           the Spring Boot project
+    ├── pom.xml
+    ├── mvnw, mvnw.cmd, .mvn/             Maven wrapper - no Maven install needed
+    ├── requests.http                     ready-made requests for VS Code / IntelliJ
+    ├── samples/order.json                a request body for curl.exe
+    └── src/main/
+        ├── resources/application.yml     connection and client settings
+        └── java/com/training/kafka/orders/
+            ├── OrdersApiApplication.java      main()
+            ├── KafkaTopicConfig.java          creates &quot;orders&quot; if it is missing
+            ├── Order.java                     the message value
+            ├── OrderRequest.java              the POST body, validated
+            ├── SendReceipt.java               the POST response
+            ├── OrderMessage.java              a message read back
+            ├── TopicInfo.java                 the /topic response
+            ├── OrderProducer.java             sends     - KafkaTemplate
+            ├── OrderListener.java             receives  - @KafkaListener
+            ├── OrderReader.java               reads from any offset
+            ├── TopicInspector.java            describes - Admin API
+            ├── OrderController.java           the REST endpoints
+            ├── ApiExceptionHandler.java       errors as problem JSON
+            └── KafkaUnavailableException.java
+</code></pre>
+<h2>From the CLI lab to the app</h2>
+<table>
+<thead>
+<tr>
+<th>In the CLI lab you used</th>
+<th>In this app</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kafka-topics.sh --create --topic orders --partitions 3 --replication-factor 3</code></td>
+<td>The <code>NewTopic</code> bean in <code>KafkaTopicConfig</code></td>
+</tr>
+<tr>
+<td><code>kafka-console-producer.sh --reader-property parse.key=true</code></td>
+<td><code>kafkaTemplate.send(topic, customer, json)</code></td>
+</tr>
+<tr>
+<td><code>lab/config/producer.properties</code>: <code>acks=all</code>, idempotence, <code>linger.ms</code>, <code>lz4</code></td>
+<td><code>spring.kafka.producer.*</code> in <code>application.yml</code></td>
+</tr>
+<tr>
+<td><code>kafka-console-consumer.sh --group ...</code></td>
+<td><code>@KafkaListener(groupId = "orders-api")</code></td>
+</tr>
+<tr>
+<td><code>kafka-console-consumer.sh --partition 0 --offset 2 --max-messages 3</code></td>
+<td><code>GET /api/orders?partition=0&amp;offset=2&amp;limit=3</code></td>
+</tr>
+<tr>
+<td><code>kafka-consumer-groups.sh --describe --group ...</code></td>
+<td>Works on the app's group <code>orders-api</code> too - try it in Lab 4</td>
+</tr>
+<tr>
+<td><code>kafka-topics.sh --describe --topic orders</code></td>
+<td><code>GET /api/orders/topic</code></td>
+</tr>
+</tbody>
+</table></section><section class="chapter"><h1>Lab 1 · Build and Run the App</h1>
+<p><strong>Goal:</strong> start the cluster, build <code>orders-api</code> with the Maven wrapper, run it, and check that it found the <code>orders</code> topic, or created it.</p>
+<h2>Exercise 1.1 · Start the cluster</h2>
+<p class="task"><strong>Task:</strong> start the three brokers from the CLI lab and wait until all three are healthy.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">cd D:\trainings\Apache_Kafka_Training\labs\kafka_cli_lab
+docker compose up -d
+docker compose ps
+</code></pre>
+<pre class="language-output"><code class="language-output">NAME      IMAGE                STATUS                   PORTS
+kafka1    apache/kafka:4.3.1   Up 2 hours (healthy)     0.0.0.0:19092-&gt;19092/tcp
+kafka2    apache/kafka:4.3.1   Up 5 minutes (healthy)   0.0.0.0:29092-&gt;29092/tcp
+kafka3    apache/kafka:4.3.1   Up 2 hours (healthy)     0.0.0.0:39092-&gt;39092/tcp
+</code></pre>
+<p>(Columns trimmed.) The <code>PORTS</code> column matters for the app. Each broker publishes its <strong>EXTERNAL</strong> listener on the Windows host: <code>localhost:19092</code>, <code>29092</code> and <code>39092</code>. Code running on Windows has to use those addresses. Inside Docker, the brokers call each other <code>kafka1:9092</code> and so on, and those names mean nothing to Windows.</p></div></div>
+<h2>Exercise 1.2 · Build</h2>
+<p class="task"><strong>Task:</strong> build the application jar with the Maven wrapper.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">cd D:\trainings\Apache_Kafka_Training\labs\kafka_spring_boot_lab\orders-api
+.\mvnw.cmd -DskipTests package
+</code></pre>
+<p>The first run downloads Maven itself and then all the libraries into <code>%USERPROFILE%\.m2</code>, which takes a minute or two. Later builds take seconds:</p>
+<pre class="language-output"><code class="language-output">[INFO] --- jar:3.5.1:jar (default-jar) @ orders-api ---
+[INFO]
+[INFO] --- spring-boot:4.1.1:repackage (repackage) @ orders-api ---
+[INFO] Replacing main artifact ...\orders-api\target\orders-api-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.452 s
+</code></pre>
+<p><code>target\orders-api-1.0.0.jar</code> is a <strong>fat jar</strong>: your classes plus every library they need, Tomcat and the Kafka client included. You can copy that one file to any machine with Java 21 and run it.</p></div></div>
+<h2>Exercise 1.3 · Run</h2>
+<p class="task"><strong>Task:</strong> start the app and find the log lines that show it is connected to Kafka.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">java -jar target\orders-api-1.0.0.jar
+</code></pre>
+<p><code>.\mvnw.cmd spring-boot:run</code> works too: it builds and starts the app in one step. Abridged log, columns trimmed:</p>
+<pre class="language-output"><code class="language-output"> :: Spring Boot ::                (v4.1.1)
+
+06:30:17.564 [main] OrdersApiApplication : Starting OrdersApiApplication v1.0.0 using Java 21.0.12
+06:30:21.138 [main] TomcatWebServer      : Tomcat initialized with port 8090 (http)
+06:30:24.501 [main] TomcatWebServer      : Tomcat started on port 8090 (http) with context path '/'
+06:30:24.969 [main] OrdersApiApplication : Started OrdersApiApplication in 8.886 seconds
+06:30:25.300 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-0, orders-1, orders-2]
+</code></pre>
+<p>The last line is the one that matters. The <code>@KafkaListener</code> joined the consumer group <strong><code>orders-api</code></strong>. It is the group's only member, so the group coordinator gave it <strong>all three partitions</strong> of <code>orders</code>. That consumer runs on its own thread (<code>...-listener-0-C-1</code>), separate from the web requests.</p>
+<p>Leave the app running. Stop it with <strong>Ctrl+C</strong> when you are done.</p></div></div>
+<div class="adm tip"><div class="adm-title">The Kafka clients are quiet on purpose</div><div class="adm-body"><p><code>application.yml</code> sets <code>logging.level.org.apache.kafka: WARN</code>. At <code>INFO</code>, the clients print every config value at startup: about 150 lines for the producer and the same again for each consumer. To see them, start with <code>java -jar target\orders-api-1.0.0.jar --logging.level.org.apache.kafka=INFO</code>.</p></div></div>
+<h2>Exercise 1.4 · Is the topic there?</h2>
+<p class="task"><strong>Task:</strong> check the <code>orders</code> topic from the CLI. If it did not exist before, who created it, and with which settings?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic orders
+</code></pre>
+<pre class="language-output"><code class="language-output">Topic: orders   TopicId: Gpz6jYWrS1eRMUNaMO36tw PartitionCount: 3   ReplicationFactor: 3    Configs: min.insync.replicas=2
+    Topic: orders   Partition: 0    Leader: 1   Replicas: 1,2,3 Isr: 1,2,3  Elr:    LastKnownElr:
+    Topic: orders   Partition: 1    Leader: 2   Replicas: 2,3,1 Isr: 2,3,1  Elr:    LastKnownElr:
+    Topic: orders   Partition: 2    Leader: 3   Replicas: 3,1,2 Isr: 3,1,2  Elr:    LastKnownElr:
+</code></pre>
+<p>The cluster has <code>auto.create.topics.enable=false</code>, so producing to a missing topic would fail. The app declares the topic it needs as a <code>NewTopic</code> bean (Lab 2). At startup, Spring's <code>KafkaAdmin</code> creates any declared topic that is missing, here with 3 partitions and replication factor 3, the same as Lab 2 of the CLI lab. <code>min.insync.replicas=2</code> is the cluster default from <code>docker-compose.yml</code>.</p>
+<p>If <code>orders</code> already exists, for example from the CLI lab, <code>KafkaAdmin</code> leaves it alone. The listener then starts by reading every message already in the topic: a <strong>new</strong> group has no committed offsets, and the app sets <code>auto-offset-reset: earliest</code>.</p></div></div>
+<div class="adm warning"><div class="adm-title">Running the app somewhere else</div><div class="adm-body"><p><code>localhost:19092</code> only works on the Windows host that runs Docker. For any other location, override the bootstrap servers when you start the app. For example, for a container on the lab's Docker network:</p>
+<pre class="language-powershell"><code class="language-powershell">java -jar target\orders-api-1.0.0.jar --spring.kafka.bootstrap-servers=kafka1:9092,kafka2:9092,kafka3:9092
+</code></pre>
+<p>Any property in <code>application.yml</code> can be overridden like this, or with an environment variable such as <code>SPRING_KAFKA_BOOTSTRAP_SERVERS</code>.</p></div></div></section><section class="chapter"><h1>Lab 2 · The Code, File by File</h1>
+<p><strong>Goal:</strong> read the whole application, about 500 lines, and connect each piece to a Kafka idea from the course. Every listing below is the actual file from the project.</p>
+<h2>The dependencies</h2>
+<p>Three Spring Boot starters do all the work. The <code>spring-boot-starter-parent</code> POM picks matching versions for everything, so the dependencies need no version numbers:</p>
+<pre class="language-xml"><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-webmvc&lt;/artifactId&gt;      <span class="cm">&lt;!-- REST: Spring MVC + Tomcat + Jackson --&gt;</span>
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-kafka&lt;/artifactId&gt;       <span class="cm">&lt;!-- KafkaTemplate, @KafkaListener, KafkaAdmin --&gt;</span>
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;  <span class="cm">&lt;!-- @Valid, @NotBlank, @Positive --&gt;</span>
+&lt;/dependency&gt;
+</code></pre>
+<div class="adm note"><div class="adm-title">Spring Boot 4 starter names</div><div class="adm-body"><p>Spring Boot 4 split its auto-configuration into modules, and two starters were renamed. Kafka support now comes from <strong><code>spring-boot-starter-kafka</code></strong>. In Boot 3 you added <code>spring-kafka</code> directly, and on Boot 4 that alone gives you the library but <strong>no auto-configuration</strong>. Spring MVC comes from <strong><code>spring-boot-starter-webmvc</code></strong>, the new name for <code>spring-boot-starter-web</code>. Boot 4 also moves to Jackson 3, whose classes live in the <code>tools.jackson</code> package instead of <code>com.fasterxml.jackson</code>.</p></div></div>
+<h2>The configuration: application.yml</h2>
+<p class="file">application.yml</p>
+
+<pre class="language-yaml"><code class="language-yaml"><span class="cm"># ---------------------------------------------------------------------------</span><span class="cm">
+#  orders-api - connects to the 3-broker cluster of the Kafka CLI lab</span><span class="cm">
+#  (kafka_cli_lab/docker-compose.yml). Run on Windows, so it uses the</span><span class="cm">
+#  EXTERNAL listeners that the brokers advertise as localhost:19092/29092/39092.</span><span class="cm">
+# ---------------------------------------------------------------------------</span>
+server:
+  port: 8090                     <span class="cm"> # 8080 is often taken; Kafka UI uses 8081</span>
+
+spring:
+  application:
+    name: orders-api
+
+  kafka:
+   <span class="cm"> # a few brokers - one reachable is enough, the client learns the rest</span>
+    bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
+    client-id: orders-api
+
+   <span class="cm"> # the same settings as lab/config/producer.properties</span>
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all                  <span class="cm"> # wait for every in-sync replica</span>
+      batch-size: 32KB
+      compression-type: lz4
+      properties:
+        enable.idempotence: true <span class="cm"> # no duplicates on retry</span>
+        linger.ms: 20            <span class="cm"> # wait up to 20 ms to fill a batch</span>
+        max.block.ms: 10000      <span class="cm"> # wait at most 10 s for metadata (a broker to talk to)</span>
+        request.timeout.ms: 10000<span class="cm"> # wait at most 10 s for one broker reply</span>
+        delivery.timeout.ms: 25000<span class="cm"> # give up on a message after 25 s, retries included</span>
+
+   <span class="cm"> # used by the @KafkaListener and by the on-demand reader</span>
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest<span class="cm"> # a new group starts at the oldest message</span>
+
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false  <span class="cm"> # keep {&quot;order&quot;,&quot;item&quot;,&quot;amount&quot;} order</span>
+
+app:
+  topic: orders                  <span class="cm"> # the topic from Lab 2 of the CLI lab</span>
+  listener-group-id: orders-api  <span class="cm"> # the consumer group of the @KafkaListener</span>
+  keep-last: 50                  <span class="cm"> # how many received messages GET /received returns</span>
+
+logging:
+  level:
+    org.apache.kafka: WARN       <span class="cm"> # the Kafka clients are chatty at INFO</span>
+</code></pre>
+<p>Spring Boot reads <code>spring.kafka.*</code> and builds three things from it: a <code>ProducerFactory</code> behind the <code>KafkaTemplate</code>, a <code>ConsumerFactory</code> behind the listener and the reader, and a <code>KafkaAdmin</code>. The settings are the ones from the CLI lab's property files:</p>
+<table>
+<thead>
+<tr>
+<th><code>lab/config/*.properties</code></th>
+<th><code>application.yml</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acks=all</code></td>
+<td><code>producer.acks: all</code></td>
+<td>The leader answers once every in-sync replica has the record</td>
+</tr>
+<tr>
+<td><code>enable.idempotence=true</code></td>
+<td><code>producer.properties.enable.idempotence</code></td>
+<td>Retries cannot create duplicates</td>
+</tr>
+<tr>
+<td><code>linger.ms=20</code>, <code>batch.size=32768</code></td>
+<td><code>properties.linger.ms</code>, <code>batch-size: 32KB</code></td>
+<td>Wait up to 20 ms to fill a batch of up to 32 KB</td>
+</tr>
+<tr>
+<td><code>compression.type=lz4</code></td>
+<td><code>compression-type: lz4</code></td>
+<td>Compress each batch. The console producer ignored this; the app does not</td>
+</tr>
+<tr>
+<td><code>delivery.timeout.ms=120000</code></td>
+<td><code>delivery.timeout.ms: 25000</code></td>
+<td>Give up sooner, so a REST caller is not kept waiting for 2 minutes</td>
+</tr>
+<tr>
+<td><code>group.id=orders-reporting</code></td>
+<td><code>app.listener-group-id: orders-api</code></td>
+<td>Set on the <code>@KafkaListener</code>, so the reader can run without a group</td>
+</tr>
+<tr>
+<td><code>auto.offset.reset=earliest</code></td>
+<td><code>consumer.auto-offset-reset: earliest</code></td>
+<td>A new group starts at the oldest message</td>
+</tr>
+<tr>
+<td><code>enable.auto.commit=true</code></td>
+<td><em>(not set)</em></td>
+<td>Spring turns auto-commit off and commits itself - see <code>OrderListener</code></td>
+</tr>
+</tbody>
+</table>
+<p>Spring Boot recognises common settings by name, such as <code>acks</code>, <code>batch-size</code> and <code>compression-type</code>. Any other Kafka setting goes under <code>properties:</code>, written exactly as Kafka spells it.</p>
+<h2>Creating the topic: KafkaTopicConfig</h2>
+<p class="file">KafkaTopicConfig.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.TopicBuilder;
+
+@Configuration
+public class KafkaTopicConfig {
+
+    <span class="cm">/**
+     * The orders topic exactly as Lab 2 creates it: 3 partitions, replication factor 3.
+     * Spring's KafkaAdmin creates it at startup if it is missing and leaves an existing
+     * topic alone - the cluster has auto.create.topics.enable=false.
+     */</span>
+    @Bean
+    NewTopic ordersTopic(@Value(&quot;${app.topic}&quot;) String topic) {
+        return TopicBuilder.name(topic).partitions(3).replicas(3).build();
+    }
+}
+</code></pre>
+<p><code>TopicBuilder</code> is the code version of <code>kafka-topics.sh --create</code>. <code>KafkaAdmin</code> checks every <code>NewTopic</code> bean at startup. It creates missing topics and adds partitions if a bean asks for more than the topic has. It never deletes anything and never reduces partitions.</p>
+<h2>The data: Order, OrderRequest and friends</h2>
+<p class="file">Order.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+<span class="cm">/** The message value - the same JSON as lab/data/orders.txt: {&quot;order&quot;:2001,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45} */</span>
+public record Order(int order, String item, int amount) {
+}
+</code></pre>
+<p class="file">OrderRequest.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+<span class="cm">/** The body of POST /api/orders. The customer becomes the message key, the rest the value. */</span>
+public record OrderRequest(
+        @NotBlank String customer,
+        @Positive int order,
+        @NotBlank String item,
+        @Positive int amount) {
+
+    Order toOrder() {
+        return new Order(order, item, amount);
+    }
+}
+</code></pre>
+<p>Java <strong>records</strong> are ideal for messages: they are immutable, and Jackson turns them into JSON and back with no extra code. The REST client sends an <code>OrderRequest</code>. The app splits it in two: <code>customer</code> becomes the <strong>key</strong>, and the rest, an <code>Order</code>, becomes the <strong>value</strong>. The validation annotations reject a bad request before anything reaches Kafka.</p>
+<p><code>SendReceipt</code>, <code>OrderMessage</code> and <code>TopicInfo</code> are records too. They describe what the endpoints return.</p>
+<h2>Sending: OrderProducer</h2>
+<p class="file">OrderProducer.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import java.time.Instant;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.NestedExceptionUtils;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.stereotype.Service;
+import tools.jackson.databind.json.JsonMapper;
+
+@Service
+public class OrderProducer {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderProducer.class);
+
+    private final KafkaTemplate&lt;String, String&gt; kafka;
+    private final JsonMapper json;
+    private final String topic;
+
+    public OrderProducer(KafkaTemplate&lt;String, String&gt; kafka, JsonMapper json,
+                         @Value(&quot;${app.topic}&quot;) String topic) {
+        this.kafka = kafka;
+        this.json = json;
+        this.topic = topic;
+    }
+
+    <span class="cm">/**
+     * Sends one order and waits for the broker's answer, so the caller learns the
+     * partition and offset. Key = customer: all of a customer's orders go to the same
+     * partition, so they stay in order.
+     */</span>
+    public SendReceipt send(OrderRequest request) {
+        Order order = request.toOrder();
+        String value = json.writeValueAsString(order);
+        try {
+            SendResult&lt;String, String&gt; result =
+                    kafka.send(topic, request.customer(), value).get(30, TimeUnit.SECONDS);
+            RecordMetadata meta = result.getRecordMetadata();
+            log.info(&quot;sent     key={} -&gt; {}-{} @ offset {}&quot;, request.customer(), meta.topic(),
+                    meta.partition(), meta.offset());
+            return new SendReceipt(meta.topic(), meta.partition(), meta.offset(),
+                    Instant.ofEpochMilli(meta.timestamp()), request.customer(), order);
+        } catch (ExecutionException e) {
+            throw new KafkaUnavailableException(&quot;Kafka did not accept the message: &quot;
+                    + NestedExceptionUtils.getMostSpecificCause(e).getMessage(), e);
+        } catch (TimeoutException e) {
+            throw new KafkaUnavailableException(&quot;No answer from Kafka within 30 seconds&quot;, e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new KafkaUnavailableException(&quot;Interrupted while sending&quot;, e);
+        }
+    }
+}
+</code></pre>
+<p>What happens on each line:</p>
+<ol>
+<li><code>json.writeValueAsString(order)</code> turns the record into <code>{"order":2001,"item":"keyboard","amount":45}</code>. Kafka itself only ever sees bytes. The <code>StringSerializer</code> from <code>application.yml</code> turns that string into UTF-8 bytes.</li>
+<li><code>kafka.send(topic, key, value)</code> returns at once with a <code>CompletableFuture</code>. The record now waits in the producer's buffer, for up to <code>linger.ms</code>, so it can travel in a batch with others.</li>
+<li><code>.get(30, SECONDS)</code> waits for the future to complete. That means the batch was sent, the leader wrote it, and with <code>acks=all</code> every in-sync replica has it too.</li>
+<li><code>RecordMetadata</code> is the broker's answer: the partition and offset where the record now lives. The endpoint returns it to the caller.</li>
+</ol>
+<div class="adm tip"><div class="adm-title">Blocking on get() - fine here, not everywhere</div><div class="adm-body"><p>Waiting for each send keeps the REST API simple: the caller sees the partition and offset straight away. A high-volume producer would not wait. It would attach a callback, <code>send(...).whenComplete((result, error) -&gt; ...)</code>, and let batching work. Blocking sends one batch per request, so <code>linger.ms</code> buys nothing.</p></div></div>
+<h2>Receiving: OrderListener</h2>
+<p class="file">OrderListener.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import java.util.Deque;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
+import tools.jackson.databind.json.JsonMapper;
+
+<span class="cm">/**
+ * A consumer that runs for as long as the app does: Spring calls poll() in a loop on its
+ * own thread and hands every record to onMessage(). It is a member of the consumer group
+ * app.listener-group-id, and Spring commits the group's offsets after each batch.
+ */</span>
+@Component
+public class OrderListener {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderListener.class);
+
+    private final Deque&lt;OrderMessage&gt; received = new ConcurrentLinkedDeque&lt;&gt;();
+    private final JsonMapper json;
+    private final int keepLast;
+
+    public OrderListener(JsonMapper json, @Value(&quot;${app.keep-last}&quot;) int keepLast) {
+        this.json = json;
+        this.keepLast = keepLast;
+    }
+
+    @KafkaListener(id = &quot;orders-listener&quot;, topics = &quot;${app.topic}&quot;, groupId = &quot;${app.listener-group-id}&quot;)
+    public void onMessage(ConsumerRecord&lt;String, String&gt; record) {
+        log.info(&quot;received key={} &lt;- {}-{} @ offset {}&quot;, record.key(), record.topic(),
+                record.partition(), record.offset());
+        received.addFirst(OrderMessage.from(record, json));
+        while (received.size() &gt; keepLast) {
+            received.pollLast();
+        }
+    }
+
+    <span class="cm">/** The most recently received messages, newest first. */</span>
+    public List&lt;OrderMessage&gt; latest() {
+        return List.copyOf(received);
+    }
+}
+</code></pre>
+<p>This is the poll loop from the Consumers lesson, written by Spring. For each <code>@KafkaListener</code>, Spring starts a <strong>listener container</strong>: a thread that subscribes to the topic, calls <code>poll()</code> forever, and passes each record to your method. What you saw in the Consumers lesson:</p>
+<ul>
+<li><strong>Group:</strong> <code>groupId = "orders-api"</code>. Start a second copy of the app and the two share the partitions (Lab 5).</li>
+<li><strong>Offsets:</strong> Spring sets <code>enable.auto.commit=false</code> and commits the group's offsets itself, after your method has handled every record of a <code>poll()</code>. This is the container's default <code>AckMode.BATCH</code>. If the app crashes in the middle of a batch, the records of that batch are delivered again: <strong>at-least-once</strong>.</li>
+<li><strong>Threads:</strong> <code>onMessage</code> runs on the container thread, not on a web request thread. The deque is thread-safe because the web threads read it while the listener writes to it.</li>
+</ul>
+<p>The deque keeps only the latest 50 messages, in memory. Restart the app and it is empty, but the topic is not.</p>
+<h2>Reading from any offset: OrderReader</h2>
+<p class="file">OrderReader.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.KafkaException;
+import org.apache.kafka.common.TopicPartition;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.stereotype.Service;
+import tools.jackson.databind.json.JsonMapper;
+
+<span class="cm">/**
+ * Reads the topic on request, from any offset - like kafka-console-consumer.sh with
+ * --partition and --offset. It uses assign() and seek() instead of a consumer group, so it
+ * commits nothing and does not disturb the listener's group.
+ */</span>
+@Service
+public class OrderReader {
+
+    private static final Duration MAX_WAIT = Duration.ofSeconds(5);
+
+    private final ConsumerFactory&lt;String, String&gt; consumers;
+    private final JsonMapper json;
+    private final String topic;
+    private final AtomicInteger readerNo = new AtomicInteger();
+
+    public OrderReader(ConsumerFactory&lt;String, String&gt; consumers, JsonMapper json,
+                       @Value(&quot;${app.topic}&quot;) String topic) {
+        this.consumers = consumers;
+        this.json = json;
+        this.topic = topic;
+    }
+
+    <span class="cm">/**
+     * Up to {@code limit} messages from one partition (or all of them), starting at
+     * {@code fromOffset} in each, optionally only those whose key is {@code customer}.
+     */</span>
+    public List&lt;OrderMessage&gt; read(Integer partition, long fromOffset, int limit, String customer) {
+        try (Consumer&lt;String, String&gt; consumer =
+                     consumers.createConsumer(null, &quot;orders-reader-&quot;, String.valueOf(readerNo.incrementAndGet()))) {
+
+            List&lt;TopicPartition&gt; partitions = consumer.partitionsFor(topic).stream()
+                    .map(p -&gt; new TopicPartition(topic, p.partition()))
+                    .filter(tp -&gt; partition == null || tp.partition() == partition)
+                    .toList();
+            if (partitions.isEmpty()) {
+                throw new IllegalArgumentException(&quot;Topic &quot; + topic + &quot; has no partition &quot; + partition);
+            }
+
+            consumer.assign(partitions);
+            Map&lt;TopicPartition, Long&gt; first = consumer.beginningOffsets(partitions);
+            Map&lt;TopicPartition, Long&gt; end = consumer.endOffsets(partitions);
+            for (TopicPartition tp : partitions) {
+               <span class="cm"> // stay inside [first, end] - an offset past the end would trigger auto.offset.reset</span>
+                consumer.seek(tp, Math.min(Math.max(fromOffset, first.get(tp)), end.get(tp)));
+            }
+
+            List&lt;OrderMessage&gt; out = new ArrayList&lt;&gt;();
+            long deadline = System.nanoTime() + MAX_WAIT.toNanos();
+            while (out.size() &lt; limit &amp;&amp; !reachedEnd(consumer, end) &amp;&amp; System.nanoTime() &lt; deadline) {
+                for (ConsumerRecord&lt;String, String&gt; record : consumer.poll(Duration.ofMillis(500))) {
+                    if (customer == null || customer.equals(record.key())) {
+                        out.add(OrderMessage.from(record, json));
+                    }
+                    if (out.size() == limit) {
+                        break;
+                    }
+                }
+            }
+            out.sort(Comparator.comparingInt(OrderMessage::partition).thenComparingLong(OrderMessage::offset));
+            return out;
+        } catch (KafkaException e) {
+            throw new KafkaUnavailableException(&quot;Could not read from Kafka: &quot; + e.getMessage(), e);
+        }
+    }
+
+    private static boolean reachedEnd(Consumer&lt;String, String&gt; consumer, Map&lt;TopicPartition, Long&gt; end) {
+        return end.entrySet().stream().allMatch(e -&gt; consumer.position(e.getKey()) &gt;= e.getValue());
+    }
+}
+</code></pre>
+<p>The listener is a group member: it always moves forward and remembers its place. The reader is the opposite. It is <code>kafka-console-consumer.sh --partition --offset</code> in Java:</p>
+<ul>
+<li><code>createConsumer(null, ...)</code> creates a consumer with <strong>no group id</strong>. Without a group it cannot <code>subscribe()</code>, so it calls <strong><code>assign()</code></strong> and picks the partitions itself.</li>
+<li><code>beginningOffsets()</code> and <code>endOffsets()</code> give the first offset still on disk and the next one to be written.</li>
+<li><code>seek()</code> jumps to the requested offset. It is clamped to that range, because a position past the end makes the consumer fall back to <code>auto.offset.reset</code>.</li>
+<li>The loop polls until it has <code>limit</code> messages, has reached the end of every partition, or has used up its 5 seconds.</li>
+</ul>
+<p>It commits nothing and joins no group, so calling it never moves the listener's position.</p>
+<h2>Describing the topic: TopicInspector</h2>
+<p class="file">TopicInspector.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.apache.kafka.clients.admin.Admin;
+import org.apache.kafka.clients.admin.ListOffsetsResult.ListOffsetsResultInfo;
+import org.apache.kafka.clients.admin.OffsetSpec;
+import org.apache.kafka.clients.admin.TopicDescription;
+import org.apache.kafka.common.Node;
+import org.apache.kafka.common.TopicPartition;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.NestedExceptionUtils;
+import org.springframework.kafka.core.KafkaAdmin;
+import org.springframework.stereotype.Service;
+
+<span class="cm">/** The Admin API view of the topic: leaders, replicas, ISR and offsets per partition. */</span>
+@Service
+public class TopicInspector {
+
+    private final KafkaAdmin kafkaAdmin;
+    private final String topic;
+
+    public TopicInspector(KafkaAdmin kafkaAdmin, @Value(&quot;${app.topic}&quot;) String topic) {
+        this.kafkaAdmin = kafkaAdmin;
+        this.topic = topic;
+    }
+
+    public TopicInfo describe() {
+        try (Admin admin = Admin.create(kafkaAdmin.getConfigurationProperties())) {
+            TopicDescription description = admin.describeTopics(List.of(topic))
+                    .allTopicNames().get(10, TimeUnit.SECONDS).get(topic);
+            List&lt;TopicPartition&gt; partitions = description.partitions().stream()
+                    .map(p -&gt; new TopicPartition(topic, p.partition())).toList();
+            Map&lt;TopicPartition, ListOffsetsResultInfo&gt; first = offsets(admin, partitions, OffsetSpec.earliest());
+            Map&lt;TopicPartition, ListOffsetsResultInfo&gt; end = offsets(admin, partitions, OffsetSpec.latest());
+
+            return new TopicInfo(topic, description.partitions().stream().map(p -&gt; {
+                TopicPartition tp = new TopicPartition(topic, p.partition());
+                return new TopicInfo.Partition(p.partition(), p.leader() == null ? -1 : p.leader().id(),
+                        ids(p.replicas()), ids(p.isr()), first.get(tp).offset(), end.get(tp).offset());
+            }).toList());
+        } catch (ExecutionException | TimeoutException e) {
+            throw new KafkaUnavailableException(&quot;Could not describe topic &quot; + topic + &quot;: &quot;
+                    + NestedExceptionUtils.getMostSpecificCause(e).getMessage(), e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new KafkaUnavailableException(&quot;Interrupted while describing &quot; + topic, e);
+        }
+    }
+
+    private static Map&lt;TopicPartition, ListOffsetsResultInfo&gt; offsets(Admin admin, List&lt;TopicPartition&gt; partitions,
+            OffsetSpec spec) throws ExecutionException, InterruptedException, TimeoutException {
+        Map&lt;TopicPartition, OffsetSpec&gt; request = partitions.stream()
+                .collect(Collectors.toMap(Function.identity(), tp -&gt; spec));
+        return admin.listOffsets(request).all().get(10, TimeUnit.SECONDS);
+    }
+
+    private static List&lt;Integer&gt; ids(List&lt;Node&gt; nodes) {
+        return nodes.stream().map(Node::id).toList();
+    }
+}
+</code></pre>
+<p>The <strong>Admin API</strong> is what <code>kafka-topics.sh</code> and <code>kafka-consumer-groups.sh</code> use internally. <code>describeTopics()</code> returns the leader, replicas and ISR of each partition, and <code>listOffsets()</code> returns the first and next offset. <code>KafkaAdmin.getConfigurationProperties()</code> reuses the connection settings from <code>application.yml</code>, so the bootstrap servers are not repeated.</p>
+<h2>The REST layer: OrderController and ApiExceptionHandler</h2>
+<p class="file">OrderController.java</p>
+
+<pre class="language-java"><code class="language-java">package com.training.kafka.orders;
+
+import java.util.List;
+
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(&quot;/api/orders&quot;)
+public class OrderController {
+
+    private final OrderProducer producer;
+    private final OrderListener listener;
+    private final OrderReader reader;
+    private final TopicInspector inspector;
+
+    public OrderController(OrderProducer producer, OrderListener listener, OrderReader reader,
+                           TopicInspector inspector) {
+        this.producer = producer;
+        this.listener = listener;
+        this.reader = reader;
+        this.inspector = inspector;
+    }
+
+    <span class="cm">/** Send one order to the topic. Returns the partition and offset Kafka stored it at. */</span>
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public SendReceipt send(@Valid @RequestBody OrderRequest request) {
+        return producer.send(request);
+    }
+
+    <span class="cm">/** The messages the @KafkaListener has received, newest first. */</span>
+    @GetMapping(&quot;/received&quot;)
+    public List&lt;OrderMessage&gt; received() {
+        return listener.latest();
+    }
+
+    <span class="cm">/** Read the topic itself, from any offset - nothing is removed by reading. */</span>
+    @GetMapping
+    public List&lt;OrderMessage&gt; read(@RequestParam(required = false) Integer partition,
+                                   @RequestParam(defaultValue = &quot;0&quot;) long offset,
+                                   @RequestParam(defaultValue = &quot;20&quot;) int limit,
+                                   @RequestParam(required = false) String customer) {
+        return reader.read(partition, offset, Math.clamp(limit, 1, 500), customer);
+    }
+
+    <span class="cm">/** Partitions, leaders, replicas, ISR and offsets - like kafka-topics.sh --describe. */</span>
+    @GetMapping(&quot;/topic&quot;)
+    public TopicInfo topic() {
+        return inspector.describe();
+    }
+}
+</code></pre>
+<p>The controller only translates between HTTP and the four services: no Kafka code lives here. <code>@Valid</code> triggers the checks on <code>OrderRequest</code>, and <code>Math.clamp</code> keeps <code>limit</code> between 1 and 500.</p>
+<p><code>ApiExceptionHandler</code> turns failures into <strong>problem JSON</strong> (RFC 9457): a 400 for a bad request, with the invalid fields listed, and a 503 when Kafka cannot be reached. You will see both in Lab 3.</p></section><section class="chapter"><h1>Lab 3 · Send Messages over REST</h1>
+<p><strong>Goal:</strong> send orders through <code>POST /api/orders</code> with <code>curl.exe</code>, PowerShell and a script, then confirm with the CLI that they are in the topic, in the partitions their keys chose.</p>
+<p>The app must be running (Lab 1). Run the commands in the <code>orders-api</code> folder.</p>
+<h2>Exercise 3.1 · Your first order, with curl.exe</h2>
+<p class="task"><strong>Task:</strong> send alice's order 2001 from <code>samples\order.json</code> and read the response. Which partition and offset did Kafka give it?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">type samples\order.json
+curl.exe -i -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; --data &quot;@samples/order.json&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;customer&quot;: &quot;alice&quot;, &quot;order&quot;: 2001, &quot;item&quot;: &quot;keyboard&quot;, &quot;amount&quot;: 45}
+
+HTTP/1.1 201
+Content-Type: application/json
+
+{&quot;topic&quot;:&quot;orders&quot;,&quot;partition&quot;:0,&quot;offset&quot;:0,&quot;timestamp&quot;:&quot;2026-10-01T01:00:31.397Z&quot;,&quot;key&quot;:&quot;alice&quot;,&quot;value&quot;:{&quot;order&quot;:2001,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45}}
+</code></pre>
+<p><strong>201 Created</strong>, and the body is the receipt: partition <strong>0</strong>, offset <strong>0</strong>, the first message ever written to that partition. The <code>timestamp</code> was set by the producer when it sent the record. It is UTC, which is why it reads 01:00 for a send made at 06:30 IST.</p></div></div>
+<div class="adm warning"><div class="adm-title">Type curl.exe, not curl</div><div class="adm-body"><p>In Windows PowerShell, <code>curl</code> is an <strong>alias for <code>Invoke-WebRequest</code></strong>, which takes different options, so <code>curl -X POST ...</code> fails with a confusing error. <code>curl.exe</code> runs the real curl that ships with Windows.</p></div></div>
+<h2>Exercise 3.2 · JSON on the command line - the PowerShell trap</h2>
+<p class="task"><strong>Task:</strong> pass the JSON directly with <code>-d</code> instead of from a file. Try it with plain single quotes first.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><p>To keep the topic clean, these tries send an <strong>invalid</strong> order, so even a request that gets through is rejected before it reaches Kafka:</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{&quot;customer&quot;:&quot;&quot;,&quot;order&quot;:0,&quot;item&quot;:&quot;pen&quot;,&quot;amount&quot;:-5}'
+curl.exe -s -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{\&quot;customer\&quot;:\&quot;\&quot;,\&quot;order\&quot;:0,\&quot;item\&quot;:\&quot;pen\&quot;,\&quot;amount\&quot;:-5}'
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;title&quot;:&quot;Bad Request&quot;,&quot;status&quot;:400,&quot;detail&quot;:&quot;Failed to read request&quot;,&quot;instance&quot;:&quot;/api/orders&quot;}
+{&quot;title&quot;:&quot;Bad Request&quot;,&quot;status&quot;:400,&quot;detail&quot;:&quot;The order is not valid - nothing was sent to Kafka&quot;,&quot;instance&quot;:&quot;/api/orders&quot;,&quot;errors&quot;:{&quot;amount&quot;:&quot;must be greater than 0&quot;,&quot;customer&quot;:&quot;must not be blank&quot;,&quot;order&quot;:&quot;must be greater than 0&quot;}}
+</code></pre>
+<p>The first request never arrived as JSON. <strong>Windows PowerShell 5.1 removes the inner double quotes</strong> when it passes an argument to a program such as <code>curl.exe</code>, so the server received <code>{customer:,order:0,...}</code> and could not parse it: <em>Failed to read request</em>. With the quotes escaped as <code>\"</code>, the JSON arrives intact and the server's validation answers instead.</p>
+<p>Three ways to avoid the trap: a file with <code>--data "@file.json"</code> (Exercise 3.1), <code>Invoke-RestMethod</code> (next exercise), or PowerShell 7, which passes the quotes through correctly.</p></div></div>
+<h2>Exercise 3.3 · Send with PowerShell</h2>
+<p class="task"><strong>Task:</strong> send bob's order 2000 (a pen drive for 12) with <code>Invoke-RestMethod</code>.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">$body = @{ customer = &quot;bob&quot;; order = 2000; item = &quot;pen drive&quot;; amount = 12 } | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://localhost:8090/api/orders -ContentType 'application/json' -Body $body
+</code></pre>
+<pre class="language-output"><code class="language-output">topic     : orders
+partition : 0
+offset    : 1
+timestamp : 2026-10-01T01:02:25.827Z
+key       : bob
+value     : @{order=2000; item=pen drive; amount=12}
+</code></pre>
+<p><code>Invoke-RestMethod</code> builds the JSON itself with <code>ConvertTo-Json</code>, so there is no quoting to get wrong. It also parses the response into an object you can use: <code>$r.partition</code>, <code>$r.value.item</code>. Bob also landed in partition 0, at the next offset, 1.</p></div></div>
+<h2>Exercise 3.4 · Load the CLI lab's orders</h2>
+<p class="task"><strong>Task:</strong> run <code>send-orders.ps1</code> from the lab folder. It posts every line of <code>kafka_cli_lab\lab\data\orders.txt</code>. Which partition does each customer get? Do all of one customer's orders land in the same place?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">cd ..
+powershell -ExecutionPolicy Bypass -File .\send-orders.ps1
+</code></pre>
+<pre class="language-output"><code class="language-output">alice  order 2001  -&gt;  orders-0 @ offset 2
+dave   order 2002  -&gt;  orders-1 @ offset 0
+carol  order 2003  -&gt;  orders-2 @ offset 0
+alice  order 2004  -&gt;  orders-0 @ offset 3
+erin   order 2005  -&gt;  orders-2 @ offset 1
+frank  order 2006  -&gt;  orders-1 @ offset 1
+bob    order 2007  -&gt;  orders-0 @ offset 4
+dave   order 2008  -&gt;  orders-1 @ offset 2
+carol  order 2009  -&gt;  orders-2 @ offset 2
+alice  order 2010  -&gt;  orders-0 @ offset 5
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Partition</th>
+<th>Customers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>alice, bob</td>
+</tr>
+<tr>
+<td>1</td>
+<td>dave, frank</td>
+</tr>
+<tr>
+<td>2</td>
+<td>carol, erin</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The key decides the partition</strong>: <code>murmur2(key) % 3</code>, exactly as with the console producer in the CLI lab. All of alice's orders went to partition 0, at offsets 0, 2, 3 and 5, so they are stored, and will be read, in the order she placed them. Offsets count <strong>per partition</strong>: partition 1 starts again at 0.</p>
+<p><code>-ExecutionPolicy Bypass</code> lets this one script run even when Windows blocks unsigned scripts. It changes no setting.</p></div></div>
+<div class="adm note"><div class="adm-title">Order 2001 is in the topic twice</div><div class="adm-body"><p><code>orders.txt</code> starts with alice's order 2001, the same one you sent in Exercise 3.1. Kafka stored it again, at offset 2. <strong>Idempotence only protects against duplicates caused by the producer's own retries.</strong> Two separate sends of the same data are two messages. Removing duplicates of that kind is the application's job, for example a consumer that remembers which order numbers it has already handled.</p></div></div>
+<h2>Exercise 3.5 · Check with the CLI</h2>
+<p class="task"><strong>Task:</strong> read the whole topic with <code>kafka-console-consumer.sh</code> and show the partition, offset and key of every message. Is it what the API reported?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --from-beginning --max-messages 12 \
+  --formatter-property print.key=true --formatter-property print.partition=true --formatter-property print.offset=true
+</code></pre>
+<pre class="language-output"><code class="language-output">Partition:0 Offset:0    alice   {&quot;order&quot;:2001,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45}
+Partition:0 Offset:1    bob {&quot;order&quot;:2000,&quot;item&quot;:&quot;pen drive&quot;,&quot;amount&quot;:12}
+Partition:0 Offset:2    alice   {&quot;order&quot;:2001,&quot;item&quot;:&quot;keyboard&quot;,&quot;amount&quot;:45}
+Partition:0 Offset:3    alice   {&quot;order&quot;:2004,&quot;item&quot;:&quot;headset&quot;,&quot;amount&quot;:60}
+Partition:0 Offset:4    bob {&quot;order&quot;:2007,&quot;item&quot;:&quot;cable&quot;,&quot;amount&quot;:9}
+Partition:0 Offset:5    alice   {&quot;order&quot;:2010,&quot;item&quot;:&quot;laptop stand&quot;,&quot;amount&quot;:55}
+Partition:1 Offset:0    dave    {&quot;order&quot;:2002,&quot;item&quot;:&quot;monitor&quot;,&quot;amount&quot;:210}
+Partition:1 Offset:1    frank   {&quot;order&quot;:2006,&quot;item&quot;:&quot;dock&quot;,&quot;amount&quot;:140}
+Partition:1 Offset:2    dave    {&quot;order&quot;:2008,&quot;item&quot;:&quot;chair&quot;,&quot;amount&quot;:320}
+Partition:2 Offset:0    carol   {&quot;order&quot;:2003,&quot;item&quot;:&quot;mouse&quot;,&quot;amount&quot;:18}
+Partition:2 Offset:1    erin    {&quot;order&quot;:2005,&quot;item&quot;:&quot;webcam&quot;,&quot;amount&quot;:75}
+Partition:2 Offset:2    carol   {&quot;order&quot;:2009,&quot;item&quot;:&quot;desk lamp&quot;,&quot;amount&quot;:35}
+Processed a total of 12 messages
+</code></pre>
+<p>Every message is where the API said it would be. To Kafka, the app is just another producer: the CLI consumer reads its messages like any others. The values are plain JSON text, because the app sent them through a <code>StringSerializer</code>.</p></div></div>
+<h2>Exercise 3.6 · A bad order</h2>
+<p class="task"><strong>Task:</strong> send an order with an empty customer, order number 0 and a negative amount, and look at the status code and the body.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -i -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{\&quot;customer\&quot;:\&quot;\&quot;,\&quot;order\&quot;:0,\&quot;item\&quot;:\&quot;pen\&quot;,\&quot;amount\&quot;:-5}'
+</code></pre>
+<pre class="language-output"><code class="language-output">HTTP/1.1 400
+Content-Type: application/problem+json
+
+{
+  &quot;title&quot;: &quot;Bad Request&quot;,
+  &quot;status&quot;: 400,
+  &quot;detail&quot;: &quot;The order is not valid - nothing was sent to Kafka&quot;,
+  &quot;instance&quot;: &quot;/api/orders&quot;,
+  &quot;errors&quot;: {
+    &quot;amount&quot;: &quot;must be greater than 0&quot;,
+    &quot;customer&quot;: &quot;must not be blank&quot;,
+    &quot;order&quot;: &quot;must be greater than 0&quot;
+  }
+}
+</code></pre>
+<p>(Body formatted for reading.) <code>@Valid</code> checked the <code>OrderRequest</code> before the controller method ran, so <code>OrderProducer</code> was never called. Check with the CLI consumer: the topic still has 12 messages. Validate at the edge. A message in Kafka cannot be taken back, and every consumer will have to deal with it.</p></div></div></section><section class="chapter"><h1>Lab 4 · Get Messages over REST</h1>
+<p><strong>Goal:</strong> get messages back out in two ways. The first is the <strong>listener</strong>, a consumer group that keeps up with the topic and remembers its place. The second is the <strong>reader</strong>, which reads any part of the log on demand. You will also watch the group catch up after a restart.</p>
+<h2>Exercise 4.1 · Messages from outside, while the app is down</h2>
+<p class="task"><strong>Task:</strong> stop the app with <strong>Ctrl+C</strong>. With the CLI, write two messages: one for judy as JSON, and one for grace as plain text. Then describe the group <code>orders-api</code>.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-kafka"><code class="language-kafka">kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic orders \
+  --reader-property parse.key=true --reader-property key.separator=:
+&gt;judy:{&quot;order&quot;:2016,&quot;item&quot;:&quot;usb hub&quot;,&quot;amount&quot;:22}
+&gt;grace:order 2017 - typed by hand, not JSON
+&gt;^C
+kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-api
+</code></pre>
+<pre class="language-output"><code class="language-output">Consumer group 'orders-api' has no active members.
+
+GROUP       TOPIC   PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  CONSUMER-ID
+orders-api  orders  0          6               7               1    -
+orders-api  orders  1          3               3               0    -
+orders-api  orders  2          3               4               1    -
+</code></pre>
+<p>(Spacing tightened. The <code>HOST</code> and <code>CLIENT-ID</code> columns are left out here and in the rest of the book.) The group still exists while no app is running. Its <strong>committed offsets</strong> are stored in <code>__consumer_offsets</code>. Before it stopped, the listener had handled everything: <code>CURRENT-OFFSET</code> 6, 3 and 3 are the next offsets it will read. grace went to partition 0 and judy to partition 2, so each of those partitions now has a <strong>lag of 1</strong>: one message the group has not processed yet.</p></div></div>
+<div class="adm note"><div class="adm-title">Ctrl+C, not closing the window</div><div class="adm-body"><p>Ctrl+C lets Spring shut down cleanly. The listener commits its offsets and <strong>leaves the group</strong>, so the group shows <em>no active members</em> at once. If the process is killed instead, the broker only notices when the member's session times out after <code>session.timeout.ms</code>, 45 s by default. Until then the dead member still owns its partitions.</p></div></div>
+<h2>Exercise 4.2 · Restart and catch up</h2>
+<p class="task"><strong>Task:</strong> start the app again. What does it receive first, and what does the group look like afterwards?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">java -jar target\orders-api-1.0.0.jar
+</code></pre>
+<pre class="language-output"><code class="language-output">06:34:12.301 [main] OrdersApiApplication : Started OrdersApiApplication in 10.011 seconds
+06:34:12.526 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-0, orders-1, orders-2]
+06:34:12.720 [-listener-0-C-1] OrderListener : received key=grace &lt;- orders-0 @ offset 6
+06:34:12.801 [-listener-0-C-1] OrderListener : received key=judy &lt;- orders-2 @ offset 3
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-api
+</code></pre>
+<pre class="language-output"><code class="language-output">GROUP       TOPIC   PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  CONSUMER-ID
+orders-api  orders  0          7               7               0    orders-api-0-d8ba3877-0fbe-4846-b567-c821c4d54034
+orders-api  orders  1          3               3               0    orders-api-0-d8ba3877-0fbe-4846-b567-c821c4d54034
+orders-api  orders  2          4               4               0    orders-api-0-d8ba3877-0fbe-4846-b567-c821c4d54034
+</code></pre>
+<p>The listener started from the <strong>committed offsets</strong>, 6 and 3, not from the beginning and not from the end. It received exactly the two messages it had missed, and nothing twice. The lag is back to 0. This is the "consumer goes away and comes back" story from the Consumers lesson. <code>auto-offset-reset: earliest</code> played no part: it only applies to a group with <strong>no</strong> committed offset.</p>
+<p>The <code>HOST</code> column, left out above, shows <code>/172.21.0.1</code>: Docker's gateway. From inside the Docker network, the app on Windows appears to come from there.</p></div></div>
+<h2>Exercise 4.3 · What did the listener receive?</h2>
+<p class="task"><strong>Task:</strong> send heidi's order 2018 (a stylus for 30), then call <code>GET /api/orders/received</code>. Look at the app's log too.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">$body = @{ customer = &quot;heidi&quot;; order = 2018; item = &quot;stylus&quot;; amount = 30 } | ConvertTo-Json
+Invoke-RestMethod -Method Post -Uri http://localhost:8090/api/orders -ContentType 'application/json' -Body $body
+curl.exe -s http://localhost:8090/api/orders/received
+</code></pre>
+<pre class="language-output"><code class="language-output">[
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 1, &quot;offset&quot;: 3, &quot;timestamp&quot;: &quot;2026-10-01T01:04:34.444Z&quot;, &quot;key&quot;: &quot;heidi&quot;, &quot;value&quot;: {&quot;order&quot;: 2018, &quot;item&quot;: &quot;stylus&quot;, &quot;amount&quot;: 30}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 2, &quot;offset&quot;: 3, &quot;timestamp&quot;: &quot;2026-10-01T01:03:27.361Z&quot;, &quot;key&quot;: &quot;judy&quot;, &quot;value&quot;: {&quot;order&quot;: 2016, &quot;item&quot;: &quot;usb hub&quot;, &quot;amount&quot;: 22}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 6, &quot;timestamp&quot;: &quot;2026-10-01T01:03:27.383Z&quot;, &quot;key&quot;: &quot;grace&quot;, &quot;value&quot;: &quot;order 2017 - typed by hand, not JSON&quot;}
+]
+</code></pre>
+<p>(The POST's receipt is not shown. The list is formatted one message per line.) Three things to notice:</p>
+<ul>
+<li><strong>Newest first</strong>, and only messages received <strong>since the restart</strong>. The buffer lives in memory, while the topic still holds all 15 messages.</li>
+<li>grace's value came back as a <strong>string</strong>, because it was not JSON. Anyone with access can write anything to a topic. A consumer has to cope with that, or a <strong>schema</strong> has to prevent it (Module 8, Schema Registry).</li>
+<li>judy's and grace's timestamps are from when the <strong>CLI</strong> sent them, not from when the app read them.</li>
+</ul>
+<p>The log shows both halves of the round trip:</p>
+<pre class="language-output"><code class="language-output">06:34:34.561 [-listener-0-C-1] OrderListener : received key=heidi &lt;- orders-1 @ offset 3
+06:34:34.577 [nio-8090-exec-1] OrderProducer : sent     key=heidi -&gt; orders-1 @ offset 3
+</code></pre>
+<p><em>Received</em> is logged <strong>before</strong> <em>sent</em>. The listener thread got the message from Kafka before the web thread had finished logging the broker's acknowledgement. From producer, through three replicas, to consumer took a few milliseconds.</p></div></div>
+<h2>Exercise 4.4 · Read the log from an offset</h2>
+<p class="task"><strong>Task:</strong> read three messages from partition 0, starting at offset 2.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s &quot;http://localhost:8090/api/orders?partition=0&amp;offset=2&amp;limit=3&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">[
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 2, &quot;timestamp&quot;: &quot;2026-10-01T01:02:26.712Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2001, &quot;item&quot;: &quot;keyboard&quot;, &quot;amount&quot;: 45}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 3, &quot;timestamp&quot;: &quot;2026-10-01T01:02:27.004Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2004, &quot;item&quot;: &quot;headset&quot;, &quot;amount&quot;: 60}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 4, &quot;timestamp&quot;: &quot;2026-10-01T01:02:27.142Z&quot;, &quot;key&quot;: &quot;bob&quot;, &quot;value&quot;: {&quot;order&quot;: 2007, &quot;item&quot;: &quot;cable&quot;, &quot;amount&quot;: 9}}
+]
+</code></pre>
+<p>The CLI equivalent is <code>kafka-console-consumer.sh --partition 0 --offset 2 --max-messages 3</code>. Put the URL in quotes in PowerShell: an unquoted <code>&amp;</code> is an operator.</p></div></div>
+<h2>Exercise 4.5 · One customer's orders</h2>
+<p class="task"><strong>Task:</strong> get all of alice's orders. How many partitions did the reader have to look in?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s &quot;http://localhost:8090/api/orders?customer=alice&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">[
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 0, &quot;timestamp&quot;: &quot;2026-10-01T01:00:31.397Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2001, &quot;item&quot;: &quot;keyboard&quot;, &quot;amount&quot;: 45}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 2, &quot;timestamp&quot;: &quot;2026-10-01T01:02:26.712Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2001, &quot;item&quot;: &quot;keyboard&quot;, &quot;amount&quot;: 45}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 3, &quot;timestamp&quot;: &quot;2026-10-01T01:02:27.004Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2004, &quot;item&quot;: &quot;headset&quot;, &quot;amount&quot;: 60}},
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 5, &quot;timestamp&quot;: &quot;2026-10-01T01:02:27.249Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2010, &quot;item&quot;: &quot;laptop stand&quot;, &quot;amount&quot;: 55}}
+]
+</code></pre>
+<p>All four are in partition 0, in the order they were sent, with the duplicate 2001 included. The reader still scanned <strong>all three</strong> partitions: Kafka has no index by key, so it filtered the records in the app. Looking up by key is a job for a database or a Kafka Streams state store, which a topic is not.</p></div></div>
+<h2>Exercise 4.6 · Reading does not delete</h2>
+<p class="task"><strong>Task:</strong> read the whole topic twice. Does the second read return the same messages? Did the listener's group move?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">(Invoke-RestMethod &quot;http://localhost:8090/api/orders?limit=50&quot;).Count
+</code></pre>
+<pre class="language-output"><code class="language-output">15
+</code></pre>
+<p>That is 7 + 4 + 4 messages in the three partitions. Run it again as often as you like: the answer stays 15 until someone writes more. A topic is a <strong>log, not a queue</strong>, and consuming removes nothing. The reader uses <code>assign()</code> with no group and commits nothing, so <code>kafka-consumer-groups.sh --describe --group orders-api</code> shows the same offsets as before. There is also no new group in <code>--list</code>.</p></div></div>
+<h2>Exercise 4.7 · Describe the topic over REST</h2>
+<p class="task"><strong>Task:</strong> call <code>GET /api/orders/topic</code> and compare it with <code>kafka-topics.sh --describe</code> from Exercise 1.4.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s http://localhost:8090/api/orders/topic
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;topic&quot;: &quot;orders&quot;, &quot;partitions&quot;: [
+    {&quot;partition&quot;: 0, &quot;leader&quot;: 1, &quot;replicas&quot;: [1, 2, 3], &quot;isr&quot;: [1, 2, 3], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 7},
+    {&quot;partition&quot;: 1, &quot;leader&quot;: 2, &quot;replicas&quot;: [2, 3, 1], &quot;isr&quot;: [2, 3, 1], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 4},
+    {&quot;partition&quot;: 2, &quot;leader&quot;: 3, &quot;replicas&quot;: [3, 1, 2], &quot;isr&quot;: [3, 1, 2], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 4}
+]}
+</code></pre>
+<p>Same leaders, replicas and ISR as the CLI shows, because the CLI uses the same Admin API. <code>endOffset</code> is the <strong>next</strong> offset to be written. <code>endOffset - startOffset</code> is the number of messages still in the partition, as long as retention has not deleted any and the topic is not compacted.</p></div></div>
+<div class="adm tip"><div class="adm-title">Errors are JSON too</div><div class="adm-body"><p>Ask for a partition that does not exist:</p>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s &quot;http://localhost:8090/api/orders?partition=7&quot;
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;title&quot;:&quot;Bad Request&quot;,&quot;status&quot;:400,&quot;detail&quot;:&quot;Topic orders has no partition 7&quot;,&quot;instance&quot;:&quot;/api/orders&quot;}
+</code></pre></div></div></section><section class="chapter"><h1>Lab 5 · Failures and Scaling</h1>
+<p><strong>Goal:</strong> see the course's ideas work in a real application. Stop a broker, and the app keeps sending. Start a second copy of the app, and the consumer group splits the partitions between the two.</p>
+<h2>Exercise 5.1 · A broker fails</h2>
+<p class="task"><strong>Task:</strong> stop <code>kafka2</code>, then send two orders: ivan's 2019 and dave's 2020. Do they succeed, and how long do they take? Then describe the topic.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker stop kafka2
+curl.exe -s -w &quot;\nHTTP %{http_code} in %{time_total}s\n&quot; -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{\&quot;customer\&quot;:\&quot;ivan\&quot;,\&quot;order\&quot;:2019,\&quot;item\&quot;:\&quot;hdmi cable\&quot;,\&quot;amount\&quot;:15}'
+curl.exe -s -w &quot;\nHTTP %{http_code} in %{time_total}s\n&quot; -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{\&quot;customer\&quot;:\&quot;dave\&quot;,\&quot;order\&quot;:2020,\&quot;item\&quot;:\&quot;footrest\&quot;,\&quot;amount\&quot;:40}'
+</code></pre>
+<pre class="language-output"><code class="language-output">kafka2
+{&quot;topic&quot;:&quot;orders&quot;,&quot;partition&quot;:2,&quot;offset&quot;:4,&quot;timestamp&quot;:&quot;2026-10-01T01:04:55.984Z&quot;,&quot;key&quot;:&quot;ivan&quot;,&quot;value&quot;:{&quot;order&quot;:2019,&quot;item&quot;:&quot;hdmi cable&quot;,&quot;amount&quot;:15}}
+HTTP 201 in 0.052261s
+{&quot;topic&quot;:&quot;orders&quot;,&quot;partition&quot;:1,&quot;offset&quot;:4,&quot;timestamp&quot;:&quot;2026-10-01T01:04:56.152Z&quot;,&quot;key&quot;:&quot;dave&quot;,&quot;value&quot;:{&quot;order&quot;:2020,&quot;item&quot;:&quot;footrest&quot;,&quot;amount&quot;:40}}
+HTTP 201 in 0.059433s
+</code></pre>
+<pre class="language-powershell"><code class="language-powershell">curl.exe -s http://localhost:8090/api/orders/topic
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;topic&quot;: &quot;orders&quot;, &quot;partitions&quot;: [
+    {&quot;partition&quot;: 0, &quot;leader&quot;: 1, &quot;replicas&quot;: [1, 2, 3], &quot;isr&quot;: [1, 3], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 7},
+    {&quot;partition&quot;: 1, &quot;leader&quot;: 3, &quot;replicas&quot;: [2, 3, 1], &quot;isr&quot;: [3, 1], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 5},
+    {&quot;partition&quot;: 2, &quot;leader&quot;: 3, &quot;replicas&quot;: [3, 1, 2], &quot;isr&quot;: [3, 1], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 5}
+]}
+</code></pre>
+<p>Both sends succeeded in about 50 ms, and the app noticed nothing. Broker 2 had led partition 1. The controller made broker <strong>3</strong> the new leader, and the producer's next metadata refresh pointed it there. Broker 2 also dropped out of every <strong>ISR</strong>. With <code>acks=all</code>, a write now waits for two replicas instead of three. That is still allowed, because <code>min.insync.replicas=2</code>.</p></div></div>
+<h2>Exercise 5.2 · The broker comes back</h2>
+<p class="task"><strong>Task:</strong> start <code>kafka2</code> again. When it is healthy, describe the topic once more. Is everything as before?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">docker start kafka2
+docker inspect -f &quot;{{.State.Health.Status}}&quot; kafka2      # repeat until it says healthy
+curl.exe -s http://localhost:8090/api/orders/topic
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;topic&quot;: &quot;orders&quot;, &quot;partitions&quot;: [
+    {&quot;partition&quot;: 0, &quot;leader&quot;: 1, &quot;replicas&quot;: [1, 2, 3], &quot;isr&quot;: [1, 2, 3], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 7},
+    {&quot;partition&quot;: 1, &quot;leader&quot;: 3, &quot;replicas&quot;: [2, 3, 1], &quot;isr&quot;: [1, 2, 3], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 5},
+    {&quot;partition&quot;: 2, &quot;leader&quot;: 3, &quot;replicas&quot;: [3, 1, 2], &quot;isr&quot;: [1, 2, 3], &quot;startOffset&quot;: 0, &quot;endOffset&quot;: 5}
+]}
+</code></pre>
+<p>Broker 2 copied the messages it had missed, ivan's and dave's, from the leaders and <strong>rejoined every ISR</strong>. But partition 1 is still led by broker <strong>3</strong>, even though its preferred leader is the first replica in the list, broker 2. The cluster moves leadership back on its own within about 5 minutes (<code>leader.imbalance.check.interval.seconds=300</code>). You can also do it at once with <code>kafka-leader-election.sh --election-type preferred</code>, as in Lab 3 of the CLI lab.</p></div></div>
+<div class="adm warning"><div class="adm-title">What if two brokers stop?</div><div class="adm-body"><p>Try it yourself and work out the answer first. With only one broker left, the ISR cannot reach <code>min.insync.replicas=2</code>, so an <code>acks=all</code> write cannot succeed. The KRaft quorum has also lost its majority, 1 vote of 3. The producer keeps retrying until <code>delivery.timeout.ms</code> (25 s) runs out. The app then answers <strong>503</strong> with the <code>Kafka unavailable</code> problem JSON. Start both brokers again before you go on.</p></div></div>
+<h2>Exercise 5.3 · Scale out: a second instance</h2>
+<p class="task"><strong>Task:</strong> leave the first instance running. Start a second one on port 8091, in a second PowerShell window, then look at both logs and at the group.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">java -jar target\orders-api-1.0.0.jar --server.port=8091
+</code></pre>
+<p>First instance (8090):</p>
+<pre class="language-output"><code class="language-output">06:34:12.526 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-0, orders-1, orders-2]
+06:36:21.623 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions revoked: [orders-0, orders-1, orders-2]
+06:36:21.636 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-2]
+</code></pre>
+<p>Second instance (8091):</p>
+<pre class="language-output"><code class="language-output">06:36:21.658 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-0, orders-1]
+</code></pre>
+<pre class="language-kafka"><code class="language-kafka">kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --describe --group orders-api
+</code></pre>
+<pre class="language-output"><code class="language-output">GROUP       TOPIC   PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG  CONSUMER-ID
+orders-api  orders  0          7               7               0    orders-api-0-4027d0d1-5f1f-4860-a1c5-586cff2cde43
+orders-api  orders  1          5               5               0    orders-api-0-4027d0d1-5f1f-4860-a1c5-586cff2cde43
+orders-api  orders  2          5               5               0    orders-api-0-d8ba3877-0fbe-4846-b567-c821c4d54034
+</code></pre>
+<p>That is a <strong>rebalance</strong>. The second instance joined the same group, so the first gave up all its partitions. The group then shared them out again: partitions 0 and 1 to the new member, partition 2 to the old one. Each partition still has <strong>exactly one</strong> reader in the group, so the order within each partition is kept. The two <code>CONSUMER-ID</code>s are the two instances.</p>
+<p>No code changed. <strong>Scaling a consumer means starting more copies of it, up to the number of partitions.</strong> A fourth instance on this 3-partition topic would get nothing and wait as a standby.</p></div></div>
+<h2>Exercise 5.4 · Who receives what?</h2>
+<p class="task"><strong>Task:</strong> send alice's order 2021 (a mouse pad for 8) <strong>to the first instance, on port 8090</strong>. Which instance's listener receives it?</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-powershell"><code class="language-powershell">curl.exe -s -X POST http://localhost:8090/api/orders -H &quot;Content-Type: application/json&quot; -d '{\&quot;customer\&quot;:\&quot;alice\&quot;,\&quot;order\&quot;:2021,\&quot;item\&quot;:\&quot;mouse pad\&quot;,\&quot;amount\&quot;:8}'
+curl.exe -s http://localhost:8091/api/orders/received
+</code></pre>
+<pre class="language-output"><code class="language-output">{&quot;topic&quot;:&quot;orders&quot;,&quot;partition&quot;:0,&quot;offset&quot;:7,&quot;timestamp&quot;:&quot;2026-10-01T01:06:36.888Z&quot;,&quot;key&quot;:&quot;alice&quot;,&quot;value&quot;:{&quot;order&quot;:2021,&quot;item&quot;:&quot;mouse pad&quot;,&quot;amount&quot;:8}}
+[
+  {&quot;topic&quot;: &quot;orders&quot;, &quot;partition&quot;: 0, &quot;offset&quot;: 7, &quot;timestamp&quot;: &quot;2026-10-01T01:06:36.888Z&quot;, &quot;key&quot;: &quot;alice&quot;, &quot;value&quot;: {&quot;order&quot;: 2021, &quot;item&quot;: &quot;mouse pad&quot;, &quot;amount&quot;: 8}}
+]
+</code></pre>
+<p>The logs of the two instances:</p>
+<pre class="language-output"><code class="language-output">8090: 06:36:36.919 [nio-8090-exec-7] OrderProducer : sent     key=alice -&gt; orders-0 @ offset 7
+8091: 06:36:37.008 [-listener-0-C-1] OrderListener : received key=alice &lt;- orders-0 @ offset 7
+</code></pre>
+<p>Instance 8090 <strong>sent</strong> the order, but instance 8091 <strong>received</strong> it, because 8091 owns partition 0. The producer side and the consumer side of an app are independent clients: who sends a message has nothing to do with who reads it. The partition alone decides.</p>
+<p>Notice also that 8091's <code>/received</code> holds one message, while 8090's holds the older ones. With several instances, an in-memory view is only ever part of the picture. That is one more reason to read from the topic, or from a shared store.</p></div></div>
+<h2>Exercise 5.5 · Scale back in</h2>
+<p class="task"><strong>Task:</strong> stop the second instance with Ctrl+C and watch the first instance's log.</p>
+<div class="adm solution"><div class="adm-title">Solution</div><div class="adm-body"><pre class="language-output"><code class="language-output">06:39:42.713 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions revoked: [orders-2]
+06:39:42.727 [-listener-0-C-1] KafkaMessageListenerContainer : orders-api: partitions assigned: [orders-0, orders-1, orders-2]
+</code></pre>
+<p>Another rebalance: the survivor takes over all three partitions. It resumes 0 and 1 from the offsets the second instance committed, so nothing is lost and nothing is read twice. With Ctrl+C this happens <strong>at once</strong>, because the leaving instance tells the group coordinator. If an instance crashes, the group waits for <code>session.timeout.ms</code>, 45 s, before it moves that instance's partitions. The instance in this capture was killed rather than stopped with Ctrl+C, so the rebalance waited out that timeout.</p></div></div>
+<h2>Challenges</h2>
+<p>No solutions this time: the earlier exercises give you everything you need.</p>
+<ol>
+<li><strong>Replay the whole topic.</strong> Stop the app. Use <code>kafka-consumer-groups.sh --reset-offsets --to-earliest --group orders-api --topic orders --execute</code> (CLI Lab 7), then start the app again. What does <code>/received</code> show, and why does it hold at most 50 messages?</li>
+<li><strong>A second group.</strong> Start an instance with <code>--app.listener-group-id=orders-audit --server.port=8092</code>. Which messages does it receive? Does it change anything for the group <code>orders-api</code>?</li>
+<li><strong>Asynchronous sending.</strong> Change <code>OrderProducer</code> so that it does not wait. Return <code>202 Accepted</code> at once, and log the partition and offset in a <code>whenComplete</code> callback. What does the caller lose?</li>
+<li><strong>More partitions.</strong> Change the <code>NewTopic</code> bean to 6 partitions and restart. What does <code>KafkaAdmin</code> do to the existing topic? Which partitions do alice's <strong>new</strong> orders go to now, and what does that mean for the order of her messages?</li>
+</ol></section><section class="chapter"><h1>Lab 6 · API Reference and Troubleshooting</h1>
+<h2>Endpoints</h2>
+<p>Base URL: <code>http://localhost:8090/api/orders</code>. Every request is also in <code>orders-api\requests.http</code>, ready to run from VS Code (<em>REST Client</em> extension) or IntelliJ.</p>
+<h3>POST /api/orders - send an order</h3>
+<table>
+<thead>
+<tr>
+<th>Body field</th>
+<th>Type</th>
+<th>Rule</th>
+<th>Becomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>customer</code></td>
+<td>string</td>
+<td>not blank</td>
+<td>the message <strong>key</strong></td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>integer</td>
+<td>&gt; 0</td>
+<td>value field <code>order</code></td>
+</tr>
+<tr>
+<td><code>item</code></td>
+<td>string</td>
+<td>not blank</td>
+<td>value field <code>item</code></td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td>integer</td>
+<td>&gt; 0</td>
+<td>value field <code>amount</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>When</th>
+<th>Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>201 Created</code></td>
+<td>Kafka acknowledged the message (<code>acks=all</code>)</td>
+<td><code>topic</code>, <code>partition</code>, <code>offset</code>, <code>timestamp</code>, <code>key</code>, <code>value</code></td>
+</tr>
+<tr>
+<td><code>400 Bad Request</code></td>
+<td>Invalid field or malformed JSON</td>
+<td>problem JSON. For invalid fields, <code>errors</code> lists them</td>
+</tr>
+<tr>
+<td><code>503 Service Unavailable</code></td>
+<td>No broker answered, or the write failed (e.g. too few in-sync replicas)</td>
+<td>problem JSON with the Kafka error in <code>detail</code></td>
+</tr>
+</tbody>
+</table>
+<h3>GET /api/orders/received - what the listener received</h3>
+<p>No parameters. Returns up to <code>app.keep-last</code> (50) messages, newest first, received since the app started. Each message has <code>topic</code>, <code>partition</code>, <code>offset</code>, <code>timestamp</code>, <code>key</code> and <code>value</code>. <code>value</code> is JSON when the message was JSON, and a string otherwise.</p>
+<h3>GET /api/orders - read the topic</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>partition</code></td>
+<td>all</td>
+<td>Read only this partition. Unknown partition: <code>400</code></td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td><code>0</code></td>
+<td>Start at this offset in each partition read. Clamped to the partition's first and end offset</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td><code>20</code></td>
+<td>At most this many messages (1-500)</td>
+</tr>
+<tr>
+<td><code>customer</code></td>
+<td>-</td>
+<td>Only messages with this key</td>
+</tr>
+</tbody>
+</table>
+<p>The result is sorted by partition, then offset. The reader stops at the end of the log, or after 5 seconds. It uses no consumer group and commits nothing.</p>
+<h3>GET /api/orders/topic - describe the topic</h3>
+<p>For each partition: <code>leader</code>, <code>replicas</code>, <code>isr</code> (broker ids), <code>startOffset</code> (first offset still stored) and <code>endOffset</code> (next offset to be written).</p>
+<h2>Settings</h2>
+<p>All in <code>src\main\resources\application.yml</code>. Override any of them at startup with <code>--name=value</code>, or with an environment variable such as <code>APP_TOPIC</code>. No rebuild is needed.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server.port</code></td>
+<td><code>8090</code></td>
+<td>HTTP port</td>
+</tr>
+<tr>
+<td><code>spring.kafka.bootstrap-servers</code></td>
+<td><code>localhost:19092,localhost:29092,localhost:39092</code></td>
+<td>Where to find the cluster</td>
+</tr>
+<tr>
+<td><code>app.topic</code></td>
+<td><code>orders</code></td>
+<td>The topic the app sends to, listens to and reads</td>
+</tr>
+<tr>
+<td><code>app.listener-group-id</code></td>
+<td><code>orders-api</code></td>
+<td>The listener's consumer group</td>
+</tr>
+<tr>
+<td><code>app.keep-last</code></td>
+<td><code>50</code></td>
+<td>Size of the <code>/received</code> buffer</td>
+</tr>
+<tr>
+<td><code>spring.kafka.producer.acks</code></td>
+<td><code>all</code></td>
+<td><code>0</code>, <code>1</code> or <code>all</code> - try <code>1</code> with a broker down</td>
+</tr>
+<tr>
+<td><code>logging.level.org.apache.kafka</code></td>
+<td><code>WARN</code></td>
+<td><code>INFO</code> shows every client setting at startup</td>
+</tr>
+</tbody>
+</table>
+<pre class="language-powershell"><code class="language-powershell">java -jar target\orders-api-1.0.0.jar --server.port=8095 --app.listener-group-id=orders-test
+</code></pre>
+<h2>Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curl -X POST ...</code> fails with <em>A parameter cannot be found that matches parameter name 'X'</em></td>
+<td><code>curl</code> is PowerShell's alias for <code>Invoke-WebRequest</code></td>
+<td>Type <code>curl.exe</code></td>
+</tr>
+<tr>
+<td><code>400</code> with <code>"detail":"Failed to read request"</code> from <code>curl.exe -d '{"a":"b"}'</code></td>
+<td>Windows PowerShell 5.1 strips the inner <code>"</code></td>
+<td>Escape them as <code>\"</code>, or use <code>--data "@file.json"</code> or <code>Invoke-RestMethod</code> (Lab 3)</td>
+</tr>
+<tr>
+<td>Startup fails: <em>Port 8090 was already in use</em></td>
+<td>Another program, or another copy of the app</td>
+<td><code>--server.port=8091</code>, or stop the other one: <code>Get-NetTCPConnection -LocalPort 8090</code> shows its process id</td>
+</tr>
+<tr>
+<td>Log repeats <em>Connection to node -1 (localhost/127.0.0.1:19092) could not be established</em></td>
+<td>The cluster is not running</td>
+<td><code>docker compose up -d</code> in <code>kafka_cli_lab</code>, wait for <code>(healthy)</code></td>
+</tr>
+<tr>
+<td>Log shows <em>Connection to node 2 (kafka2/...) could not be established</em>, or <em>UnknownHostException: kafka2</em></td>
+<td>The app reached a broker on the <strong>internal</strong> listener name</td>
+<td>The app must use the EXTERNAL ports <code>19092/29092/39092</code> from Windows, or <code>kafka1:9092 ...</code> from inside the Docker network - never a mix</td>
+</tr>
+<tr>
+<td><code>POST</code> returns <code>503</code> after about 25 s</td>
+<td>No in-sync leader can take the write (brokers down, ISR below <code>min.insync.replicas</code>)</td>
+<td><code>docker compose ps</code>, then start the stopped brokers (Lab 5)</td>
+</tr>
+<tr>
+<td><code>/received</code> is empty after a restart</td>
+<td>The buffer lives in memory, and the group resumes after its committed offsets</td>
+<td>Expected - use <code>GET /api/orders</code> to read older messages</td>
+</tr>
+<tr>
+<td>The listener gets no partitions: log shows <code>partitions assigned: []</code></td>
+<td>More app instances than partitions</td>
+<td>Expected - it is a standby. Stop an instance, or add partitions</td>
+</tr>
+<tr>
+<td><code>mvnw.cmd</code> fails: <em>Cannot download ... maven</em></td>
+<td>No internet, or a proxy, on the first build</td>
+<td>Set the proxy in <code>%USERPROFILE%\.m2\settings.xml</code>, or install Maven and run <code>mvn -DskipTests package</code></td>
+</tr>
+<tr>
+<td>Build fails with <em>release version 21 not supported</em></td>
+<td><code>java</code> on the PATH is older than 21</td>
+<td><code>java -version</code> - install JDK 21 and set <code>JAVA_HOME</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Where to go next</h2>
+<ul>
+<li><strong>Schema Registry</strong> (Kafka 101, Module 8): replace the hand-made JSON with Avro or JSON Schema, so a producer cannot write something like grace's free-text message.</li>
+<li><strong>Spring for Apache Kafka reference</strong>: <code>@RetryableTopic</code> and dead-letter topics for messages that fail, transactions, and <code>ReplyingKafkaTemplate</code> for request/reply.</li>
+<li><strong>Testing</strong>: Spring Kafka's <code>@EmbeddedKafka</code> or Testcontainers' Kafka module start a broker inside a JUnit test.</li>
+</ul></section></body></html>

@@ -1,0 +1,9 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/index-demo-0/00000000000000000000.index | head -8
+Dumping /var/lib/kafka/data/index-demo-0/00000000000000000000.index
+offset: 47 position: 4665
+offset: 87 position: 9330
+offset: 127 position: 13995
+offset: 167 position: 18660
+offset: 207 position: 23325
+offset: 247 position: 27990
+offset: 287 position: 32655

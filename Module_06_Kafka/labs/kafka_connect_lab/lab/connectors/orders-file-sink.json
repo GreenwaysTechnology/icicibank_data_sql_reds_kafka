@@ -1,0 +1,7 @@
+{
+  "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+  "tasks.max": "1",
+  "topics": "shop-orders",
+  "file": "/lab/data/out/shop-orders.txt",
+  "value.converter": "org.apache.kafka.connect.storage.StringConverter"
+}

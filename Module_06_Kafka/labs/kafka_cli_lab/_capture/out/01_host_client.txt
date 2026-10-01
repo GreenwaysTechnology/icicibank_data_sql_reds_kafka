@@ -1,0 +1,8 @@
+D:\trainings\Apache_Kafka_Training\labs\kafka_cli_lab\lab\host_client_check.py:4: SyntaxWarning: "\h" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\h"? A raw string is also an option.
+  python lab\host_client_check.py
+brokers : ['1=localhost:19092', '2=localhost:29092', '3=localhost:39092']
+topics  : ['audit-log', 'codec-check', 'comp-gzip', 'comp-lz4', 'comp-none', 'comp-zstd', 'customer-profile', 'index-demo', 'index-dense', 'key-skew', 'legacy-events', 'orders', 'payments', 'perf-test', 'pinned', 'segments-demo', 'strict-payments']
+written : orders-0 @ offset 6
+read    : 2 0 carol {"order":2003,"item":"mouse","amount":18
+read    : 2 1 erin {"order":2005,"item":"webcam","amount":7
+read    : 2 2 carol {"order":2009,"item":"desk lamp","amount

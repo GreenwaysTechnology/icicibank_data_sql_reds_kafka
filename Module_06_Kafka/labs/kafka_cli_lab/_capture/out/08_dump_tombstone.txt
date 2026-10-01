@@ -1,0 +1,9 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/customer-profile-0/00000000000000000000.log --print-data-log
+Dumping /var/lib/kafka/data/customer-profile-0/00000000000000000000.log
+Log starting offset: 0
+baseOffset: 0 lastOffset: 5 count: 3 baseSequence: 0 lastSequence: 5 producerId: 3 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong[1790510504371] position: 0 CreateTime: 1790510459930 size: 167 magic: 2 compresscodec: none crc: 358563636 isvalid: true
+| offset: 3 CreateTime: 1790510459930 keySize: 5 valueSize: 32 sequence: 3 headerKeys: [] key: carol payload: {"city":"Delhi","tier":"silver"}
+| offset: 4 CreateTime: 1790510459930 keySize: 5 valueSize: 34 sequence: 4 headerKeys: [] key: alice payload: {"city":"Bengaluru","tier":"gold"}
+| offset: 5 CreateTime: 1790510459930 keySize: 3 valueSize: -1 sequence: 5 headerKeys: [] key: bob
+Non-consecutive offsets in /var/lib/kafka/data/customer-profile-0/00000000000000000000.log
+  -1 is followed by 3

@@ -1,0 +1,7 @@
+$ hostname; ls -d /var/lib/kafka/data/orders-* /var/lib/kafka/data/pinned-*
+kafka3
+/var/lib/kafka/data/orders-0
+/var/lib/kafka/data/orders-1
+/var/lib/kafka/data/orders-2
+/var/lib/kafka/data/pinned-1
+/var/lib/kafka/data/pinned-2

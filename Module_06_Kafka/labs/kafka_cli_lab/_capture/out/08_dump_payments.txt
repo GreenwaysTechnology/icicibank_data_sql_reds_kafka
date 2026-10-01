@@ -1,0 +1,7 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/payments-2/00000000000000000000.log --print-data-log --deep-iteration
+Dumping /var/lib/kafka/data/payments-2/00000000000000000000.log
+Log starting offset: 0
+baseOffset: 0 lastOffset: 2 count: 3 baseSequence: 0 lastSequence: 2 producerId: 8 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 0 CreateTime: 1790510585846 size: 224 magic: 2 compresscodec: none crc: 3850160294 isvalid: true
+| offset: 0 CreateTime: 1790510585844 keySize: 5 valueSize: 41 sequence: 0 headerKeys: [] key: carol payload: {"order":2003,"item":"mouse","amount":18}
+| offset: 1 CreateTime: 1790510585845 keySize: 4 valueSize: 42 sequence: 1 headerKeys: [] key: erin payload: {"order":2005,"item":"webcam","amount":75}
+| offset: 2 CreateTime: 1790510585846 keySize: 5 valueSize: 45 sequence: 2 headerKeys: [] key: carol payload: {"order":2009,"item":"desk lamp","amount":35}

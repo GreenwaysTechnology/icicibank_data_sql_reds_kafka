@@ -1,0 +1,2 @@
+$ kafka-configs.sh --bootstrap-server kafka1:9092 --alter --entity-type topics --entity-name audit-log --delete-config compression.type
+Completed updating config for topic audit-log.

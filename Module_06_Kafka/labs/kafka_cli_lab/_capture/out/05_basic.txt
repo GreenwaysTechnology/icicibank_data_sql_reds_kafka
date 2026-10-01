@@ -1,0 +1,5 @@
+$ printf 'user alice logged in\nuser bob logged in\nuser alice logged out\n' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic audit-log; kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic audit-log --from-beginning --max-messages 3 --formatter-property print.partition=true
+Partition:1	user alice logged in
+Partition:1	user bob logged in
+Partition:1	user alice logged out
+Processed a total of 3 messages

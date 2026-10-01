@@ -1,0 +1,31 @@
+$ curl.exe -s "localhost:8083/connector-plugins?connectorsOnly=false"
+Counter({'transformation': 26, 'header_converter': 10, 'converter': 9, 'source': 4, 'predicate': 3, 'sink': 1})
+transformation org.apache.kafka.connect.transforms.Cast$Key
+transformation org.apache.kafka.connect.transforms.Cast$Value
+transformation org.apache.kafka.connect.transforms.DropHeaders
+transformation org.apache.kafka.connect.transforms.ExtractField$Key
+transformation org.apache.kafka.connect.transforms.ExtractField$Value
+transformation org.apache.kafka.connect.transforms.Filter
+transformation org.apache.kafka.connect.transforms.Flatten$Key
+transformation org.apache.kafka.connect.transforms.Flatten$Value
+transformation org.apache.kafka.connect.transforms.HeaderFrom$Key
+transformation org.apache.kafka.connect.transforms.HeaderFrom$Value
+transformation org.apache.kafka.connect.transforms.HoistField$Key
+transformation org.apache.kafka.connect.transforms.HoistField$Value
+transformation org.apache.kafka.connect.transforms.InsertField$Key
+transformation org.apache.kafka.connect.transforms.InsertField$Value
+transformation org.apache.kafka.connect.transforms.InsertHeader
+transformation org.apache.kafka.connect.transforms.MaskField$Key
+transformation org.apache.kafka.connect.transforms.MaskField$Value
+transformation org.apache.kafka.connect.transforms.RegexRouter
+transformation org.apache.kafka.connect.transforms.ReplaceField$Key
+transformation org.apache.kafka.connect.transforms.ReplaceField$Value
+transformation org.apache.kafka.connect.transforms.SetSchemaMetadata$Key
+transformation org.apache.kafka.connect.transforms.SetSchemaMetadata$Value
+transformation org.apache.kafka.connect.transforms.TimestampConverter$Key
+transformation org.apache.kafka.connect.transforms.TimestampConverter$Value
+transformation org.apache.kafka.connect.transforms.TimestampRouter
+transformation org.apache.kafka.connect.transforms.ValueToKey
+predicate org.apache.kafka.connect.transforms.predicates.HasHeaderKey
+predicate org.apache.kafka.connect.transforms.predicates.RecordIsTombstone
+predicate org.apache.kafka.connect.transforms.predicates.TopicNameMatches

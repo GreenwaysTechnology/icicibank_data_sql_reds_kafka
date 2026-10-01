@@ -1,0 +1,4 @@
+$ printf 'source:web,trace:abc123\tgrace\t{"order":2012,"item":"notebook","amount":12}\n' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic orders --reader-property parse.key=true --reader-property parse.headers=true; kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --partition 0 --offset 4 --max-messages 2 --formatter-property print.headers=true --formatter-property print.key=true --formatter-property print.offset=true
+Offset:4	NO_HEADERS	grace	{"order":2011,"item":"pen","amount":3}
+Offset:5	source:web,trace:abc123	grace	{"order":2012,"item":"notebook","amount":12}
+Processed a total of 2 messages

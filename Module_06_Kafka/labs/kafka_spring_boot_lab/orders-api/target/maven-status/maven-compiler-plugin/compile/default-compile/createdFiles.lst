@@ -1,0 +1,15 @@
+com\training\kafka\orders\OrderRequest.class
+com\training\kafka\orders\Order.class
+com\training\kafka\orders\OrderReader.class
+com\training\kafka\orders\OrderListener.class
+com\training\kafka\orders\TopicInfo.class
+com\training\kafka\orders\OrderController.class
+com\training\kafka\orders\OrderMessage.class
+com\training\kafka\orders\TopicInfo$Partition.class
+com\training\kafka\orders\OrdersApiApplication.class
+com\training\kafka\orders\OrderProducer.class
+com\training\kafka\orders\ApiExceptionHandler.class
+com\training\kafka\orders\SendReceipt.class
+com\training\kafka\orders\TopicInspector.class
+com\training\kafka\orders\KafkaUnavailableException.class
+com\training\kafka\orders\KafkaTopicConfig.class

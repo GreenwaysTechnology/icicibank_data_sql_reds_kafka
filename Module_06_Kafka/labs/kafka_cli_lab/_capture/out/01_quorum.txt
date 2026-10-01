@@ -1,0 +1,9 @@
+$ kafka-metadata-quorum.sh --bootstrap-server kafka1:9092 describe --status
+ClusterId:              mXRdmJ0FRR-s1q-6q0Gqew
+LeaderId:               2
+LeaderEpoch:            1
+HighWatermark:          88
+MaxFollowerLag:         0
+MaxFollowerLagTimeMs:   434
+CurrentVoters:          [{"id": 1, "endpoints": ["CONTROLLER://kafka1:9093"]}, {"id": 2, "endpoints": ["CONTROLLER://kafka2:9093"]}, {"id": 3, "endpoints": ["CONTROLLER://kafka3:9093"]}]
+CurrentObservers:       []

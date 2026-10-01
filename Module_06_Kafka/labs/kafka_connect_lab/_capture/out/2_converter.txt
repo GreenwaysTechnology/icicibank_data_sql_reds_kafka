@@ -1,0 +1,7 @@
+$ PUT orders-file-source-json (worker default converter)
+{"name":"orders-file-source-json","config":{"connector.class":"org.apache.kafka.connect.file.FileStreamSourceConnector",
+$ consume 1
+"{\"order\":3001,\"customer\":\"alice\",\"item\":\"keyboard\",\"amount\":45,\"email\":\"alice@example.com\",\"card\":\"4111111111111111\"}"
+Processed a total of 1 messages
+$ delete
+HTTP/1.1 204 No Content

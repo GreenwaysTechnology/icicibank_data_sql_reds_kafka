@@ -1,0 +1,5 @@
+$ kafka-consumer-groups.sh --bootstrap-server kafka1:9092 --group orders-app --topic orders --reset-offsets --to-earliest --execute
+
+Error: Assignments can only be reset if the group 'orders-app' is inactive, but the current state is Stable.
+
+GROUP           TOPIC           PARTITION  NEW-OFFSET

@@ -1,0 +1,6 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/comp-gzip-0/00000000000000000000.log --deep-iteration --print-data-log | sed -n '1,5p'
+Dumping /var/lib/kafka/data/comp-gzip-0/00000000000000000000.log
+Log starting offset: 0
+baseOffset: 0 lastOffset: 59 count: 60 baseSequence: 0 lastSequence: 59 producerId: 11 producerEpoch: 0 partitionLeaderEpoch: 0 isTransactional: false isControl: false deleteHorizonMs: OptionalLong.empty position: 0 CreateTime: 1790510641963 size: 1273 magic: 2 compresscodec: gzip crc: 3797260463 isvalid: true
+| offset: 0 CreateTime: 1790510641932 keySize: -1 valueSize: 107 sequence: 0 headerKeys: [] payload: {"order": 3178, "customer": "cust-47", "item": "chair", "amount": 81, "city": "Delhi", "status": "CREATED"}
+| offset: 1 CreateTime: 1790510641956 keySize: -1 valueSize: 111 sequence: 1 headerKeys: [] payload: {"order": 3396, "customer": "cust-33", "item": "monitor", "amount": 32, "city": "Kolkata", "status": "CREATED"}

@@ -1,0 +1,18 @@
+$ kafka-topics.sh --list | grep connect
+connect-configs
+connect-offsets
+connect-status
+$ describe connect-offsets
+Topic: connect-offsets	TopicId: WPKG-enmQM2ISPVkvQMqyw	PartitionCount: 25	ReplicationFactor: 3	Configs: min.insync.replicas=2,cleanup.policy=compact
+	Topic: connect-offsets	Partition: 0	Leader: 3	Replicas: 3,1,2	Isr: 3,1,2	Elr: 	LastKnownElr: 
+	Topic: connect-offsets	Partition: 1	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+write /dev/stdout: The pipe is being closed.
+$ describe connect-configs
+Topic: connect-configs	TopicId: y_v_b1SOTwqNAqG_x1XVvg	PartitionCount: 1	ReplicationFactor: 3	Configs: min.insync.replicas=2,cleanup.policy=compact
+	Topic: connect-configs	Partition: 0	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+$ describe connect-status
+Topic: connect-status	TopicId: PvKJnb7wSBSuZOR2C6gy1w	PartitionCount: 5	ReplicationFactor: 3	Configs: min.insync.replicas=2,cleanup.policy=compact
+$ kafka-groups.sh --list
+GROUP                TYPE                 PROTOCOL            
+connect-lab          Classic              connect              
+orders-api           Classic              consumer             

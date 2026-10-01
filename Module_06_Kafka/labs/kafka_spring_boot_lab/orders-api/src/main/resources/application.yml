@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+#  orders-api - connects to the 3-broker cluster of the Kafka CLI lab
+#  (kafka_cli_lab/docker-compose.yml). Run on Windows, so it uses the
+#  EXTERNAL listeners that the brokers advertise as localhost:19092/29092/39092.
+# ---------------------------------------------------------------------------
+server:
+  port: 8090                      # 8080 is often taken; Kafka UI uses 8081
+
+spring:
+  application:
+    name: orders-api
+
+  kafka:
+    # a few brokers - one reachable is enough, the client learns the rest
+    bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
+    client-id: orders-api
+
+    # the same settings as lab/config/producer.properties
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all                   # wait for every in-sync replica
+      batch-size: 32KB
+      compression-type: lz4
+      properties:
+        enable.idempotence: true  # no duplicates on retry
+        linger.ms: 20             # wait up to 20 ms to fill a batch
+        max.block.ms: 10000       # wait at most 10 s for metadata (a broker to talk to)
+        request.timeout.ms: 10000 # wait at most 10 s for one broker reply
+        delivery.timeout.ms: 25000 # give up on a message after 25 s, retries included
+
+    # used by the @KafkaListener and by the on-demand reader
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest # a new group starts at the oldest message
+
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false   # keep {"order","item","amount"} order
+
+app:
+  topic: orders                   # the topic from Lab 2 of the CLI lab
+  listener-group-id: orders-api   # the consumer group of the @KafkaListener
+  keep-last: 50                   # how many received messages GET /received returns
+
+logging:
+  level:
+    org.apache.kafka: WARN        # the Kafka clients are chatty at INFO

@@ -1,0 +1,2 @@
+$ kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic segments-demo --time -2
+segments-demo:0:9984

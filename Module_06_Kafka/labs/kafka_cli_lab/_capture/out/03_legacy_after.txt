@@ -1,0 +1,4 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic legacy-events
+Topic: legacy-events	TopicId: amXgW7CNSq2ArG2NHX68eg	PartitionCount: 2	ReplicationFactor: 3	Configs: min.insync.replicas=2
+	Topic: legacy-events	Partition: 0	Leader: 3	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: legacy-events	Partition: 1	Leader: 1	Replicas: 2,3,1	Isr: 1,2,3	Elr: 	LastKnownElr: 

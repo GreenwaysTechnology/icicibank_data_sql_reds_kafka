@@ -1,0 +1,30 @@
+{
+  "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+  "tasks.max": "1",
+  "connection.url": "jdbc:postgresql://postgres:5432/shop",
+  "connection.user": "lab",
+  "connection.password": "lab",
+  "table.whitelist": "users",
+  "mode": "timestamp+incrementing",
+  "incrementing.column.name": "id",
+  "timestamp.column.name": "updated_at",
+  "poll.interval.ms": "2000",
+  "topic.prefix": "pg-",
+  "topic.creation.default.partitions": "3",
+  "topic.creation.default.replication.factor": "3",
+
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter.schemas.enable": "true",
+
+  "transforms": "addSource,idToKey,keyOnly",
+
+  "transforms.addSource.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+  "transforms.addSource.static.field": "source_system",
+  "transforms.addSource.static.value": "users_db",
+
+  "transforms.idToKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+  "transforms.idToKey.fields": "id",
+
+  "transforms.keyOnly.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+  "transforms.keyOnly.field": "id"
+}

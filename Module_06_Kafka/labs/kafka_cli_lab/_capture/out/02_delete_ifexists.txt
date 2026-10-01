@@ -1,0 +1,2 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --delete --topic no-such-topic --if-exists; echo "exit code: $?"
+exit code: 0

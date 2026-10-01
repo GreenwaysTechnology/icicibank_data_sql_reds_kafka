@@ -1,0 +1,8 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --alter --topic audit-log --partitions 6 && kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topic audit-log
+Topic: audit-log	TopicId: RUzgBoJcRhmMC_psWmYb3w	PartitionCount: 6	ReplicationFactor: 3	Configs: min.insync.replicas=2,cleanup.policy=delete,retention.ms=604800000
+	Topic: audit-log	Partition: 0	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: audit-log	Partition: 1	Leader: 2	Replicas: 2,3,1	Isr: 2,3,1	Elr: 	LastKnownElr: 
+	Topic: audit-log	Partition: 2	Leader: 3	Replicas: 3,1,2	Isr: 3,1,2	Elr: 	LastKnownElr: 
+	Topic: audit-log	Partition: 3	Leader: 3	Replicas: 3,1,2	Isr: 3,1,2	Elr: 	LastKnownElr: 
+	Topic: audit-log	Partition: 4	Leader: 1	Replicas: 1,2,3	Isr: 1,2,3	Elr: 	LastKnownElr: 
+	Topic: audit-log	Partition: 5	Leader: 2	Replicas: 2,3,1	Isr: 2,3,1	Elr: 	LastKnownElr: 

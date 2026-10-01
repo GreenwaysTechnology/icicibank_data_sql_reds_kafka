@@ -1,0 +1,19 @@
+$ psql: SELECT * FROM users;
+ id | name |      email      | country |       updated_at        
+----+------+-----------------+---------+-------------------------
+  1 | ana  | ana@example.com | PT      | 2026-10-01 01:29:51.579
+  2 | raj  | raj@example.com | IN      | 2026-10-01 01:29:51.579
+  3 | li   | li@example.com  | CN      | 2026-10-01 01:29:51.579
+  4 | sam  | sam@example.com | US      | 2026-10-01 01:29:51.579
+(4 rows)
+
+$ PUT users-db-source
+HTTP 201
+$ status
+RUNNING [(0, 'RUNNING', '')]
+$ consume pg-users
+Partition:2	2	{"schema":{"type":"struct","fields":[{"type":"int32","optional":false,"field":"id"},{"type":"string","optional":false,"field":"name"},{"type":"string","optional":false,"field":"email"},{"type":"string","optional":false,"field":"country"},{"type":"int64","optional":false,"name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"updated_at"},{"type":"string","optional":true,"field":"source_system"}],"optional":false,"name":"users"},"payload":{"id":2,"name":"raj","email":"raj@example.com","country":"IN","updated_at":1790818191579,"source_system":"users_db"}}
+Partition:2	3	{"schema":{"type":"struct","fields":[{"type":"int32","optional":false,"field":"id"},{"type":"string","optional":false,"field":"name"},{"type":"string","optional":false,"field":"email"},{"type":"string","optional":false,"field":"country"},{"type":"int64","optional":false,"name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"updated_at"},{"type":"string","optional":true,"field":"source_system"}],"optional":false,"name":"users"},"payload":{"id":3,"name":"li","email":"li@example.com","country":"CN","updated_at":1790818191579,"source_system":"users_db"}}
+Partition:0	1	{"schema":{"type":"struct","fields":[{"type":"int32","optional":false,"field":"id"},{"type":"string","optional":false,"field":"name"},{"type":"string","optional":false,"field":"email"},{"type":"string","optional":false,"field":"country"},{"type":"int64","optional":false,"name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"updated_at"},{"type":"string","optional":true,"field":"source_system"}],"optional":false,"name":"users"},"payload":{"id":1,"name":"ana","email":"ana@example.com","country":"PT","updated_at":1790818191579,"source_system":"users_db"}}
+Partition:1	4	{"schema":{"type":"struct","fields":[{"type":"int32","optional":false,"field":"id"},{"type":"string","optional":false,"field":"name"},{"type":"string","optional":false,"field":"email"},{"type":"string","optional":false,"field":"country"},{"type":"int64","optional":false,"name":"org.apache.kafka.connect.data.Timestamp","version":1,"field":"updated_at"},{"type":"string","optional":true,"field":"source_system"}],"optional":false,"name":"users"},"payload":{"id":4,"name":"sam","email":"sam@example.com","country":"US","updated_at":1790818191579,"source_system":"users_db"}}
+Processed a total of 4 messages

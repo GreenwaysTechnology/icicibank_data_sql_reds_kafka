@@ -1,0 +1,4 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/index-demo-0/00000000000000000000.index --index-sanity-check; kafka-dump-log.sh --files /var/lib/kafka/data/index-demo-0/00000000000000000000.index --verify-index-only
+Dumping /var/lib/kafka/data/index-demo-0/00000000000000000000.index
+/var/lib/kafka/data/index-demo-0/00000000000000000000.index passed sanity check.
+Dumping /var/lib/kafka/data/index-demo-0/00000000000000000000.index

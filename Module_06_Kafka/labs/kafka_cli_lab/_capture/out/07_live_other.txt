@@ -1,0 +1,7 @@
+== kafka2
+The consumer rebalance protocol (KIP-848) is production-ready! Set group.protocol=consumer to try it out. See https://kafka.apache.org/documentation/#consumer_rebalance_protocol
+Partition:1	heidi	{"order":2013,"item":"ssd","amount":90}
+== kafka3
+The consumer rebalance protocol (KIP-848) is production-ready! Set group.protocol=consumer to try it out. See https://kafka.apache.org/documentation/#consumer_rebalance_protocol
+Partition:2	ivan	{"order":2014,"item":"ram","amount":70}
+Partition:2	judy	{"order":2015,"item":"fan","amount":25}

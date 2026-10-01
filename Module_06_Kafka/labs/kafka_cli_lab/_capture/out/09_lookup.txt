@@ -1,0 +1,4 @@
+$ kafka-dump-log.sh --files /var/lib/kafka/data/index-demo-0/00000000000000000000.log | grep -E 'position: (4665|9330|13995) ' | grep -o 'baseOffset: [0-9]* lastOffset: [0-9]* count: [0-9]*.*position: [0-9]*' | sed 's/ baseSequence.*position/ ... position/'
+baseOffset: 40 lastOffset: 47 count: 8 ... position: 4665
+baseOffset: 80 lastOffset: 87 count: 8 ... position: 9330
+baseOffset: 120 lastOffset: 127 count: 8 ... position: 13995

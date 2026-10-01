@@ -1,0 +1,4 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic orders --partitions 3
+Error while executing topic command : Topic 'orders' already exists.
+[2026-09-27 11:51:27,587] ERROR org.apache.kafka.common.errors.TopicExistsException: Topic 'orders' already exists.
+ (org.apache.kafka.tools.TopicCommand)

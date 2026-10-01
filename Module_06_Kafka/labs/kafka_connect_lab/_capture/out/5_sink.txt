@@ -1,0 +1,26 @@
+$ PUT users-db-sink
+HTTP 201
+$ status
+RUNNING [(0, 'RUNNING', '')]
+$ analytics: \d users_replica
+                         Table "public.users_replica"
+    Column     |            Type             | Collation | Nullable | Default 
+---------------+-----------------------------+-----------+----------+---------
+ id            | integer                     |           | not null | 
+ name          | text                        |           | not null | 
+ email         | text                        |           | not null | 
+ country       | text                        |           | not null | 
+ updated_at    | timestamp without time zone |           | not null | 
+ source_system | text                        |           |          | 
+Indexes:
+    "users_replica_pkey" PRIMARY KEY, btree (id)
+
+$ analytics: SELECT
+ id | name |      email      | country |       updated_at        | source_system 
+----+------+-----------------+---------+-------------------------+---------------
+  1 | ana  | ana@example.com | PT      | 2026-10-01 01:29:51.579 | users_db
+  2 | raj  | raj@example.com | IN      | 2026-10-01 01:29:51.579 | users_db
+  3 | li   | li@example.com  | CN      | 2026-10-01 01:29:51.579 | users_db
+  4 | sam  | sam@example.com | US      | 2026-10-01 01:29:51.579 | users_db
+(4 rows)
+

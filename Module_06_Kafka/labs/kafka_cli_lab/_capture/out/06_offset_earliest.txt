@@ -1,0 +1,5 @@
+$ kafka-console-consumer.sh --bootstrap-server kafka1:9092 --topic orders --partition 2 --offset earliest --max-messages 3 --formatter-property print.offset=true
+Offset:0	{"order":2003,"item":"mouse","amount":18}
+Offset:1	{"order":2005,"item":"webcam","amount":75}
+Offset:2	{"order":2009,"item":"desk lamp","amount":35}
+Processed a total of 3 messages

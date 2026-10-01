@@ -1,0 +1,15 @@
+$ cat /lab/config/producer.properties | grep -v "^#" | grep . ; kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic payments --command-config /lab/config/producer.properties --reader-property parse.key=true --reader-property key.separator=: < /lab/data/orders.txt; echo "exit code: $?"; kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic payments
+client.id=lab-producer
+acks=all
+enable.idempotence=true
+linger.ms=20
+batch.size=32768
+compression.type=lz4
+delivery.timeout.ms=120000
+exit code: 0
+payments:0:1
+payments:1:1
+payments:2:3
+payments:3:3
+payments:4:2
+payments:5:0

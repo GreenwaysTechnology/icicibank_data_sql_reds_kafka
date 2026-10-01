@@ -1,0 +1,19 @@
+﻿$ curl.exe -s -i -X PUT localhost:8083/connectors/orders-file-sink/pause
+HTTP/1.1 202 Accepted
+$ status
+{"name":"orders-file-sink","connector":{"state":"PAUSED","worker_id":"connect1:8083","version":"4.3.1"},"tasks":[{"id":0,"state":"PAUSED","worker_id":"connect1:8083","version":"4.3.1"}],"type":"sink"}
+
+$ add-order 3011
+{"order":3011,"customer":"frank","item":"laptop stand","amount":55,"email":"frank@example.com","card":"4111111111111111"}
+$ Get-Content lab\data\out\shop-orders.txt -Tail 1
+this is not json
+$ lag
+
+GROUP                    TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID                                                                HOST            CLIENT-ID
+connect-orders-file-sink shop-orders     0          3               3               0               connector-consumer-orders-file-sink-0-019f231b-2d33-43d7-a9d5-a64c3dd7f03e /172.21.0.6     connector-consumer-orders-file-sink-0
+connect-orders-file-sink shop-orders     1          1               2               1               connector-consumer-orders-file-sink-0-019f231b-2d33-43d7-a9d5-a64c3dd7f03e /172.21.0.6     connector-consumer-orders-file-sink-0
+connect-orders-file-sink shop-orders     2          8               8               0               connector-consumer-orders-file-sink-0-019f231b-2d33-43d7-a9d5-a64c3dd7f03e /172.21.0.6     connector-consumer-orders-file-sink-0
+$ resume
+HTTP/1.1 202 Accepted
+$ Get-Content lab\data\out\shop-orders.txt -Tail 1
+{"order":3011,"customer":"frank","item":"laptop stand","amount":55,"email":"frank@example.com","card":"4111111111111111"}

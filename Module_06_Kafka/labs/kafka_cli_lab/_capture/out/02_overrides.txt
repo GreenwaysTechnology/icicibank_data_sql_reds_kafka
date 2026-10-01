@@ -1,0 +1,6 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --describe --topics-with-overrides
+Topic: orders	TopicId: ywkgJzfISRGP0UN2q1Y88A	PartitionCount: 3	ReplicationFactor: 3	Configs: min.insync.replicas=2
+Topic: pinned	TopicId: MTyokh2qRhWcC_bIsZVkkg	PartitionCount: 3	ReplicationFactor: 2	Configs: min.insync.replicas=2
+Topic: user.events	TopicId: 1u3C0AHNTPG-diOgCIC6BQ	PartitionCount: 3	ReplicationFactor: 3	Configs: min.insync.replicas=2
+Topic: audit-log	TopicId: RUzgBoJcRhmMC_psWmYb3w	PartitionCount: 3	ReplicationFactor: 3	Configs: min.insync.replicas=2
+Topic: payments	TopicId: r4Sp6_JBST-S1r3OVVuQNQ	PartitionCount: 6	ReplicationFactor: 3	Configs: min.insync.replicas=2,retention.ms=86400000,max.message.bytes=2097152

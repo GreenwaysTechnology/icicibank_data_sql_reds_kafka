@@ -1,0 +1,7 @@
+$ kafka-reassign-partitions.sh --bootstrap-server kafka1:9092 --reassignment-json-file /lab/config/increase-rf.json --verify
+Status of partition reassignment:
+Reassignment of partition legacy-events-0 is completed.
+Reassignment of partition legacy-events-1 is completed.
+
+Clearing broker-level throttles on brokers 1,2,3
+Clearing topic-level throttles on topic legacy-events

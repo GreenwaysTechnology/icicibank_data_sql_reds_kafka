@@ -1,0 +1,2 @@
+$ docker stop kafka2   (run on Windows, in the lab folder)
+kafka2

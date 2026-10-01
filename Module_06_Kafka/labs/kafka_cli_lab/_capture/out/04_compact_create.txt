@@ -1,0 +1,2 @@
+$ kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic customer-profile --replica-assignment 1 --config cleanup.policy=compact --config segment.ms=10000 --config min.cleanable.dirty.ratio=0.01 --config delete.retention.ms=10000
+Created topic customer-profile.

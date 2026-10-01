@@ -1,0 +1,4 @@
+$ for t in tmp-a tmp-b tmp-c; do kafka-topics.sh --bootstrap-server kafka1:9092 --create --topic $t --partitions 1; done
+Created topic tmp-a.
+Created topic tmp-b.
+Created topic tmp-c.

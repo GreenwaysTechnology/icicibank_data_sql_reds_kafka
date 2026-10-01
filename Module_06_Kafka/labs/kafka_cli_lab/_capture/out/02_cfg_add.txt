@@ -1,0 +1,2 @@
+$ kafka-configs.sh --bootstrap-server kafka1:9092 --alter --entity-type topics --entity-name audit-log --add-config retention.ms=604800000,cleanup.policy=delete,compression.type=zstd
+Completed updating config for topic audit-log.

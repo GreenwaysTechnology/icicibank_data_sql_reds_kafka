@@ -1,0 +1,2 @@
+$ kafka-get-offsets.sh --bootstrap-server kafka1:9092 --topic index-demo --time 1790511121235
+index-demo:0:159

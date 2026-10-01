@@ -1,0 +1,4 @@
+$ printf 'heidi:{"order":2013,"item":"ssd","amount":90}\nivan:{"order":2014,"item":"ram","amount":70}\njudy:{"order":2015,"item":"fan","amount":25}\n' | kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic orders --reader-property parse.key=true --reader-property key.separator=: ; sleep 3; tail -n 3 /tmp/app-1.log /tmp/app-4.log
+==> /tmp/app-1.log <==
+
+==> /tmp/app-4.log <==
